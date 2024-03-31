@@ -1,0 +1,59 @@
+{
+  "name": "crisp",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "preview": "vite preview",
+    "stylelint": "stylelint \"src/**/*.{scss,css}\"",
+    "stylelint:fix": "stylelint \"src/**/*.scss\" --fix"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.(css|scss)": [
+      "stylelint --fix"
+    ]
+  },
+  "devDependencies": {
+    "@types/cleave.js": "^1.4.12",
+    "@types/firebase": "^3.2.1",
+    "@types/inputmask": "^5.0.7",
+    "@types/jquery": "^3.5.29",
+    "@types/jqueryui": "^1.12.21",
+    "gh-pages": "^6.1.1",
+    "jquery": "^3.7.1",
+    "prettier": "3.2.5",
+    "sass": "^1.69.7",
+    "stylelint": "^16.2.1",
+    "stylelint-config-rational-order-fix": "^0.1.9",
+    "stylelint-config-sass-guidelines": "^11.0.0",
+    "stylelint-config-standard": "^36.0.0",
+    "stylelint-config-standard-scss": "^13.0.0",
+    "stylelint-order": "^6.0.4",
+    "stylelint-prettier": "^5.0.0",
+    "stylelint-scss": "^6.1.0",
+    "swiper": "^11.0.5",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.8",
+    "vite-plugin-html-inject": "^1.0.4"
+  },
+  "dependencies": {
+    "@types/jquery.validation": "^1.16.10",
+    "air-datepicker": "^3.4.0",
+    "firebase": "10.1.0",
+    "jquery-validation": "^1.20.0",
+    "just-validate": "^4.3.0",
+    "libphonenumber-js": "^1.10.56",
+    "nouislider": "^15.7.1",
+    "strapi-plugin-populate-deep": "^3.0.1",
+    "stylelint-declaration-block-no-ignored-properties": "^2.8.0"
+  }
+}
