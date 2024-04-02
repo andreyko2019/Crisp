@@ -146,12 +146,14 @@
         }
 
         &.active {
-          display: flex;
-          max-height: 100%;
-          transition: all 0.5s ease;
-          opacity: 1;
-          visibility: visible;
-          margin-top: 20px;
+          @media (max-width: $md) {
+            display: flex;
+            max-height: 100%;
+            transition: all 0.5s ease;
+            opacity: 1;
+            visibility: visible;
+            margin-top: 20px;
+          }
         }
       }
 
