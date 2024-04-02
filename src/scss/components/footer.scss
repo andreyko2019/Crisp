@@ -72,7 +72,7 @@
     }
   }
 
-  &__accardions {
+  &__accordions {
     display: flex;
     justify-content: space-between;
     width: 60%;
@@ -85,7 +85,7 @@
       width: 100%;
     }
 
-    .accardion {
+    .accordion {
       &__item {
         font-weight: 600;
         line-height: 27px;
@@ -108,7 +108,7 @@
           height: 18px;
           transform: translate(0, -50%);
           transition: all 0.5s ease;
-          background-image: url("../../img/svg/plus.svg");
+          background-image: url('../../img/svg/plus.svg');
 
           @media (max-width: $md) {
             display: block;
@@ -142,6 +142,7 @@
           margin-top: 0;
           max-height: 0;
           opacity: 0;
+          visibility: hidden;
         }
 
         &.active {
@@ -149,6 +150,8 @@
           max-height: 100%;
           transition: all 0.5s ease;
           opacity: 1;
+          visibility: visible;
+          margin-top: 20px;
         }
       }
 
