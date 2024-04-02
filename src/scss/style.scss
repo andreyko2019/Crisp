@@ -1,5 +1,6 @@
 @import './config/fonts';
 @import './config/reset';
+@import './config/vars';
 
 html,
 body {
@@ -19,7 +20,7 @@ body {
 .container {
   margin: 0 auto;
   padding: 0 15px;
-  max-width: 1908px;
+  max-width: $maxWidth;
 }
 
 @import './components/header';
