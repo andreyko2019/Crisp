@@ -3,18 +3,34 @@
   padding: 35px 0;
   width: 100%;
   font-family: Oswald;
+  z-index: 20;
   background-color: black;
   color: white;
+
+  @media (max-width: 1024px) {
+    padding: 10px 0;
+  }
 
   &__content {
     display: grid;
     justify-items: center;
     grid-template-columns: 94px 1fr 357px;
+
+    @media (max-width: 1024px) {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
   }
 
   &__logo {
     width: 94px;
     height: 44px;
+
+    @media (max-width: 1024px) {
+      width: 66.23px;
+      height: 35.66px;
+    }
 
     svg {
       width: 100%;
@@ -25,8 +41,12 @@
   &__menu {
     display: flex;
     align-items: center;
-    margin-left: 21.6%;
+    margin-left: calc(0% + (21.6 - 0) * ((100vw - 1024px) / (1920 - 1024)));
     gap: 19px;
+
+    @media (max-width: 1024px) {
+      display: none;
+    }
 
     .menu {
       display: flex;
@@ -56,6 +76,42 @@
 
         &:hover::before {
           width: 100%;
+        }
+      }
+    }
+
+    &_adapt {
+      position: fixed;
+      left: -100%;
+      top: 0;
+      overflow: auto;
+      padding: 40px 15px;
+      width: 100%;
+      height: 100vh;
+      z-index: 10;
+      background: black;
+      transition: left 0.5s ease;
+
+      &.active {
+        left: 0;
+      }
+
+      .menu {
+        display: flex;
+        flex-direction: column;
+        font-weight: 600;
+        line-height: 20px;
+        text-transform: uppercase;
+        gap: 25px;
+        font-size: 18px;
+
+        &__item {
+          text-align: center;
+
+          a {
+            position: relative;
+            color: white;
+          }
         }
       }
     }
@@ -91,6 +147,10 @@
   &__login-and-buy {
     display: flex;
     gap: 20px;
+
+    @media (max-width: 1024px) {
+      display: none;
+    }
 
     .log-and-sign {
       display: flex;
@@ -152,6 +212,82 @@
           }
         }
       }
+    }
+  }
+
+  .burger-btn {
+    position: relative;
+    display: none;
+    width: 20px;
+    height: 15px;
+    z-index: 11;
+
+    @media (max-width: 1024px) {
+      display: block;
+    }
+
+    span {
+      position: absolute;
+      left: 0;
+      top: 40%;
+      width: 100%;
+      height: 3px;
+      transform: translate(0, -50%);
+      background-color: white;
+      transition: all 0.5s ease;
+
+      &:first-child {
+        top: auto;
+        bottom: 0;
+      }
+
+      &:last-child {
+        top: 0;
+      }
+    }
+
+    &.active {
+      span {
+        &:first-child {
+          transform: rotate(45deg);
+          bottom: 40%;
+        }
+
+        &:last-child {
+          transform: rotate(-45deg);
+          top: 40%;
+        }
+
+        &:nth-child(2) {
+          width: 0;
+        }
+      }
+    }
+  }
+
+  &__search-and-bag {
+    display: none;
+
+    @media (max-width: 1024px) {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .search {
+      width: 19px;
+      height: 19px;
+    }
+
+    .bag {
+      position: relative;
+      width: 18px;
+      height: 21.2px;
     }
   }
 }
