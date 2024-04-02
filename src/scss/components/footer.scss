@@ -141,18 +141,18 @@
         @media (max-width: $md) {
           margin-top: 0;
           max-height: 0;
-          opacity: 0;
           visibility: hidden;
+          opacity: 0;
         }
 
         &.active {
           @media (max-width: $md) {
             display: flex;
+            margin-top: 20px;
             max-height: 100%;
+            visibility: visible;
             transition: all 0.5s ease;
             opacity: 1;
-            visibility: visible;
-            margin-top: 20px;
           }
         }
       }
