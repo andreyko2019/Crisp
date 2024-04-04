@@ -26,8 +26,6 @@
     "@types/cleave.js": "^1.4.12",
     "@types/firebase": "^3.2.1",
     "@types/inputmask": "^5.0.7",
-    "@types/jquery": "^3.5.29",
-    "@types/jqueryui": "^1.12.21",
     "gh-pages": "^6.1.1",
     "prettier": "3.2.5",
     "sass": "^1.69.7",
@@ -45,7 +43,6 @@
     "vite-plugin-html-inject": "^1.0.4"
   },
   "dependencies": {
-    "@types/jquery.validation": "^1.16.10",
     "air-datepicker": "^3.4.0",
     "firebase": "10.1.0",
     "just-validate": "^4.3.0",
