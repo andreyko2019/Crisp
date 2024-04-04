@@ -41,9 +41,12 @@
   &__menu {
     display: flex;
     align-items: center;
-    margin-left: calc(0% + (21.6 - 0) * ((100vw - 1024px) / (1920 - 1024)));
+    margin-left: 21.6%;
     gap: 19px;
 
+    @media (max-width: 1440px) {
+      margin-left: 6.6%;
+    }
     @media (max-width: 1024px) {
       display: none;
     }
