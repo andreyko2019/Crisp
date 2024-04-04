@@ -1,30 +1,30 @@
 @import './../../../node_modules/swiper/swiper';
 
 .summer-sale {
+  margin-top: 22px;
   font-family: Oswald;
   background-image: url('./../../img/main/sale-bg.jpeg');
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  margin-top: 22px;
 
   @media (max-width: 1440px) {
     margin-top: 0;
   }
 
   &__content {
+    position: relative;
     display: grid;
+    align-items: center;
     grid-template-columns: 1fr 804px;
     padding: 47px 186px 44px 234px;
     width: 100%;
-    align-items: center;
-    position: relative;
     gap: 55px;
 
     @media (max-width: 1920px) {
-      padding-left: calc(0px + (234 - 0) * ((100vw - 1440px) / (1920 - 1440)));
       padding-right: calc(0px + (186 - 0) * ((100vw - 1440px) / (1920 - 1440)));
       padding-bottom: calc(70px + (44 - 70) * ((100vw - 1440px) / (1920 - 1440)));
+      padding-left: calc(0px + (234 - 0) * ((100vw - 1440px) / (1920 - 1440)));
     }
   }
 
@@ -109,44 +109,44 @@
   }
 
   .swiper-pagination {
-    width: 100px;
-    height: 22px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     position: absolute;
     left: 28px;
     bottom: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100px;
+    height: 22px;
 
     &-bullet {
+      border: 1px solid rgb(130, 130, 130);
       width: 18px;
       height: 18px;
-      border: 1px solid rgb(130, 130, 130);
 
       &-active {
+        border: 1px solid $black;
         width: 22px;
         height: 22px;
-        border: 1px solid $black;
         background: $black;
       }
     }
   }
 
   .swiper-btn {
-    display: flex;
     position: absolute;
     right: 0;
     bottom: 0;
+    display: flex;
     width: 103px;
     height: 50px;
     gap: 3px;
 
     &-prew,
     &-next {
+      padding: 17px 14px;
       width: 50px;
       height: 50px;
       background: $black;
-      padding: 17px 14px;
 
       svg {
         width: 100%;
