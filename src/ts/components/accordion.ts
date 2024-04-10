@@ -1,10 +1,12 @@
+import { getElements } from '../composables/callDom';
+
 export class Accordion {
   accordionTitle: NodeListOf<HTMLElement>;
   accordionContent: NodeListOf<HTMLElement>;
 
   constructor() {
-    this.accordionTitle = document.querySelectorAll('.accordion__item') as NodeListOf<HTMLElement>;
-    this.accordionContent = document.querySelectorAll('.accordion__info') as NodeListOf<HTMLElement>;
+    this.accordionTitle = getElements('.accordion__item') as NodeListOf<HTMLElement>;
+    this.accordionContent = getElements('.accordion__info') as NodeListOf<HTMLElement>;
     this.initAccordion();
   }
 

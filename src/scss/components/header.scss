@@ -7,7 +7,7 @@
   background-color: $black;
   color: $white;
 
-  @media (max-width: 1024px) {
+  @include media-breakpoint-down(md) {
     padding: 10px 0;
   }
 
@@ -16,7 +16,7 @@
     justify-items: center;
     grid-template-columns: 94px 1fr 357px;
 
-    @media (max-width: 1024px) {
+    @include media-breakpoint-down(md) {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -27,7 +27,7 @@
     width: 94px;
     height: 44px;
 
-    @media (max-width: 1024px) {
+    @include media-breakpoint-down(md) {
       width: 66.23px;
       height: 35.66px;
     }
@@ -44,11 +44,11 @@
     margin-left: 21.6%;
     gap: 19px;
 
-    @media (max-width: 1440px) {
+    @include media-breakpoint-down(lg) {
       margin-left: 6.6%;
     }
 
-    @media (max-width: 1024px) {
+    @include media-breakpoint-down(md) {
       display: none;
     }
 
@@ -152,7 +152,7 @@
     display: flex;
     gap: 20px;
 
-    @media (max-width: 1024px) {
+    @include media-breakpoint-down(md) {
       display: none;
     }
 
@@ -226,7 +226,7 @@
     height: 15px;
     z-index: 11;
 
-    @media (max-width: 1024px) {
+    @include media-breakpoint-down(md) {
       display: block;
     }
 
@@ -272,7 +272,7 @@
   &__search-and-bag {
     display: none;
 
-    @media (max-width: 1024px) {
+    @include media-breakpoint-down(md) {
       display: flex;
       align-items: center;
       gap: 15px;

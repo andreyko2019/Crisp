@@ -1,3 +1,5 @@
+import { getElement } from '../composables/callDom';
+
 export class Burger {
   burgerBtn: HTMLElement;
   menuAdapt: HTMLElement;
@@ -5,10 +7,10 @@ export class Burger {
   searchBtn: HTMLElement;
 
   constructor() {
-    this.burgerBtn = document.querySelector('.burger-btn') as HTMLElement;
-    this.menuAdapt = document.querySelector('.header__menu_adapt') as HTMLElement;
-    this.search = document.querySelector('.header__search-and-bag .search') as HTMLElement;
-    this.searchBtn = document.querySelector('.header__search-and-bag .search svg') as HTMLElement;
+    this.burgerBtn = getElement('.burger-btn') as HTMLElement;
+    this.menuAdapt = getElement('.header__menu_adapt') as HTMLElement;
+    this.search = getElement('.header__search-and-bag .search') as HTMLElement;
+    this.searchBtn = getElement('.header__search-and-bag .search svg') as HTMLElement;
 
     this.burger();
     this.searchFunc();

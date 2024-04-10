@@ -1,5 +1,5 @@
-import { defineConfig } from "vite";
-import injectHTML from "vite-plugin-html-inject";
+import { defineConfig } from 'vite';
+import injectHTML from 'vite-plugin-html-inject';
 // import pages from "./pages.config.js";
 
 // const pagesInput = {};
@@ -9,10 +9,10 @@ import injectHTML from "vite-plugin-html-inject";
 // });
 
 export default defineConfig({
-  base: "/Crisp",
+  base: '/Crisp',
   build: {
-    target: "es2022",
-    outDir: "build",
+    target: 'es2022',
+    outDir: 'build',
     rollupOptions: {
       // input: {
       //   ...pagesInput,
@@ -22,7 +22,7 @@ export default defineConfig({
 
   server: {
     port: 3025,
-    host: "0.0.0.0",
+    host: '0.0.0.0',
     hmr: true,
   },
   plugins: [injectHTML()],
