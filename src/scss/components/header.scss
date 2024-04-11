@@ -8,7 +8,7 @@
   color: $white;
 
   @include media-breakpoint-down(md) {
-    padding: 10px 0;
+    padding: 8px 0;
   }
 
   &__content {
