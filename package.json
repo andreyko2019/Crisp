@@ -44,6 +44,7 @@
   },
   "dependencies": {
     "air-datepicker": "^3.4.0",
+    "ajax": "^0.0.4",
     "firebase": "10.1.0",
     "just-validate": "^4.3.0",
     "libphonenumber-js": "^1.10.56",

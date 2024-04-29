@@ -98,6 +98,10 @@
     color: $black;
     font-size: 18px;
 
+    @include media-breakpoint-down(lg) {
+      margin: 48px auto;
+    }
+
     @include media-breakpoint-down(sm) {
       margin: 18px auto;
       width: 115px;

@@ -1,0 +1,104 @@
+.brands {
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__title {
+    font-family: Oswald;
+    font-size: 24px;
+    font-weight: 400;
+    margin-top: 29px;
+    text-align: center;
+    text-transform: uppercase;
+    width: 369px;
+    background: $white;
+    position: absolute;
+
+    @include media-breakpoint-down(sm) {
+      display: none;
+    }
+  }
+
+  &__list {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 11px;
+    border: 2px solid $grayMedium;
+    width: 100%;
+    margin-top: 40px;
+    gap: 35px;
+
+    @include media-breakpoint-down(lg) {
+      flex-wrap: wrap;
+    }
+
+    @include media-breakpoint-down(md) {
+      gap: 10px 14px;
+    }
+
+    @include media-breakpoint-down(sm) {
+      padding: 0;
+      border: none;
+    }
+  }
+
+  &__item {
+    padding: 60px 0;
+    max-width: 249px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @include media-breakpoint-down(xl) {
+      padding-top: calc(22px + (60 - 22) * ((100vw - 1440px) / (1920 - 1440)));
+      padding-bottom: calc(22px + (60 - 22) * ((100vw - 1440px) / (1920 - 1440)));
+    }
+
+    @include media-breakpoint-down(lg) {
+      padding: 22px 0;
+      max-width: calc(215px + (249 - 215) * ((100vw - 1024px) / (1440 - 1024)));
+    }
+
+    @include media-breakpoint-down(md) {
+      max-width: calc(166px + (215 - 166) * ((100vw - 768px) / (1024 - 768)));
+    }
+
+    @include media-breakpoint-down(sm) {
+      max-width: calc(165px + (347 - 165) * ((100vw - 375px) / (768 - 375)));
+      border: 2px solid $grayMedium;
+    }
+
+    &:nth-child(7),
+    &:nth-child(8) {
+      display: none;
+    }
+
+    &:nth-child(7) {
+      @include media-breakpoint-down(lg) {
+        display: flex;
+      }
+    }
+    // &:nth-child(8) {
+    //   @include media-breakpoint-down(md) {
+    //     display: flex;
+    //   }
+    // }
+
+    &.active {
+      background-color: $grayLight;
+    }
+
+    img {
+      @include media-breakpoint-down(xl) {
+        height: calc(15px + (22 - 15) * ((100vw - 1440px) / (1920 - 1440)));
+      }
+
+      @include media-breakpoint-down(lg) {
+        height: calc(7px + (15 - 7) * ((100vw - 375px) / (1440 - 375)));
+      }
+    }
+  }
+}
