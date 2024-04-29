@@ -84,18 +84,11 @@
   }
 
   &__btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     margin-top: 48px;
-    border: 2px solid $black;
-    height: 56px;
     max-width: 175px;
     font-weight: 500;
     line-height: 27px;
-    text-transform: uppercase;
     letter-spacing: 0.5px;
-    color: $black;
     font-size: 18px;
 
     @include media-breakpoint-down(lg) {

@@ -1,0 +1,11 @@
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid $black;
+  text-transform: uppercase;
+  color: $black;
+  font-family: Oswald;
+  padding: 13px 0;
+  width: 175px;
+}
