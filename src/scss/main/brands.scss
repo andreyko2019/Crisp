@@ -16,7 +16,7 @@
     background: $white;
     position: absolute;
 
-    @include media-breakpoint-down(sm) {
+    @include media-breakpoint-down(md) {
       display: none;
     }
   }
@@ -36,11 +36,14 @@
 
     @include media-breakpoint-down(md) {
       gap: 10px 14px;
+      margin-top: 14px;
     }
 
     @include media-breakpoint-down(sm) {
       padding: 0;
       border: none;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
     }
   }
 
@@ -51,6 +54,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: background 0.5s ease;
 
     @include media-breakpoint-down(xl) {
       padding-top: calc(22px + (60 - 22) * ((100vw - 1440px) / (1920 - 1440)));
@@ -67,7 +71,8 @@
     }
 
     @include media-breakpoint-down(sm) {
-      max-width: calc(165px + (347 - 165) * ((100vw - 375px) / (768 - 375)));
+      max-width: 100%;
+      padding: 19.5px 0;
       border: 2px solid $grayMedium;
     }
 
@@ -87,7 +92,7 @@
     //   }
     // }
 
-    &.active {
+    &:hover {
       background-color: $grayLight;
     }
 
@@ -97,7 +102,7 @@
       }
 
       @include media-breakpoint-down(lg) {
-        height: calc(7px + (15 - 7) * ((100vw - 375px) / (1440 - 375)));
+        height: calc(12px + (15 - 12) * ((100vw - 375px) / (1440 - 375)));
       }
     }
   }
