@@ -6,15 +6,15 @@
   }
 
   &__title {
-    font-family: Oswald;
-    font-size: 24px;
-    font-weight: 400;
+    position: absolute;
     margin-top: 29px;
+    width: 369px;
+    font-family: Oswald;
+    font-weight: normal;
     text-align: center;
     text-transform: uppercase;
-    width: 369px;
+    font-size: 24px;
     background: $white;
-    position: absolute;
 
     @include media-breakpoint-down(md) {
       display: none;
@@ -24,10 +24,10 @@
   &__list {
     display: flex;
     justify-content: space-between;
-    padding: 20px 11px;
-    border: 2px solid $grayMedium;
-    width: 100%;
     margin-top: 40px;
+    border: 2px solid $grayMedium;
+    padding: 20px 11px;
+    width: 100%;
     gap: 35px;
 
     @include media-breakpoint-down(lg) {
@@ -35,25 +35,25 @@
     }
 
     @include media-breakpoint-down(md) {
-      gap: 10px 14px;
       margin-top: 14px;
+      gap: 10px 14px;
     }
 
     @include media-breakpoint-down(sm) {
-      padding: 0;
-      border: none;
       display: grid;
       grid-template-columns: 1fr 1fr;
+      border: none;
+      padding: 0;
     }
   }
 
   &__item {
-    padding: 60px 0;
-    max-width: 249px;
-    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 60px 0;
+    width: 100%;
+    max-width: 249px;
     transition: background 0.5s ease;
 
     @include media-breakpoint-down(xl) {
@@ -71,9 +71,9 @@
     }
 
     @include media-breakpoint-down(sm) {
-      max-width: 100%;
-      padding: 19.5px 0;
       border: 2px solid $grayMedium;
+      padding: 19.5px 0;
+      max-width: 100%;
     }
 
     &:nth-child(7),
@@ -86,11 +86,6 @@
         display: flex;
       }
     }
-    // &:nth-child(8) {
-    //   @include media-breakpoint-down(md) {
-    //     display: flex;
-    //   }
-    // }
 
     &:hover {
       background-color: $grayLight;
