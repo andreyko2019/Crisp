@@ -4,5 +4,3 @@ export class Loader {
     document.dispatchEvent(loadingIsFinished);
   }
 }
-
-// Пример использования
