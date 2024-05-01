@@ -19,10 +19,9 @@ export class SummerSale {
   constructor() {
     this.swiper = new Swiper('.summer-sale__swiper', {
       slidesPerView: 2,
-      // autoplay: {
-      //   delay: 3000,
-      // },
-      loop: true,
+      autoplay: {
+        delay: 3000,
+      },
       grabCursor: true,
       pagination: {
         el: '.swiper-pagination',
