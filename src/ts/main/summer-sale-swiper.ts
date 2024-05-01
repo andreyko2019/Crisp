@@ -20,7 +20,7 @@ export class SummerSale {
     this.swiper = new Swiper('.summer-sale__swiper', {
       slidesPerView: 2,
       autoplay: {
-        delay: 3000,
+        delay: 10000,
       },
       grabCursor: true,
       pagination: {
