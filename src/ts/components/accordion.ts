@@ -19,12 +19,24 @@ export class Accordion {
   }
 
   toggleAccordion(index: number) {
-    this.accordionContent[index].classList.toggle('active');
+    const isOpen = this.accordionContent[index].classList.toggle('active');
     this.accordionTitle[index].classList.toggle('active');
-    const isOpen = this.accordionContent[index].classList.contains('active');
 
     if (isOpen) {
       this.closeOtherAccordions(index);
+    }
+
+    this.accordionContent.forEach((content, i) => {
+      if (i !== index) {
+        content.style.maxHeight = '0'; // Закрываем другие аккордеоны
+        content.classList.remove('active');
+      }
+    });
+
+    if (isOpen) {
+      this.accordionContent[index].style.maxHeight = `${this.accordionContent[index].scrollHeight}px`;
+    } else {
+      this.accordionContent[index].style.maxHeight = '0';
     }
   }
 

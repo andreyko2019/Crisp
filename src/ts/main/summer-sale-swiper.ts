@@ -2,6 +2,7 @@ import Swiper from 'swiper';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import { getDoc, querySnapshot } from '../composables/useData';
 import { getElement } from '../composables/callDom';
+import { Skeleton } from '../components/skeleton';
 
 Swiper.use([Navigation, Pagination, Autoplay]);
 
@@ -40,6 +41,7 @@ export class SummerSale {
     querySnapshot(await getDoc('main-swiper'), (doc) => this.slidesArr.push(doc.data() as Slides));
     console.log(this.slidesArr);
     this.renderSldes();
+    new Skeleton();
   }
 
   renderSldes() {

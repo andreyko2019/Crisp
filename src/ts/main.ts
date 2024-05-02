@@ -11,6 +11,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   Loader.stop();
 });
 
-document.addEventListener('loadingIsFinished', () => {
-  new Skeleton();
-});
+// document.addEventListener('loadingIsFinished', () => {
+//   new Skeleton();
+// });
