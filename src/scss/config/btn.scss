@@ -8,4 +8,11 @@
   font-family: Oswald;
   padding: 13px 0;
   width: 175px;
+  transition: all 0.5s ease;
+
+  &:hover {
+    background: $black;
+    color: $white;
+    transition: all 0.5s ease;
+  }
 }
