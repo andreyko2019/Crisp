@@ -20,14 +20,13 @@ export class ShopSome {
     this.shopDb = [];
 
     this.loadCards();
-    // this.setupFilters();
   }
 
   async loadCards() {
     querySnapshot(await getDoc('clothers'), (doc) => this.shopDb.push(doc.data() as Shop));
     console.log(this.shopDb);
     this.renderCard();
-    this.loadMore(); // Call loadMore after rendering cards
+    this.loadMore();
   }
 
   renderCard() {
@@ -106,51 +105,4 @@ export class ShopSome {
       });
     }
   }
-
-  // setupFilters() {
-  //   const checkboxes = getElements('input[name="shop-filtr"]');
-  //   checkboxes.forEach((checkbox) => {
-  //     checkbox.addEventListener('change', () => {
-  //       const filters = this.getSelectedFilters();
-  //       this.filterCards(filters); // Call filterCards with selected filters
-  //     });
-  //   });
-  // }
-
-  // getSelectedFilters() {
-  //   const checkboxes = getElements('input[name="shop-filtr"]:checked');
-  //   return Array.from(checkboxes).map((checkbox) => checkbox.id);
-  // }
-
-  // filterCards(filters: string[]) {
-  //   const xhr = new XMLHttpRequest();
-  //   xhr.onreadystatechange = () => {
-  //     if (xhr.readyState === XMLHttpRequest.DONE) {
-  //       if (xhr.status === 200) {
-  //         const filteredData = JSON.parse(xhr.responseText);
-  //         this.updateCardDisplay(filteredData);
-  //       } else {
-  //         console.error('Failed to fetch filtered data:', xhr.status);
-  //       }
-  //     }
-  //   };
-
-  //   // Construct URL with selected filters
-  //   const url = `/filter?categories=${filters.join(',')}`;
-
-  //   xhr.open('GET', url, true);
-  //   xhr.send();
-  // }
-
-  // updateCardDisplay(filteredData: Shop[]) {
-  //   const cards = getElements('.shop-some__card');
-  //   cards.forEach((card, index) => {
-  //     if (filteredData[index]) {
-  //       card.classList.remove('hidden');
-  //       // Update card content here if necessary
-  //     } else {
-  //       card.classList.add('hidden');
-  //     }
-  //   });
-  // }
 }

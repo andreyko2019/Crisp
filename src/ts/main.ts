@@ -3,16 +3,13 @@ import { Accordion } from './components/accordion';
 import { SummerSale } from './main/summer-sale-swiper';
 import { Loader } from './modules/stop-preload';
 import { ShopSome } from './main/shop-some';
-// import { Skeleton } from './components/skeleton';
+import { ShopFilter } from './main/shop-some-filter';
 
 document.addEventListener('DOMContentLoaded', async () => {
   new Burger();
   new Accordion();
   new SummerSale();
   new ShopSome();
+  new ShopFilter();
   Loader.stop();
 });
-
-// document.addEventListener('loadingIsFinished', () => {
-//   new Skeleton();
-// });

@@ -38,7 +38,7 @@
         cursor: pointer;
       }
 
-      .custom-checkbox {
+      .custom-radio {
         display: inline-block;
         width: 10px;
         height: 10px;
@@ -64,12 +64,12 @@
           transition: 0.2s ease;
         }
       }
-      input[type='checkbox'] {
+      input[type='radio'] {
         width: 0;
         height: 0;
         opacity: 0;
 
-        &:checked + .custom-checkbox::before {
+        &:checked + .custom-radio::before {
           transform: translate(-50%, -50%) scale(1);
         }
       }
@@ -139,7 +139,12 @@
     }
 
     &.hidden {
-      display: none;
+      opacity: 0;
+      visibility: hidden;
+      height: 0;
+      padding: 0;
+      margin: 0;
+      transition: 0.5s ease;
     }
   }
 }
