@@ -24,10 +24,10 @@
       display: flex;
       flex-direction: column;
       font-family: RobotoLight;
-      font-size: 14px;
-      font-weight: 400;
+      font-weight: normal;
       text-align: left;
       text-transform: uppercase;
+      font-size: 14px;
       color: $black2;
       gap: 28px;
 
@@ -41,31 +41,32 @@
       }
 
       .custom-radio {
-        display: inline-block;
-        width: 10px;
-        height: 10px;
-        border: 1px solid rgb(130, 130, 130);
-        margin-right: 2px;
         position: relative;
         left: -3px;
+        display: inline-block;
+        margin-right: 2px;
+        border: 1px solid rgb(130, 130, 130);
+        width: 10px;
+        height: 10px;
 
         &::before {
           content: '';
-          display: inline-block;
-          width: 10px;
-          height: 10px;
-          background-color: $black;
-          background-image: url(../../../src/img/svg/check.svg);
-          background-repeat: no-repeat;
-          background-position: center;
           position: absolute;
           left: 50%;
           top: 50%;
+          display: inline-block;
           border: 1px solid $black;
+          width: 10px;
+          height: 10px;
           transform: translate(-50%, -50%) scale(0);
           transition: 0.2s ease;
+          background-color: $black;
+          background-image: url("../../../src/img/svg/check.svg");
+          background-repeat: no-repeat;
+          background-position: center;
         }
       }
+
       input[type='radio'] {
         width: 0;
         height: 0;
@@ -79,25 +80,25 @@
   }
 
   &__title {
-    font-family: Oswald;
-    font-size: clamp(17px, 5.5vw, 24px);
-    font-weight: 400;
-    line-height: 58px;
     margin-bottom: 17px;
+    font-family: Oswald;
+    font-weight: normal;
+    line-height: 58px;
+    font-size: clamp(17px, 5.5vw, 24px);
 
     @include media-breakpoint-down(sm) {
-      line-height: normal;
       margin-bottom: 14px;
+      line-height: normal;
     }
   }
 
   &__items {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 49px 27px;
-    width: 77.5%;
     position: relative;
+    display: grid;
     justify-items: center;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    width: 77.5%;
+    gap: 49px 27px;
 
     @include media-breakpoint-down(lg) {
       grid-template-columns: 1fr 1fr 1fr;
@@ -115,19 +116,19 @@
     &::before {
       content: '';
       position: absolute;
-      height: 100%;
-      width: 1px;
-      background-color: $grayMedium;
       left: -29px;
       top: 0;
+      width: 1px;
+      height: 100%;
+      background-color: $grayMedium;
     }
   }
 
   &__load {
     grid-column: 1/5;
-    background-color: transparent;
-    width: 139px;
     margin-top: 16px;
+    width: 139px;
+    background-color: transparent;
 
     @include media-breakpoint-down(lg) {
       grid-column: 1/4;
@@ -141,12 +142,12 @@
     }
 
     &.hidden {
-      opacity: 0;
-      visibility: hidden;
-      height: 0;
-      padding: 0;
       margin: 0;
+      padding: 0;
+      height: 0;
+      visibility: hidden;
       transition: 0.5s ease;
+      opacity: 0;
     }
   }
 }
