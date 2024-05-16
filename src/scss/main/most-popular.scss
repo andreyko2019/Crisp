@@ -47,6 +47,8 @@
   }
 
   &__swiper {
+    min-height: 100px;
+
     &-wrapper {
       @include media-breakpoint-down(md) {
         display: grid;
@@ -72,21 +74,6 @@
   .card {
     img {
       max-height: 451px;
-    }
-  }
-
-  &__load {
-    margin: 0 auto;
-    margin-top: 22px;
-    background-color: transparent;
-
-    @include media-breakpoint-down(xs) {
-      padding: 6px 0;
-      width: 100%;
-    }
-
-    &.hidden {
-      display: none;
     }
   }
 }
