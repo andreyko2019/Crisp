@@ -1,21 +1,21 @@
 .limits {
   &__content {
-    position: relative;
-    align-items: center;
-    // display: grid;display
-    // grid-template-columns: 1fr 850px;grid-template-columns
-    // position: relative;position
+    position: relative;displaydisplay
+    // grid-template-columns: 1fr 850px;
+    align-items: center;grid-template-columnsgrid-template-columns
+    // position: relative;
+    // display: grid;positionposition
 
     // @include media-breakpoint-down(lg) {
-    //   grid-template-columns: 1fr 632px;grid-template-columns
+    //   grid-template-columns: 1fr 632px;grid-template-columnsgrid-template-columns
     // }
 
     // @include media-breakpoint-down(md) {
-    //   grid-template-columns: 1fr 450px;grid-template-columns
+    //   grid-template-columns: 1fr 450px;grid-template-columnsgrid-template-columns
     // }
 
     // @include media-breakpoint-down(sm) {
-    //   grid-template-columns: 1fr 345px;grid-template-columns
+    //   grid-template-columns: 1fr 345px;grid-template-columnsgrid-template-columns
     // }
 
     &::before {

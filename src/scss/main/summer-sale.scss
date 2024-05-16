@@ -108,11 +108,11 @@
     margin: 0;
     width: 100%;
     max-width: 804px;
-    // min-height: 709px;min-height
+    // min-height: 709px;min-heightmin-height
 
     @include media-breakpoint-down(md) {
       padding: 0 43px;
-      // min-height: 709px;min-height
+      // min-height: 709px;min-heightmin-height
     }
 
     &-wrapper {

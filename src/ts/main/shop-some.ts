@@ -38,7 +38,10 @@ export class ShopSome {
             `
                 <a class="card shop-some__card" href="#">
                     <div class="card__img">
-                        <img src="${item.img}" alt="" />
+                      <picture>
+                        <source srcset=${item.imgWebP} type="image/webp" />
+                        <img src=${item.img}/>
+                      </picture>
                     </div>
 
                     <div class="card__info">
@@ -55,7 +58,10 @@ export class ShopSome {
             `
                     <a class="card sale shop-some__card" href="#">
                         <div class="card__img">
-                            <img src="${item.img}" alt="" />
+                            <picture>
+                              <source srcset=${item.imgWebP} type="image/webp" />
+                              <img src=${item.img}/>
+                            </picture>
                             <div class="card__sale">
                                 <p>-30%</p>
                             </div>

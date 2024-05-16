@@ -84,7 +84,10 @@ export class ShopFilter {
           const cardHTML = `
           <a class="card shop-some__card" href="#">
             <div class="card__img">
-              <img src="${item.img.stringValue}" alt="">
+              <picture>
+                <source srcset=${item.imgWebP.stringValue} type="image/webp" />
+                <img src=${item.img.stringValue}/>
+              </picture>
             </div>
             <div class="card__info">
               <p class="card__category">${item.category.stringValue}</p>
@@ -98,7 +101,10 @@ export class ShopFilter {
           const cardHTML = `
           <a class="card sale shop-some__card" href="#">
             <div class="card__img">
-              <img src="${item.img.stringValue}" alt="">
+              <picture>
+                <source srcset=${item.imgWebP.stringValue} type="image/webp" />
+                <img src=${item.img.stringValue}/>
+              </picture>
               <div class="card__sale">
                 <p>-30%</p>
               </div>
