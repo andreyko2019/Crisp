@@ -1,0 +1,117 @@
+.blog {
+  padding-top: 45px;
+  padding-bottom: 46px;
+  background: $grayBg;
+
+  @include media-breakpoint-down(sm) {
+    padding-top: 10px;
+    padding-bottom: 22px;
+  }
+
+  &__title {
+    font-family: Oswald;
+    font-size: clamp(17px, 2.5vw, 24px);
+    margin-bottom: 30px;
+
+    @include media-breakpoint-down(sm) {
+      margin-bottom: 20px;
+    }
+  }
+
+  &__cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+
+    @include media-breakpoint-down(lg) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include media-breakpoint-down(sm) {
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+  }
+  .new {
+    background-color: $white;
+    padding: 24px 24px 13px;
+    min-height: 420px;
+    font-family: Oswald;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    @include media-breakpoint-down(lg) {
+      min-height: 243px;
+    }
+
+    @include media-breakpoint-down(sm) {
+      padding: 13px 10px 11px;
+    }
+
+    &__category {
+      font-size: clamp(10px, 2vw, 18px);
+      font-weight: 600;
+      color: $grayMedium;
+      text-transform: uppercase;
+      margin-bottom: 17px;
+
+      @include media-breakpoint-down(md) {
+        margin-bottom: 4px;
+      }
+    }
+
+    &__title {
+      font-size: clamp(14px, 2.5vw, 26px);
+      font-weight: 400;
+      line-height: 38px;
+      letter-spacing: 0.1px;
+      margin-bottom: 26px;
+
+      @include media-breakpoint-down(lg) {
+        line-height: normal;
+      }
+
+      @include media-breakpoint-down(md) {
+        margin-bottom: 14px;
+      }
+    }
+
+    &__info {
+      font-family: RobotoLight;
+      font-size: clamp(10px, 2.5vw, 14px);
+      line-height: 24px;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+
+      @include media-breakpoint-down(lg) {
+        line-height: normal;
+        letter-spacing: 0.1px;
+      }
+    }
+
+    &__date-and-auth {
+      display: flex;
+      gap: 3px;
+      font-weight: 300;
+      font-size: clamp(10px, 2.5vw, 13px);
+      position: relative;
+      width: 100%;
+      margin-top: auto;
+
+      &::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 4px;
+        background-color: $black;
+        top: -13px;
+
+        @include media-breakpoint-down(lg) {
+          height: 2px;
+          top: -8px;
+        }
+      }
+    }
+  }
+}
