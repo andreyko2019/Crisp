@@ -9,9 +9,9 @@
   }
 
   &__title {
+    margin-bottom: 30px;
     font-family: Oswald;
     font-size: clamp(17px, 2.5vw, 24px);
-    margin-bottom: 30px;
 
     @include media-breakpoint-down(sm) {
       margin-bottom: 20px;
@@ -32,14 +32,15 @@
       gap: 14px;
     }
   }
+
   .new {
-    background-color: $white;
-    padding: 24px 24px 13px;
-    min-height: 420px;
-    font-family: Oswald;
     position: relative;
     display: flex;
     flex-direction: column;
+    padding: 24px 24px 13px;
+    min-height: 420px;
+    font-family: Oswald;
+    background-color: $white;
 
     @include media-breakpoint-down(lg) {
       min-height: 243px;
@@ -50,11 +51,11 @@
     }
 
     &__category {
-      font-size: clamp(10px, 2vw, 18px);
-      font-weight: 600;
-      color: $grayMedium;
-      text-transform: uppercase;
       margin-bottom: 17px;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: clamp(10px, 2vw, 18px);
+      color: $grayMedium;
 
       @include media-breakpoint-down(md) {
         margin-bottom: 4px;
@@ -62,11 +63,11 @@
     }
 
     &__title {
-      font-size: clamp(14px, 2.5vw, 26px);
-      font-weight: 400;
+      margin-bottom: 26px;
+      font-weight: normal;
       line-height: 38px;
       letter-spacing: 0.1px;
-      margin-bottom: 26px;
+      font-size: clamp(14px, 2.5vw, 26px);
 
       @include media-breakpoint-down(lg) {
         line-height: normal;
@@ -78,11 +79,11 @@
     }
 
     &__info {
+      margin-bottom: 20px;
       font-family: RobotoLight;
-      font-size: clamp(10px, 2.5vw, 14px);
       line-height: 24px;
       letter-spacing: 1px;
-      margin-bottom: 20px;
+      font-size: clamp(10px, 2.5vw, 14px);
 
       @include media-breakpoint-down(lg) {
         line-height: normal;
@@ -91,25 +92,25 @@
     }
 
     &__date-and-auth {
-      display: flex;
-      gap: 3px;
-      font-weight: 300;
-      font-size: clamp(10px, 2.5vw, 13px);
       position: relative;
-      width: 100%;
+      display: flex;
       margin-top: auto;
+      width: 100%;
+      font-weight: 300;
+      gap: 3px;
+      font-size: clamp(10px, 2.5vw, 13px);
 
       &::before {
         content: '';
         position: absolute;
+        top: -13px;
         width: 100%;
         height: 4px;
         background-color: $black;
-        top: -13px;
 
         @include media-breakpoint-down(lg) {
-          height: 2px;
           top: -8px;
+          height: 2px;
         }
       }
     }

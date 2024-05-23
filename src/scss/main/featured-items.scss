@@ -48,6 +48,7 @@
 
   &__swiper {
     min-height: 100px;
+
     &-wrapper {
       @include media-breakpoint-down(md) {
         display: grid;

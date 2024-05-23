@@ -14,15 +14,15 @@
 
     @include media-breakpoint-down(lg) {
       padding: 100px 12px 12px;
-      background-image: url(../../img/main/explore-bg.jpg);
+      background-image: url("../../img/main/explore-bg.jpg");
       background-size: cover;
       background-position: center;
     }
   }
 
   &__img {
-    max-height: 363px;
     max-width: 1060px;
+    max-height: 363px;
 
     @include media-breakpoint-down(xl) {
       max-width: calc(766px + (1060 - 766) * ((100vw - 1440px) / (1920 - 1440)));
@@ -33,32 +33,32 @@
     }
 
     img {
-      height: 100%;
       width: 100%;
+      height: 100%;
       object-fit: cover;
-      object-position: 0px -53px;
+      object-position: 0 -53px;
     }
   }
 
   &__info {
-    max-width: 640px;
-    height: fit-content;
-    padding-top: 20px;
-    margin-right: 81px;
     position: relative;
+    margin-right: 81px;
+    padding-top: 20px;
+    height: fit-content;
+    max-width: 640px;
 
     @include media-breakpoint-down(xl) {
       margin-right: calc(0px + (81 - 0) * ((100vw - 1440px) / (1920 - 1440)));
     }
 
     @include media-breakpoint-down(lg) {
-      margin: 0 auto;
-      padding: 16px 20px 13px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      background-color: $white;
+      margin: 0 auto;
       border: 2px solid $grayMedium;
+      padding: 16px 20px 13px;
+      background-color: $white;
     }
 
     &::before {
@@ -80,10 +80,10 @@
 
   &__title {
     font-family: Oswald;
-    font-size: clamp(14px, 3vw, 56px);
     font-weight: 500;
     line-height: 72px;
     text-transform: uppercase;
+    font-size: clamp(14px, 3vw, 56px);
 
     @include media-breakpoint-down(lg) {
       line-height: normal;
@@ -91,17 +91,17 @@
   }
 
   &__about {
+    margin: 34px 0;
+    max-width: 640px;
     font-family: RobotoLight;
-    font-size: clamp(10px, 3vw, 25px);
-    font-weight: 400;
+    font-weight: normal;
     line-height: 37px;
     letter-spacing: 0.29px;
-    max-width: 640px;
-    margin: 34px 0;
+    font-size: clamp(10px, 3vw, 25px);
 
     @include media-breakpoint-down(lg) {
-      text-align: center;
       line-height: normal;
+      text-align: center;
       letter-spacing: normal;
     }
 
@@ -112,11 +112,11 @@
   }
 
   &__btn {
-    font-size: 18px;
     font-weight: 500;
     line-height: 27px;
-    letter-spacing: 0.5px;
     text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 18px;
 
     @include media-breakpoint-down(sm) {
       padding: 6px 0;
