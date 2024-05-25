@@ -1,13 +1,11 @@
+import { ShopFilters } from '../components/interface';
 import { getElement, getElements } from '../composables/callDom';
+import { fetchComposable } from '../composables/fetchComposable';
 
-interface Shop {
-  img: { stringValue: string };
-  imgWebP: { stringValue: string };
-  category: { stringValue: string };
-  name: { stringValue: string };
-  cost: { stringValue: string };
-  costNew: { stringValue: string | undefined };
-  sale: { booleanValue: boolean };
+interface FirebaseResponse {
+  document: {
+    fields: ShopFilters;
+  };
 }
 
 export class ShopFilter {
@@ -15,13 +13,12 @@ export class ShopFilter {
     this.initEventListeners();
   }
 
-  private sendFetchRequest(category: string): void {
+  private async sendFetchRequest(category: string): Promise<void> {
     const firebaseConfig = {
       projectId: 'crisp-b06bf',
     };
 
-    // Формируем тело запроса
-    const requestBody = JSON.stringify({
+    const requestBody = {
       structuredQuery: {
         where: {
           fieldFilter: {
@@ -40,53 +37,41 @@ export class ShopFilter {
           },
         ],
       },
-    });
+    };
 
     const url = `https://firestore.googleapis.com/v1/projects/${firebaseConfig.projectId}/databases/(default)/documents:runQuery`;
 
-    fetch(url, {
+    const response = await fetchComposable<FirebaseResponse[], typeof requestBody>(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: requestBody,
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Ошибка сети');
-        }
-        return response.json();
-      })
-      .then((data) => {
-        // Проверяем наличие данных и массива документов
-        if (data && Array.isArray(data) && data.length > 0) {
-          // Фильтруем элементы массива data, чтобы получить только те, у которых есть поле document и в нем есть поле fields
-          const items = data.filter((item) => item.document && item.document.fields).map((item) => item.document.fields);
-          console.log(items);
+    });
 
-          // Обновляем содержимое
-          this.updateContent(items);
-        } else {
-          console.error('Ошибка: Данные Firestore пришли в неправильном формате.');
-        }
-      })
-      .catch((error) => {
-        console.error('Произошла ошибка:', error);
-      });
+    if (response.error) {
+      console.error('Произошла ошибка:', response.error);
+    } else if (response.data && Array.isArray(response.data) && response.data.length > 0) {
+      const items = response.data.filter((item) => item.document && item.document.fields).map((item) => item.document.fields);
+      console.log(items);
+      this.updateContent(items);
+    } else {
+      console.error('Ошибка: Данные Firestore пришли в неправильном формате.');
+    }
   }
 
-  private updateContent(items: Shop[]): void {
+  private updateContent(items: ShopFilters[]): void {
     const shopItemsContainer = getElement('.shop-some__items');
     if (shopItemsContainer) {
       shopItemsContainer.innerHTML = '';
       items.forEach((item) => {
-        if (item.sale.booleanValue == false) {
+        if (item.sale.booleanValue === false) {
           const cardHTML = `
           <a class="card shop-some__card" href="#">
             <div class="card__img">
               <picture>
                 <source srcset=${item.imgWebP.stringValue} type="image/webp" />
-                <img src=${item.img.stringValue}/>
+                <img src=${item.img.stringValue} />
               </picture>
             </div>
             <div class="card__info">
@@ -103,7 +88,7 @@ export class ShopFilter {
             <div class="card__img">
               <picture>
                 <source srcset=${item.imgWebP.stringValue} type="image/webp" />
-                <img src=${item.img.stringValue}/>
+                <img src=${item.img.stringValue} />
               </picture>
               <div class="card__sale">
                 <p>-30%</p>

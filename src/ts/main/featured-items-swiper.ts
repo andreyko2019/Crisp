@@ -1,25 +1,16 @@
 import Swiper from 'swiper';
 import { Navigation, Autoplay } from 'swiper/modules';
-import { getDocQ, q, querySnapshot } from '../composables/useData';
 import { getElement, getElements } from '../composables/callDom';
+import { fetchComposable } from '../composables/fetchComposable';
+import { ShopFilters } from '../components/interface';
 
 Swiper.use([Navigation, Autoplay]);
-
-interface Slides {
-  img: string;
-  imgWebP: string;
-  category: string;
-  name: string;
-  cost: string;
-  costNew: string | undefined;
-  sale: boolean;
-}
 
 const swiperWrapper = getElement('.featured-items__swiper-wrapper');
 
 export class FeaturedSwiper {
   swiper: Swiper | null;
-  slidesArr: Slides[];
+  slidesArr: ShopFilters[];
 
   constructor() {
     this.swiper = null;
@@ -37,8 +28,8 @@ export class FeaturedSwiper {
             spaceBetween: 30,
             grabCursor: true,
             navigation: {
-              nextEl: '.swiper-btn-next',
-              prevEl: '.swiper-btn-prew',
+              nextEl: '.swiper-btn-next.featured-items__swiper-btn-next',
+              prevEl: '.swiper-btn-prew.featured-items__swiper-btn-prew',
             },
             breakpoints: {
               1440: {
@@ -68,12 +59,43 @@ export class FeaturedSwiper {
   }
 
   async loadCards() {
-    const queryRef = q('clothers', 8);
-    const snapshot = await getDocQ(queryRef);
-    querySnapshot(snapshot, (doc) => this.slidesArr.push(doc.data() as Slides));
-    console.log(this.slidesArr);
-    this.renderSlides();
-    this.loadMore();
+    const firebaseConfig = {
+      projectId: 'crisp-b06bf',
+    };
+
+    const requestBody: { structuredQuery: { from: { collectionId: string }[] } } = {
+      structuredQuery: {
+        from: [
+          {
+            collectionId: 'clothers',
+          },
+        ],
+      },
+    };
+
+    const url = `https://firestore.googleapis.com/v1/projects/${firebaseConfig.projectId}/databases/(default)/documents:runQuery`;
+
+    const response = await fetchComposable<{ document: { fields: ShopFilters } }[], typeof requestBody>(url, {
+      method: 'POST',
+      body: requestBody,
+    });
+
+    if (response.error) {
+      console.error('Ошибка при загрузке данных:', response.error);
+      return;
+    }
+
+    if (response.data) {
+      response.data.forEach((doc) => {
+        this.slidesArr.push(doc.document.fields);
+      });
+      console.log(this.slidesArr);
+      this.renderSlides();
+      this.loadMore();
+      if (this.swiper) {
+        this.swiper.update(); // Update the Swiper after adding slides
+      }
+    }
   }
 
   renderSlides() {
@@ -90,14 +112,14 @@ export class FeaturedSwiper {
             <a class="card featured-items__card" href="#">
               <div class="card__img">
                 <picture>
-                  <source srcset=${item.imgWebP} type="image/webp" />
-                  <img src=${item.img} />
+                  <source srcset=${item.imgWebP.stringValue} type="image/webp" />
+                  <img src=${item.img.stringValue} />
                 </picture>
               </div>
               <div class="card__info">
-                <p class="card__category">${item.category}</p>
-                <h3 class="card__title">${item.name}</h3>
-                <p class="card__price">${item.cost}</p>
+                <p class="card__category">${item.category.stringValue}</p>
+                <h3 class="card__title">${item.name.stringValue}</h3>
+                <p class="card__price">${item.cost.stringValue}</p>
               </div>
             </a>
           </div>
@@ -150,7 +172,7 @@ export class FeaturedSwiper {
         }
         const remainingHiddenCards = getElements('.featured-items__swiper-slide.hidden');
         if (remainingHiddenCards.length === 0) {
-          btn.classList.add('hidden'); // Hide the button
+          btn.classList.add('hidden');
         }
       });
     }

@@ -28,7 +28,7 @@ export class Accordion {
 
     this.accordionContent.forEach((content, i) => {
       if (i !== index) {
-        content.style.maxHeight = '0'; // Закрываем другие аккордеоны
+        content.style.maxHeight = '0';
         content.classList.remove('active');
       }
     });
