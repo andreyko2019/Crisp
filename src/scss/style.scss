@@ -2,6 +2,7 @@
 @import './config/reset';
 @import './config/vars';
 @import './config/_media-breakpoints';
+@import './../../node_modules/swiper/swiper';
 
 html,
 body {
@@ -33,6 +34,7 @@ body {
 @import './components/footer';
 @import './config/btn';
 @import './components/card';
+@import './components/bread-crumbs';
 
 .skeleton {
   position: relative;

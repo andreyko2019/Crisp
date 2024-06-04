@@ -35,14 +35,17 @@ export class LoadMoreComponent {
 
   btnLoad() {
     const btn = getElement(this.buttonSelector);
+
     if (btn) {
       btn.addEventListener('click', () => {
         const hiddenCards = getElements(`${this.cardSelector}.hidden`);
+        const remainingHiddenCards = getElements(`${this.cardSelector}.hidden`);
+
         for (let i = 0; i < hiddenCards.length && i < this.additionalCardsToShow; i++) {
           hiddenCards[i].classList.remove('hidden');
         }
-        const remainingHiddenCards = getElements(`${this.cardSelector}.hidden`);
-        if (remainingHiddenCards.length === 0) {
+
+        if (!remainingHiddenCards.length) {
           btn.classList.add('hidden');
         }
       });

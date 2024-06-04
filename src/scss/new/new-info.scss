@@ -1,0 +1,53 @@
+.new-info {
+  max-width: 814px;
+
+  @include media-breakpoint-down(md) {
+    max-width: 100%;
+  }
+
+  &__title {
+    font-family: Oswald;
+    font-size: clamp(23px, 2.5vw, 32px);
+    font-weight: 400;
+    line-height: 68px;
+    margin-top: 25px;
+
+    @include media-breakpoint-down(md) {
+      line-height: 35px;
+    }
+  }
+
+  &__text {
+    font-family: RobotoLight;
+    font-size: clamp(14px, 2.5vw, 18px);
+    font-weight: 400;
+    line-height: 30px;
+    letter-spacing: 0.1px;
+    margin-top: 10px;
+
+    @include media-breakpoint-down(md) {
+      line-height: 18px;
+    }
+  }
+
+  &__img {
+    margin-top: 47px;
+
+    img {
+      width: 100%;
+    }
+  }
+}
+
+.adds {
+  display: flex;
+  flex-direction: column;
+  margin-top: 54px;
+  margin-left: 75px;
+  width: 300px;
+  gap: 37px;
+
+  @include media-breakpoint-down(md) {
+    display: none;
+  }
+}

@@ -1,0 +1,19 @@
+@import './../style';
+@import './../new/bread-crumbs';
+@import './../new/new-baner';
+@import './../new/new-info';
+@import './../main/most-popular';
+
+.new {
+  max-width: 1273px;
+  margin: 0 auto;
+
+  &__content {
+    display: grid;
+    grid-template-columns: auto auto;
+  }
+}
+
+.most-popular {
+  margin-bottom: 20px;
+}

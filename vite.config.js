@@ -1,23 +1,10 @@
 import { defineConfig } from 'vite';
 import injectHTML from 'vite-plugin-html-inject';
-// import pages from "./pages.config.js";
-
-// const pagesInput = {};
-
-// pages.forEach((page) => {
-//   pagesInput[page.name] = page.path;
-// });
 
 export default defineConfig({
-  base: '/Crisp',
   build: {
     target: 'es2022',
     outDir: 'build',
-    rollupOptions: {
-      // input: {
-      //   ...pagesInput,
-      // },
-    },
   },
 
   server: {

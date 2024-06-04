@@ -2,23 +2,16 @@ import { Burger } from './components/burger';
 import { Accordion } from './components/accordion';
 import { SummerSale } from './main/summer-sale-swiper';
 import { Loader } from './modules/stop-preload';
-import { ShopSome } from './main/shop-some';
-import { ShopFilter } from './main/shop-some-filter';
-import { FeaturedSwiper } from './main/featured-items-swiper';
 import { PopularSwiper } from './main/most-popular';
-import { Blog } from './main/blog';
-import { Skeleton } from './components/skeleton';
+import { NewBaner } from './new/new-baner';
+import { NewInfo } from './new/new-info';
 
 document.addEventListener('DOMContentLoaded', async () => {
   new Burger();
   new Accordion();
   new SummerSale();
-  new ShopSome();
-  new ShopFilter();
-  new FeaturedSwiper();
   new PopularSwiper();
-  new Blog();
+  new NewBaner();
+  new NewInfo();
   Loader.stop();
 });
-
-new Skeleton();

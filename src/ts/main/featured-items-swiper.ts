@@ -1,7 +1,7 @@
 import Swiper from 'swiper';
 import { Navigation, Autoplay } from 'swiper/modules';
 import { getElement, getElements } from '../composables/callDom';
-import { fetchComposable } from '../composables/fetchComposable';
+import { fetchComposable } from '../composables/useFetch';
 import { ShopFilters } from '../components/interface';
 
 Swiper.use([Navigation, Autoplay]);
@@ -10,7 +10,7 @@ const swiperWrapper = getElement('.featured-items__swiper-wrapper');
 
 export class FeaturedSwiper {
   swiper: Swiper | null;
-  slidesArr: ShopFilters[];
+  slidesArr: { id: string; data: ShopFilters }[];
 
   constructor() {
     this.swiper = null;
@@ -75,7 +75,7 @@ export class FeaturedSwiper {
 
     const url = `https://firestore.googleapis.com/v1/projects/${firebaseConfig.projectId}/databases/(default)/documents:runQuery`;
 
-    const response = await fetchComposable<{ document: { fields: ShopFilters } }[], typeof requestBody>(url, {
+    const response = await fetchComposable<{ document: { name: string; fields: ShopFilters } }[], typeof requestBody>(url, {
       method: 'POST',
       body: requestBody,
     });
@@ -87,7 +87,8 @@ export class FeaturedSwiper {
 
     if (response.data) {
       response.data.forEach((doc) => {
-        this.slidesArr.push(doc.document.fields);
+        const docId = doc.document.name.split('/').pop() || '';
+        this.slidesArr.push({ id: docId, data: doc.document.fields });
       });
       console.log(this.slidesArr);
       this.renderSlides();
@@ -109,17 +110,17 @@ export class FeaturedSwiper {
         'beforeend',
         `
           <div class="featured-items__swiper-slide swiper-slide">
-            <a class="card featured-items__card" href="#">
+            <a class="card featured-items__card ${item.id}" href="one-product.html?id=${item.id}">
               <div class="card__img">
                 <picture>
-                  <source srcset=${item.imgWebP.stringValue} type="image/webp" />
-                  <img src=${item.img.stringValue} />
+                  <source srcset=${item.data.imgWebP.stringValue} type="image/webp" />
+                  <img src=${item.data.img.stringValue} />
                 </picture>
               </div>
               <div class="card__info">
-                <p class="card__category">${item.category.stringValue}</p>
-                <h3 class="card__title">${item.name.stringValue}</h3>
-                <p class="card__price">${item.cost.stringValue}</p>
+                <p class="card__category">${item.data.category.stringValue}</p>
+                <h3 class="card__title">${item.data.name.stringValue}</h3>
+                <p class="card__price">${item.data.cost.stringValue}</p>
               </div>
             </a>
           </div>

@@ -1,6 +1,6 @@
 import { ShopFilters } from '../components/interface';
 import { getElement, getElements } from '../composables/callDom';
-import { fetchComposable } from '../composables/fetchComposable';
+import { fetchComposable } from '../composables/useFetch';
 
 interface FirebaseResponse {
   document: {

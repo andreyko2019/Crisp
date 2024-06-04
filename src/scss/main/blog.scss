@@ -41,6 +41,7 @@
     min-height: 420px;
     font-family: Oswald;
     background-color: $white;
+    color: $black;
 
     @include media-breakpoint-down(lg) {
       min-height: 243px;

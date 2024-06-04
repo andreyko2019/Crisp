@@ -1,8 +1,7 @@
 import Swiper from 'swiper';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import { getElement } from '../composables/callDom';
-import { fetchComposable } from '../composables/fetchComposable';
-import { Skeleton } from '../components/skeleton';
+import { fetchComposable } from '../composables/useFetch';
 import { Slides } from '../components/interface';
 
 Swiper.use([Navigation, Pagination, Autoplay]);
@@ -65,7 +64,6 @@ export class SummerSale {
       });
       console.log(this.slidesArr);
       this.renderSlides();
-      new Skeleton();
       this.swiper.update();
     }
   }

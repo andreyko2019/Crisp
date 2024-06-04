@@ -50,6 +50,7 @@
     min-height: 100px;
 
     &-wrapper {
+      display: flex;
       @include media-breakpoint-down(md) {
         display: grid;
         justify-items: center;
