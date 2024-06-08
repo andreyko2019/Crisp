@@ -5,6 +5,7 @@ export class Skeleton {
 
   constructor() {
     this.allSkeleton = getElements('.skeleton');
+
     this.removeSkeleton();
   }
 

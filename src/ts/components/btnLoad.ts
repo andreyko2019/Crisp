@@ -24,6 +24,7 @@ export class LoadMoreComponent {
 
   hidden() {
     const cards = getElements(this.cardSelector);
+
     for (let i = 0; i < cards.length; i++) {
       if (i < this.initialCardsToShow) {
         continue;

@@ -9,6 +9,7 @@ export class Blog {
 
   constructor() {
     this.newsDb = [];
+
     this.loadCards();
   }
 

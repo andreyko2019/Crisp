@@ -62,6 +62,7 @@ export class ShopFilter {
 
   private updateContent(items: ShopFilters[]): void {
     const shopItemsContainer = getElement('.shop-some__items');
+
     if (shopItemsContainer) {
       shopItemsContainer.innerHTML = '';
       items.forEach((item) => {
@@ -106,6 +107,7 @@ export class ShopFilter {
       });
 
       const cards = getElements('.shop-some__card');
+
       for (let i = 0; i < cards.length; i++) {
         if (i < 8) {
           continue;
@@ -122,6 +124,7 @@ export class ShopFilter {
       }
 
       const btn = getElement('.shop-some__load');
+
       if (btn) {
         btn.addEventListener('click', () => {
           const hiddenCards = getElements('.shop-some__card.hidden');
@@ -140,8 +143,10 @@ export class ShopFilter {
   private initEventListeners(): void {
     document.addEventListener('change', (event) => {
       const target = event.target as HTMLInputElement;
+
       if (target && target.type === 'radio' && target.name === 'shop-filtr') {
         const category = target.parentNode?.textContent?.trim();
+
         if (category) {
           this.sendFetchRequest(category.toUpperCase());
         }

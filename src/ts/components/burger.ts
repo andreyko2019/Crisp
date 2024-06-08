@@ -18,6 +18,7 @@ export class Burger {
 
   burger(): void {
     const context = this;
+
     this.burgerBtn.addEventListener('click', function () {
       context.burgerBtn.classList.toggle('active');
       context.menuAdapt.classList.toggle('active');
@@ -26,6 +27,7 @@ export class Burger {
 
   searchFunc(): void {
     const context = this;
+
     this.searchBtn.addEventListener('click', function () {
       context.search.classList.toggle('active');
     });

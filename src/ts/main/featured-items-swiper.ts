@@ -15,6 +15,7 @@ export class FeaturedSwiper {
   constructor() {
     this.swiper = null;
     this.slidesArr = [];
+
     this.initSwiper();
     this.loadCards();
   }
@@ -48,6 +49,7 @@ export class FeaturedSwiper {
           this.swiper.destroy(true, true);
           this.swiper = null;
         }
+
         if (swiperWrapper) {
           swiperWrapper.classList.add('swiper-disabled');
         }
@@ -136,6 +138,7 @@ export class FeaturedSwiper {
 
   hidden() {
     const cards = getElements('.featured-items__swiper-slide');
+
     for (let i = 0; i < cards.length; i++) {
       if (window.innerWidth < 1023) {
         if (window.innerWidth > 576) {
@@ -158,13 +161,16 @@ export class FeaturedSwiper {
   btnLoad() {
     const cards = getElements('.featured-items__swiper-slide');
     const wrapper = getElement('.featured-items__swiper');
+
     if (cards.length > 6 && wrapper && window.innerWidth <= 1023) {
       const loadMoreButton = document.createElement('button');
       loadMoreButton.classList.add('btn', 'featured-items__load');
       loadMoreButton.textContent = 'See more';
       wrapper.insertAdjacentElement('beforeend', loadMoreButton);
     }
+
     const btn = getElement('.featured-items__load');
+
     if (btn) {
       btn.addEventListener('click', () => {
         const hiddenCards = getElements('.featured-items__swiper-slide.hidden');

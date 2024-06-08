@@ -15,6 +15,7 @@ export class PopularSwiper {
   constructor() {
     this.swiper = null;
     this.slidesArr = [];
+
     this.initSwiper();
     this.loadCards();
   }
@@ -93,6 +94,7 @@ export class PopularSwiper {
       console.log(this.slidesArr);
       this.renderSlides();
       this.hidden();
+
       if (this.swiper) {
         this.swiper.update();
       }
@@ -131,6 +133,7 @@ export class PopularSwiper {
 
   hidden() {
     const cards = getElements('.most-popular__swiper-slide');
+
     for (let i = 0; i < cards.length; i++) {
       if (window.innerWidth < 1023) {
         if (window.innerWidth > 576) {

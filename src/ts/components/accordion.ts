@@ -7,6 +7,7 @@ export class Accordion {
   constructor() {
     this.accordionTitle = getElements('.accordion__item') as NodeListOf<HTMLElement>;
     this.accordionContent = getElements('.accordion__info') as NodeListOf<HTMLElement>;
+    
     this.initAccordion();
   }
 
@@ -46,6 +47,7 @@ export class Accordion {
         content.classList.remove('active');
       }
     });
+    
     this.accordionTitle.forEach((content, index) => {
       if (index !== currentIndex && content.classList.contains('active')) {
         content.classList.remove('active');

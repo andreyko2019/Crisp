@@ -10,6 +10,7 @@ export class ShopSome {
 
   constructor() {
     this.shopDb = [];
+
     this.loadCards();
   }
 
