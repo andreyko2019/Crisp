@@ -3,6 +3,13 @@ export interface Slides {
   imgWebP: { stringValue: string };
 }
 
+export interface SlidesClothersRef extends Slides {
+  subImg1?: { stringValue: string };
+  subImgWebP1?: { stringValue: string };
+  subImg2?: { stringValue: string };
+  subImgWebP2?: { stringValue: string };
+}
+
 export interface ShopFilters extends Slides {
   category: { stringValue: string };
   name: { stringValue: string };
