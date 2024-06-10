@@ -6,9 +6,9 @@ import { ShopFilters } from '../components/interface';
 
 Swiper.use([Navigation, Autoplay]);
 
-const swiperWrapper = getElement('.most-popular__swiper-wrapper');
+const swiperWrapper = getElement('.you-may-also-like__swiper-wrapper');
 
-export class PopularSwiper {
+export class LikeSwiper {
   swiper: Swiper | null;
   slidesArr: { id: string; data: ShopFilters }[];
 
@@ -24,13 +24,13 @@ export class PopularSwiper {
     const initSwiperConfig = () => {
       if (window.innerWidth > 1023) {
         if (!this.swiper) {
-          this.swiper = new Swiper('.most-popular__swiper', {
+          this.swiper = new Swiper('.you-may-also-like__swiper', {
             slidesPerView: 5,
             spaceBetween: 30,
             grabCursor: true,
             navigation: {
-              nextEl: '.swiper-btn-next.most-popular__swiper-btn-next',
-              prevEl: '.swiper-btn-prew.most-popular__swiper-btn-prew',
+              nextEl: '.swiper-btn-next.you-may-also-like__swiper-btn-next',
+              prevEl: '.swiper-btn-prew.you-may-also-like__swiper-btn-prew',
             },
             breakpoints: {
               1440: {
@@ -111,8 +111,8 @@ export class PopularSwiper {
       swiperWrapper.insertAdjacentHTML(
         'beforeend',
         `
-        <div class="most-popular__swiper-slide swiper-slide">
-          <a class="card most-popular__card ${item.id}" href="one-product.html?id=${item.id}">
+        <div class="you-may-also-like__swiper-slide swiper-slide">
+          <a class="card you-may-also-like__card ${item.id}" href="one-product.html?id=${item.id}">
             <div class="card__img">
               <picture>
                 <source srcset=${item.data.imgWebP.stringValue} type="image/webp" />
@@ -132,7 +132,7 @@ export class PopularSwiper {
   }
 
   hidden() {
-    const cards = getElements('.most-popular__swiper-slide');
+    const cards = getElements('.you-may-also-like__swiper-slide');
 
     for (let i = 0; i < cards.length; i++) {
       if (window.innerWidth < 1023) {
