@@ -5,6 +5,11 @@
     margin-top: 11px;
   }
 
+  .container {
+    @include media-breakpoint-down(md) {
+      padding: 0;
+    }
+  }
   &__content {
     display: grid;
     grid-template-columns: auto auto;
@@ -105,10 +110,11 @@
   .main-img {
     overflow: hidden;
     aspect-ratio: 0.789 / 1;
+    width: 100%;
 
     @include media-breakpoint-down(md) {
       aspect-ratio: 1.25 / 1;
-      margin-bottom: 30px;
+      margin-bottom: 29px;
     }
 
     &__swiper {
@@ -134,10 +140,17 @@
     @include media-breakpoint-down(md) {
       margin-top: 0;
       margin-bottom: 11px;
+      padding: 0 15px;
     }
   }
 
   .info {
+    @include media-breakpoint-down(md) {
+      padding: 0 15px;
+      display: flex;
+      flex-direction: column;
+    }
+
     &__brand-and-title {
       display: flex;
       flex-direction: column;
@@ -147,6 +160,7 @@
         flex-direction: row-reverse;
         justify-content: space-between;
         gap: 28px;
+        order: 0;
       }
     }
 
@@ -175,7 +189,7 @@
 
       @include media-breakpoint-down(md) {
         line-height: 23px;
-        letter-spacing: 0;
+        letter-spacing: 0.5px;
       }
     }
 
@@ -189,6 +203,8 @@
 
       @include media-breakpoint-down(md) {
         line-height: 17.78px;
+        margin-top: 6px;
+        display: none;
       }
 
       &-btns {
@@ -255,6 +271,11 @@
 
     .sizes {
       margin-top: 27px;
+
+      @include media-breakpoint-down(md) {
+        order: 2;
+      }
+
       &__head {
         display: flex;
         justify-content: space-between;
@@ -332,6 +353,10 @@
       display: flex;
       gap: 24px;
 
+      @include media-breakpoint-down(md) {
+        order: 1;
+      }
+
       .quantity {
         font-family: Oswald;
         font-size: 16px;
@@ -381,6 +406,14 @@
           }
         }
 
+        .info__color {
+          display: none;
+
+          @include media-breakpoint-down(md) {
+            display: block;
+          }
+        }
+
         &__total {
           font-size: 26px;
           line-height: 38.53px;
@@ -395,6 +428,10 @@
 
     .bag {
       margin-top: 36px;
+
+      @include media-breakpoint-down(md) {
+        order: 3;
+      }
 
       &__first-line {
         display: flex;
