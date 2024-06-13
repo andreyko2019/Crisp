@@ -18,6 +18,7 @@
     max-width: 1242px;
     margin: 0 auto;
     column-gap: 70px;
+    // row-gap: 17px;
 
     @include media-breakpoint-down(l) {
       max-width: 1343px;
@@ -229,11 +230,35 @@
             height: 15px;
           }
 
+          &__white {
+            .custom-radio {
+              background-color: #f3ece2;
+            }
+          }
+          &__black {
+            .custom-radio {
+              background-color: $black;
+            }
+          }
+          &__red {
+            .custom-radio {
+              background-color: red;
+            }
+          }
+          &__blue {
+            .custom-radio {
+              background-color: blue;
+            }
+          }
+          &__pink {
+            .custom-radio {
+              background-color: pink;
+            }
+          }
           .custom-radio {
             position: absolute;
             width: 100%;
             height: 100%;
-            background-color: aquamarine;
             top: 0;
             left: 0;
 
@@ -573,6 +598,25 @@
         text-transform: uppercase;
         font-size: 12px;
         margin-top: 11px;
+
+        @include media-breakpoint-down(xs) {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          align-items: start;
+          gap: 16px 12px;
+          margin-top: 20px;
+          justify-items: center;
+        }
+
+        .main-info__share {
+          display: none;
+
+          @include media-breakpoint-down(md) {
+            display: flex;
+            justify-content: start;
+            margin-top: 0;
+          }
+        }
       }
 
       &__free {
@@ -581,6 +625,36 @@
         svg {
           width: 17px;
           height: 17px;
+        }
+      }
+    }
+  }
+
+  &__share {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Oswald;
+    text-transform: uppercase;
+    font-size: 12px;
+    gap: 10px;
+    margin-top: 17px;
+
+    @include media-breakpoint-down(md) {
+      display: none;
+    }
+
+    &-list {
+      display: flex;
+      gap: 10px;
+
+      &_item {
+        width: 13px;
+        height: 13px;
+
+        svg {
+          width: 100%;
+          height: 100%;
         }
       }
     }
