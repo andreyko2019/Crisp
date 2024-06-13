@@ -2,6 +2,7 @@ import { ShopFilters } from '../components/interface';
 import { getElement } from '../composables/callDom';
 import { fetchComposable } from '../composables/useFetch';
 import { LoadMoreComponent } from '../components/btnLoad';
+import { Loader } from '../modules/stop-preload';
 
 const clothersWrapper = getElement('.shop-some__items');
 
@@ -11,7 +12,7 @@ export class ShopSome {
   constructor() {
     this.shopDb = [];
 
-    this.loadCards();
+    this.loadCards().then(() => Loader.stop('shop-some__items'));
   }
 
   async loadCards() {

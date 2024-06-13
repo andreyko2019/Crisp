@@ -3,6 +3,7 @@ import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import { getElement } from '../composables/callDom';
 import { fetchComposable } from '../composables/useFetch';
 import { Slides } from '../components/interface';
+import { Loader } from '../modules/stop-preload';
 
 Swiper.use([Navigation, Pagination, Autoplay]);
 
@@ -28,9 +29,10 @@ export class SummerSale {
       },
     });
     this.slidesArr = [];
-    this.loadCards();
+    this.loadCards().then(() => {
+      Loader.stop('summer-sale');
+    });
   }
-
   async loadCards() {
     const firebaseConfig = {
       projectId: 'crisp-b06bf',

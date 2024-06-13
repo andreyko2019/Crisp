@@ -1,6 +1,7 @@
 import { News } from '../components/interface';
 import { getElement } from '../composables/callDom';
 import { fetchComposable } from '../composables/useFetch';
+import { Loader } from '../modules/stop-preload';
 
 const newsWrapper = getElement('.blog__cards');
 
@@ -10,7 +11,7 @@ export class Blog {
   constructor() {
     this.newsDb = [];
 
-    this.loadCards();
+    this.loadCards().then(() => Loader.stop('blog__cards'));
   }
 
   async loadCards() {

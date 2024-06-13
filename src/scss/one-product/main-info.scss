@@ -10,6 +10,7 @@
       padding: 0;
     }
   }
+
   &__content {
     display: grid;
     grid-template-columns: auto auto;
@@ -110,11 +111,12 @@
   .main-img {
     overflow: hidden;
     aspect-ratio: 0.789 / 1;
-    width: 100%;
+    width: 625px;
 
     @include media-breakpoint-down(md) {
       aspect-ratio: 1.25 / 1;
       margin-bottom: 29px;
+      width: 100%;
     }
 
     &__swiper {
@@ -202,7 +204,7 @@
       text-transform: uppercase;
 
       @include media-breakpoint-down(md) {
-        line-height: 17.78px;
+        line-height: 23.78px;
         margin-top: 6px;
         display: none;
       }
@@ -274,15 +276,21 @@
 
       @include media-breakpoint-down(md) {
         order: 2;
+        margin-top: 25px;
+        position: relative;
       }
 
       &__head {
         display: flex;
         justify-content: space-between;
 
+        @include media-breakpoint-down(md) {
+          margin-bottom: 6px;
+        }
+
         p {
           font-family: Oswald;
-          font-size: 14px;
+          font-size: clamp(12px, 2.5vw, 14px);
           line-height: 20.75px;
           text-transform: uppercase;
         }
@@ -290,10 +298,47 @@
         button {
           background-color: transparent;
           font-family: RobotoLight;
-          font-size: 14px;
+          font-size: clamp(12px, 2.5vw, 14px);
           line-height: 16.41px;
           color: #0f6db1;
           text-decoration: underline;
+        }
+      }
+
+      &__dropdown {
+        &.dropdown__btn {
+          display: none;
+          width: 100%;
+          justify-content: space-between;
+          align-items: center;
+          font-family: Oswald;
+          font-size: 12px;
+          height: 40px;
+          padding: 0 11px;
+          text-transform: uppercase;
+          border: 1px solid $grayMedium;
+
+          @include media-breakpoint-down(md) {
+            display: flex;
+          }
+          .dropdown__btn_arr {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.5s ease;
+
+            svg {
+              width: 100%;
+              height: 100%;
+            }
+          }
+
+          &.active {
+            .dropdown__btn_arr {
+              width: 18px;
+              height: 18px;
+              transform: rotate(180deg);
+            }
+          }
         }
       }
 
@@ -303,6 +348,28 @@
         gap: 10px;
         margin-top: 12px;
 
+        @include media-breakpoint-down(md) {
+          display: block;
+          height: 0;
+          overflow: scroll;
+          opacity: 0;
+          border: 1px solid $grayMedium;
+          transition: height 0.5s ease;
+          position: absolute;
+          width: 100%;
+          background-color: $white;
+        }
+
+        &.dropdown__list {
+          &.active {
+            @include media-breakpoint-down(md) {
+              opacity: 1;
+              height: 200px;
+              overflow: scroll;
+              margin-top: 5px;
+            }
+          }
+        }
         label {
           width: 45px;
           height: 45px;
@@ -318,10 +385,19 @@
           color: $grayMedium;
           cursor: pointer;
 
+          @include media-breakpoint-down(md) {
+            color: $black;
+            width: 100%;
+          }
+
           &.no-size {
             pointer-events: none;
             background-image: linear-gradient(to bottom right, transparent 46%, #c4c4c4, transparent 54%);
             background-repeat: no-repeat;
+
+            @include media-breakpoint-down(md) {
+              display: none;
+            }
           }
         }
 
@@ -330,6 +406,10 @@
           height: 100%;
           border: 2px solid $grayMedium;
           position: absolute;
+
+          @include media-breakpoint-down(md) {
+            border: none;
+          }
         }
 
         input[type='radio'] {
@@ -355,6 +435,8 @@
 
       @include media-breakpoint-down(md) {
         order: 1;
+        margin-top: 15px;
+        gap: 34px;
       }
 
       .quantity {
@@ -421,6 +503,7 @@
 
           @include media-breakpoint-down(md) {
             margin-top: 0;
+            line-height: 28.53px;
           }
         }
       }
@@ -431,11 +514,16 @@
 
       @include media-breakpoint-down(md) {
         order: 3;
+        margin-top: 15px;
       }
 
       &__first-line {
         display: flex;
         gap: 18.5px;
+
+        @include media-breakpoint-down(md) {
+          gap: 14px;
+        }
 
         .btn {
           display: flex;
@@ -446,6 +534,12 @@
           max-width: 218px;
           width: 100%;
           gap: 13px;
+          font-size: 14px;
+
+          @include media-breakpoint-down(md) {
+            padding: 6px 0;
+            gap: 3px;
+          }
 
           &:hover {
             background-color: $grayLight;

@@ -12,23 +12,11 @@ const clothersWrapperItem = getElement('.main-img__swiper-wrapper');
 const clothersWrapperTabs = getElement('.main-info__all-img');
 
 export class MainInfoSwiper {
-  swiper: Swiper;
+  swiper: Swiper | null;
   slidesArr: SlidesClothersRef | null;
 
   constructor() {
-    this.swiper = new Swiper('.main-img__swiper', {
-      slidesPerView: 1,
-      autoplay: {
-        delay: 10000,
-      },
-      pagination: {
-        el: '.swiper-pagination',
-      },
-      grabCursor: true,
-      on: {
-        slideChange: () => this.onSlideChange(),
-      },
-    });
+    this.swiper = null;
     this.slidesArr = null;
 
     this.init();
@@ -38,13 +26,41 @@ export class MainInfoSwiper {
     this.conectDb();
   }
 
+  private initSwiper() {
+    const slideElements = getElements('.main-img__slide');
+    if (slideElements.length > 1) {
+      this.swiper = new Swiper('.main-img__swiper', {
+        slidesPerView: 1,
+        autoplay: {
+          delay: 10000,
+        },
+        pagination: {
+          el: '.swiper-pagination',
+        },
+        grabCursor: true,
+        on: {
+          slideChange: () => this.onSlideChange(),
+        },
+      });
+      this.initTabsSync();
+    } else {
+      // Disable autoplay and pagination if there is only one slide
+      const swiperContainer = getElement('.main-img__swiper');
+      if (swiperContainer) {
+        swiperContainer.classList.remove('swiper-container-initialized', 'swiper-container-horizontal');
+      }
+    }
+  }
+
   private initTabsSync() {
     const tabsBtns = getElements('.tabs__nav-btn') as NodeListOf<HTMLElement>;
 
     tabsBtns.forEach((btn, index) => {
       btn.addEventListener('click', () => {
         console.log(`Tab ${index + 1} clicked`);
-        this.swiper.slideTo(index);
+        if (this.swiper) {
+          this.swiper.slideTo(index);
+        }
       });
     });
   }
@@ -53,7 +69,7 @@ export class MainInfoSwiper {
     const tabsBtns = getElements('.tabs__nav-btn') as NodeListOf<HTMLElement>;
 
     tabsBtns.forEach((btn, index) => {
-      if (index === this.swiper.realIndex) {
+      if (this.swiper && index === this.swiper.realIndex) {
         btn.classList.add('tabs__nav-btn_active');
       } else {
         btn.classList.remove('tabs__nav-btn_active');
@@ -88,9 +104,8 @@ export class MainInfoSwiper {
       this.slidesArr = response.data.fields;
       console.log(this.slidesArr);
       this.renderSlides();
-      this.swiper.update();
-      new Tabs(); // Инициализировать Tabs после загрузки данных и рендера слайдов
-      this.initTabsSync(); // Синхронизировать табы после инициализации
+      this.initSwiper();
+      new Tabs(); 
     }
   }
 
