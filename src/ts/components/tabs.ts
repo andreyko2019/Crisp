@@ -1,4 +1,4 @@
-import { getElement, getElements } from '../composables/callDom';
+import { getElement, getElements } from '../composables/useCallDom';
 
 export class Tabs {
   private tabsBtn: NodeListOf<HTMLElement>;

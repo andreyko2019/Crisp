@@ -1,6 +1,6 @@
 import { OneNew } from '../components/interface';
 import { Skeleton } from '../components/skeleton';
-import { getElement } from '../composables/callDom';
+import { getElement } from '../composables/useCallDom';
 import { fetchComposable } from '../composables/useFetch';
 
 const newContainer = getElement('.new-info');

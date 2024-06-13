@@ -1,4 +1,4 @@
-import { getElements, getElement } from '../composables/callDom';
+import { getElements, getElement } from '../composables/useCallDom';
 
 export class FilterAccordeon {
   accordeonButtons: NodeListOf<HTMLElement>;

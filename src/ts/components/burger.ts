@@ -1,4 +1,4 @@
-import { getElement } from '../composables/callDom';
+import { getElement } from '../composables/useCallDom';
 
 export class Burger {
   burgerBtn: HTMLElement;

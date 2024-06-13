@@ -1,5 +1,5 @@
 import { News } from '../components/interface';
-import { getElement } from '../composables/callDom';
+import { getElement } from '../composables/useCallDom';
 import { fetchComposable } from '../composables/useFetch';
 import { Loader } from '../modules/stop-preload';
 

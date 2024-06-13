@@ -1,6 +1,6 @@
 import Swiper from 'swiper';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
-import { getElement } from '../composables/callDom';
+import { getElement } from '../composables/useCallDom';
 import { fetchComposable } from '../composables/useFetch';
 import { Slides } from '../components/interface';
 import { Loader } from '../modules/stop-preload';

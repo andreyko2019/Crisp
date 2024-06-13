@@ -1,6 +1,6 @@
 import Swiper from 'swiper';
 import { Pagination, Autoplay } from 'swiper/modules';
-import { getElement, getElements } from '../composables/callDom';
+import { getElement, getElements } from '../composables/useCallDom';
 import 'swiper/swiper-bundle.css';
 import { SlidesClothersRef } from '../components/interface';
 import { Tabs } from '../components/tabs';
@@ -105,7 +105,7 @@ export class MainInfoSwiper {
       console.log(this.slidesArr);
       this.renderSlides();
       this.initSwiper();
-      new Tabs(); 
+      new Tabs();
     }
   }
 

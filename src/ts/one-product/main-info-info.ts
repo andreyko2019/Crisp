@@ -1,5 +1,5 @@
 import { OneDress } from '../components/interface';
-import { getElement, getElements } from '../composables/callDom';
+import { getElement, getElements } from '../composables/useCallDom';
 import { fetchComposable } from '../composables/useFetch';
 
 const brandElement = getElement('.info__brand p');
