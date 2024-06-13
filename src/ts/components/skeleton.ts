@@ -13,33 +13,33 @@ export class Skeleton {
   removeSkeleton() {
     document.addEventListener('loadingIsFinished', (event: CustomEvent) => {
       let totals = 0;
-      const blockImages = document.querySelectorAll('.' + event.detail.block + ' img');
-      if (blockImages.length == 0) {
-        this.removeClassname(event);
-      }
-
-      blockImages.forEach((img: HTMLImageElement) => {
-        console.log('REQUIRED FOR ' + event.detail.block, event.detail.requiredImagesCount);
-        if (img.complete) {
-          totals += 1;
-          if (totals >= event.detail.requiredImagesCount) {
-            this.removeClassname(event);
-          }
+      if (event.detail) {
+        const blockImages: NodeListOf<HTMLImageElement> = document.querySelectorAll('.' + event.detail.block + ' img');
+        if (blockImages.length == 0) {
+          this.removeClassname(event);
         }
-        img.onload = () => {
-          totals += 1;
-          console.log(totals, event.detail.block);
-          if (totals >= event.detail.requiredImagesCount) {
-            this.removeClassname(event);
+
+        blockImages.forEach((img: HTMLImageElement) => {
+          if (img.complete) {
+            totals += 1;
+            if (totals >= event!.detail!.requiredImagesCount) {
+              this.removeClassname(event);
+            }
           }
-        };
-      });
+          img.onload = () => {
+            totals += 1;
+            if (totals >= event!.detail!.requiredImagesCount) {
+              this.removeClassname(event);
+            }
+          };
+        });
+      }
     });
   }
 
-  removeClassname(event) {
+  removeClassname(event: CustomEvent) {
     this.allSkeleton.forEach((item) => {
-      if (item.classList.contains(event.detail.block)) {
+      if (item.classList.contains(event!.detail!.block)) {
         item.classList.remove('skeleton');
       }
     });

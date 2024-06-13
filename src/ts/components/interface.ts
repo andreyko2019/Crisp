@@ -43,5 +43,5 @@ export interface OneDress {
 }
 
 export interface CustomEvent extends Event {
-  readonly detail: { block: string; requiredImagesCount: number };
+  readonly detail?: { block: string; requiredImagesCount: number };
 }
