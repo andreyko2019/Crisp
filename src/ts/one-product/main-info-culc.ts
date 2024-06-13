@@ -10,7 +10,10 @@ export class Calculator {
     this.countElement = document.getElementById('buttonCountNumber')!;
     this.buttonCountPlus = document.getElementById('buttonCountPlus') as HTMLInputElement;
     this.buttonCountMinus = document.getElementById('buttonCountMinus') as HTMLInputElement;
-    this.calculation = +this.calculationElement.innerHTML;
+
+    // Extract initial price from the calculation element
+    const initialPriceText = this.calculationElement.innerHTML.trim();
+    this.calculation = +initialPriceText.replace(',', '.'); // Convert comma to dot for numeric parsing
 
     this.buttonCountPlus.onclick = this.incrementCount.bind(this);
     this.buttonCountMinus.onclick = this.decrementCount.bind(this);
@@ -18,14 +21,16 @@ export class Calculator {
 
   private incrementCount(): void {
     let count = +this.countElement.innerHTML;
-    count++;
-    this.countElement.innerHTML = count.toString();
-    this.updateCalculation(count);
+    if (count < 999) {
+      count++;
+      this.countElement.innerHTML = count.toString();
+      this.updateCalculation(count);
+    }
   }
 
   private decrementCount(): void {
     let count = +this.countElement.innerHTML;
-    if (count >= 2) {
+    if (count > 1) {
       count--;
       this.countElement.innerHTML = count.toString();
       this.updateCalculation(count);
@@ -41,7 +46,3 @@ export class Calculator {
     return price.toFixed(2).replace('.', ',');
   }
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-  new Calculator();
-});

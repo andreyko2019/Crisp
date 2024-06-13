@@ -3,6 +3,7 @@ import { Navigation, Autoplay } from 'swiper/modules';
 import { getElement, getElements } from '../composables/callDom';
 import { fetchComposable } from '../composables/useFetch';
 import { ShopFilters } from '../components/interface';
+import { Loader } from '../modules/stop-preload';
 
 Swiper.use([Navigation, Autoplay]);
 
@@ -17,7 +18,7 @@ export class PopularSwiper {
     this.slidesArr = [];
 
     this.initSwiper();
-    this.loadCards();
+    this.loadCards().then(() => Loader.stop('most-popular__swiper'));
   }
 
   initSwiper() {

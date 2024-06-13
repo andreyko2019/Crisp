@@ -49,6 +49,7 @@
     "just-validate": "^4.3.0",
     "libphonenumber-js": "^1.10.56",
     "nouislider": "^15.7.1",
+    "npm": "^10.8.1",
     "strapi-plugin-populate-deep": "^3.0.1",
     "stylelint-declaration-block-no-ignored-properties": "^2.8.0"
   }

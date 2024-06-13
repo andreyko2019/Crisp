@@ -12,13 +12,16 @@ import { Skeleton } from './components/skeleton';
 document.addEventListener('DOMContentLoaded', async () => {
   new Burger();
   new Accordion();
-  new SummerSale();
-  new ShopSome();
+  new SummerSale(); // done
+  new ShopSome(); // done
   new ShopFilter();
-  new FeaturedSwiper();
-  new PopularSwiper();
-  new Blog();
-  Loader.stop();
+  new FeaturedSwiper(); // done
+  new PopularSwiper(); // done
+  new Blog(); // done
+  Loader.stop('brands__item');
+  Loader.stop('sales');
+  Loader.stop('limits');
+  Loader.stop('explore__content');
 });
 
 new Skeleton();
