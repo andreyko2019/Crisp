@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import injectHTML from 'vite-plugin-html-inject';
 import pages from './pages.config.js';
 
+
 const pagesInput = {};
 
 pages.forEach((page) => {

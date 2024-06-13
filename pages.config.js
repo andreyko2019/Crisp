@@ -13,6 +13,10 @@ const pages = [
     name: 'new',
     path: resolve(__dirname, 'new.html'),
   },
+  {
+    name: 'catalog',
+    path: resolve(__dirname, 'catalog.html'),
+  },
 ];
 
 export default pages;
