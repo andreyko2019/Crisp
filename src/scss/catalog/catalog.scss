@@ -1,0 +1,30 @@
+.catalog {
+  padding: 72px 0 78px;
+  &__inner {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__filter-forms {
+    display: flex;
+    flex-direction: column;
+    width: 355px;
+  }
+
+  &__shop {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-end;
+  }
+
+  &__shop-dropdowns {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+  }
+
+  &__cards {
+    width: 100%;
+  }
+}

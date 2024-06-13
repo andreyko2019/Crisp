@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <!-- <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Catalog</title> -->
+  <load ="./src/html/components/head.htm" title="Catalog" styles="catalog" />
+
+  <body>
+    <div class="wrapper">
+      <load ="./src/html/components/header.htm" />
+
+      <div class="page">
+        <load src="src/html/components/promo.html" promoClass="promo" imgSrc="src/img/catalog/bg.png" webpSrc="src/img/catalog/bg.webp" />
+        <section class="catalog">
+          <div class="container">
+            <load ="./src/html/components/bread-crumbs.htm" pageOne="Womens Dress" pageOneHref="#" pageTwo="Best Chose" pageTwoHref="#" />
+
+            <div class="catalog__inner">
+              <div class="catalog__filter-forms">
+                <load src="src/html/catalog/filter-form.html" />
+
+                <load src="src/html/catalog/filter-form.html" />
+              </div>
+
+              <div class="catalog__shop">
+                <div class="catalog__shop-dropdowns">
+                  <div class="content-bottom__dropdown dropdown">
+                    <div class="dropdown__box">
+                      <p class="dropdown__text">price (High to low)</p>
+                      <svg class="dropdown__svg-arrow">
+                        <use href="#arrow-down"></use>
+                      </svg>
+                    </div>
+
+                    <ul class="dropdown__menu">
+                      <li class="dropdown__menu-item">price (low to high)k</li>
+                      <li class="dropdown__menu-item">price (High to low)</li>
+                    </ul>
+                  </div>
+
+                  <div class="content-bottom__dropdown dropdown">
+                    <div class="dropdown__box dropdown__box_filter">
+                      <p class="dropdown__text">8</p>
+                      <svg class="dropdown__svg-arrow">
+                        <use href="#arrow-down"></use>
+                      </svg>
+                    </div>
+
+                    <ul class="dropdown__menu">
+                      <li class="dropdown__menu-item">12</li>
+                      <li class="dropdown__menu-item">16</li>
+                      <li class="dropdown__menu-item">20</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="shop-some__items catalog__cards">
+                  <button class="btn shop-some__load">Load more</button>
+                </div>
+              </div>
+
+              <!-- <div class="catalog__cards cards"></div> -->
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <load ="./src/html/components/footer.htm" />
+    </div>
+    <script type="module" src="./src/ts/catalog.ts"></script>
+  </body>
+</html>
