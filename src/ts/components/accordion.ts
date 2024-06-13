@@ -7,7 +7,7 @@ export class Accordion {
   constructor() {
     this.accordionTitle = getElements('.accordion__item') as NodeListOf<HTMLElement>;
     this.accordionContent = getElements('.accordion__info') as NodeListOf<HTMLElement>;
-    
+
     this.initAccordion();
   }
 
@@ -35,7 +35,7 @@ export class Accordion {
     });
 
     if (isOpen) {
-      this.accordionContent[index].style.maxHeight = `${this.accordionContent[index].scrollHeight}px`;
+      this.accordionContent[index].style.maxHeight = `${this.accordionContent[index].scrollHeight + 20}px`;
     } else {
       this.accordionContent[index].style.maxHeight = '0';
     }
@@ -47,7 +47,7 @@ export class Accordion {
         content.classList.remove('active');
       }
     });
-    
+
     this.accordionTitle.forEach((content, index) => {
       if (index !== currentIndex && content.classList.contains('active')) {
         content.classList.remove('active');

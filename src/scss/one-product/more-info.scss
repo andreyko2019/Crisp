@@ -1,0 +1,93 @@
+.more-info {
+  margin-top: 50px;
+  &__content {
+    max-width: 1242px;
+    margin: 0 auto;
+  }
+
+  .accordion {
+    background-color: $grayLight;
+    padding: 0 27px;
+    margin-bottom: 10px;
+
+    &__item {
+      font-family: Oswald;
+      font-size: 24px;
+      position: relative;
+      width: 100%;
+      padding: 24px 0;
+
+      &::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 50%;
+        width: 19px;
+        height: 18px;
+        transform: translate(0, -50%);
+        transition: all 0.5s ease;
+        background-image: url(/Crisp/src/img/svg/plus.svg);
+      }
+    }
+
+    &__info {
+      margin-top: 0;
+      max-height: 0;
+      visibility: hidden;
+      opacity: 0;
+      position: relative;
+      transition: all 0.5s ease;
+
+      &.active {
+        padding-top: 32px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        padding-bottom: 19px;
+        max-height: 100%;
+        visibility: visible;
+        transition: all 0.5s ease;
+        opacity: 1;
+      }
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 2px;
+        background-color: $grayMedium;
+      }
+
+      h4 {
+        font-family: Oswald;
+        font-size: 14px;
+        line-height: 25px;
+        margin-bottom: 15px;
+      }
+
+      p,
+      ul {
+        font-family: RobotoLight;
+        font-size: 14px;
+        line-height: 30px;
+        max-width: 567px;
+      }
+
+      ul,
+      li {
+        list-style: inside;
+      }
+    }
+  }
+
+  &__advant {
+    width: 100%;
+    order: 2;
+  }
+
+  &__ship {
+    order: 1;
+    max-height: 128px;
+  }
+}
