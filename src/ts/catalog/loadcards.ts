@@ -3,7 +3,7 @@ import { getElement } from '../composables/callDom';
 import { fetchComposable } from '../composables/useFetch';
 import { LoadMoreComponent } from '../components/btnLoad';
 
-export const loadCards = function () {
+export function loadCards() {
   const clothersWrapper = getElement('.shop-some__items');
 
   class ShopSome {
@@ -109,15 +109,18 @@ export const loadCards = function () {
     menu: HTMLElement | null;
     options: NodeListOf<HTMLElement>;
     selectedText: HTMLElement | null;
+    sortOrder: 'ascend' | 'descend';
 
     constructor(dropdown: HTMLElement) {
       super();
       console.log(this.shopDb);
-      this.dropdownBox = dropdown.querySelector('.dropdown__box');
+      // getElement('.dropdown__box', dropdown);
+      this.dropdownBox = getElement('.dropdown__box', dropdown);
       this.arrowSvg = dropdown.querySelector('.dropdown__svg-arrow');
       this.menu = dropdown.querySelector('.dropdown__menu');
       this.options = dropdown.querySelectorAll('.dropdown__menu-item');
       this.selectedText = dropdown.querySelector('.dropdown__text');
+      this.sortOrder = 'ascend';
 
       this.dropdownBox?.addEventListener('click', () => {
         this.arrowSvg?.classList.toggle('dropdown__svg-arrow_rotate');
@@ -137,6 +140,12 @@ export const loadCards = function () {
             opt.classList.remove('dropdown__menu-item_active');
           });
           option.classList.add('dropdown__menu-item_active');
+
+          if (option.innerText === 'price (low to high)') {
+            this.sortOrder = 'ascend';
+          } else {
+            this.sortOrder = 'descend';
+          }
           this.renderCard();
         });
       });
@@ -146,12 +155,22 @@ export const loadCards = function () {
       let limitCards = Number(this.selectedText?.innerText);
       const visibleCards = this.shopDb.slice(0, limitCards);
       console.log(limitCards);
+
+      // if (this.sortOrder === 'ascend') {
+      //   visibleCards.sort((a, b) => a.data.cost - b.data.cost);
+      // } else {
+      //   visibleCards.sort((a, b) => b.data.cost - a.data.cost);
+      // }
+
+      // const str = '139,00 EUR';
+      // const numb = parseFloat(str.replace(',', '.'));
+
+      // console.log(numb);
+
       if (clothersWrapper) {
         // const loadElement = clothersWrapper.querySelector('.shop-some__load');
         clothersWrapper.innerHTML = '';
-        // if (loadElement) {
-        //   clothersWrapper.appendChild(loadElement);
-        // }
+
         visibleCards.forEach((item) => {
           if (clothersWrapper) {
             if (item.data.sale.booleanValue === false) {
@@ -193,7 +212,6 @@ export const loadCards = function () {
                 <p class="card__price">${item.data.costNew.stringValue} <span>${item.data.cost.stringValue}</span></p>
               </div>
             </a>
-            
                 `
               );
             }
@@ -205,4 +223,4 @@ export const loadCards = function () {
 
   const dropdowns = document.querySelectorAll<HTMLElement>('.dropdown');
   dropdowns.forEach((dropdown) => new Dropdown(dropdown));
-};
+}
