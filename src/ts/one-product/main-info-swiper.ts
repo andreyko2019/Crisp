@@ -1,6 +1,6 @@
 import Swiper from 'swiper';
 import { Pagination, Autoplay } from 'swiper/modules';
-import { getElement, getElements } from '../composables/callDom';
+import { getElement, getElements, renderElement } from '../composables/useCallDom';
 import 'swiper/swiper-bundle.css';
 import { SlidesClothersRef } from '../components/interface';
 import { Tabs } from '../components/tabs';
@@ -45,7 +45,6 @@ export class MainInfoSwiper {
       });
       this.initTabsSync();
     } else {
-      // Disable autoplay and pagination if there is only one slide
       const swiperContainer = getElement('.main-img__swiper');
       if (swiperContainer) {
         swiperContainer.classList.remove('swiper-container-initialized', 'swiper-container-horizontal');
@@ -120,41 +119,69 @@ export class MainInfoSwiper {
       const { img, subImg1, subImg2, subImgWebP1, subImgWebP2 } = this.slidesArr;
 
       if (img && subImg1 && subImg2 && subImgWebP1 && subImgWebP2) {
-        clothersWrapperTabs.innerHTML = `
-          <button class="tabs__nav-btn tabs__nav-btn_active" type="button" data-tab="#slide-1">
-              <img src="${img.stringValue}" />
-          </button>
-          <button class="tabs__nav-btn" type="button" data-tab="#slide-2">
-              <img src="${subImg1.stringValue}" />
-          </button>
-          <button class="tabs__nav-btn" type="button" data-tab="#slide-3">
-              <img src="${subImg2.stringValue}" />
-          </button>
+        const tab1 = renderElement('button', ['tabs__nav-btn', 'tabs__nav-btn_active']) as HTMLButtonElement;
+        tab1.type = 'button';
+        tab1.dataset.tab = '#slide-1';
+        tab1.innerHTML = `
+          <img src="${img.stringValue}" />
         `;
 
-        clothersWrapperItem.innerHTML = `
-          <div class="main-img__slide swiper-slide tabs__item tabs__item_active" id="slide-1">
-            <img src="${img.stringValue}" />
-          </div>
-          <div class="main-img__slide swiper-slide tabs__item" id="slide-2">
-            <img src="${subImg1.stringValue}" />
-          </div>
-          <div class="main-img__slide swiper-slide tabs__item" id="slide-3">
-            <img src="${subImg2.stringValue}" />
-          </div>
+        const tab2 = renderElement('button', 'tabs__nav-btn') as HTMLButtonElement;
+        tab2.type = 'button';
+        tab2.dataset.tab = '#slide-2';
+        tab2.innerHTML = `
+          <img src="${subImg1.stringValue}" />
         `;
+
+        const tab3 = renderElement('button', 'tabs__nav-btn') as HTMLButtonElement;
+        tab3.type = 'button';
+        tab3.dataset.tab = '#slide-3';
+        tab3.innerHTML = `
+          <img src="${subImg2.stringValue}" />
+        `;
+
+        clothersWrapperTabs.appendChild(tab1);
+        clothersWrapperTabs.appendChild(tab2);
+        clothersWrapperTabs.appendChild(tab3);
+
+        const slide1 = renderElement('div', ['main-img__slide', 'swiper-slide', 'tabs__item', 'tabs__item_active']);
+        slide1.id = 'slide-1';
+        slide1.innerHTML = `
+          <img src="${img.stringValue}" />
+        `;
+
+        const slide2 = renderElement('div', ['main-img__slide', 'swiper-slide', 'tabs__item', 'tabs__item_active']);
+        slide2.id = 'slide-2';
+        slide2.innerHTML = `
+          <img src="${subImg1.stringValue}" />
+        `;
+
+        const slide3 = renderElement('div', ['main-img__slide', 'swiper-slide', 'tabs__item', 'tabs__item_active']);
+        slide3.id = 'slide-3';
+        slide3.innerHTML = `
+          <img src="${subImg2.stringValue}" />
+        `;
+
+        clothersWrapperItem.appendChild(slide1);
+        clothersWrapperItem.appendChild(slide2);
+        clothersWrapperItem.appendChild(slide3);
       } else if (img?.stringValue != null) {
-        clothersWrapperTabs.innerHTML = `
-          <button class="tabs__nav-btn tabs__nav-btn_active" type="button" data-tab="#slide-1">
-            <img src="${img.stringValue}" />
-          </button>
+        const tab1 = renderElement('button', ['tabs__nav-btn', 'tabs__nav-btn_active']) as HTMLButtonElement;
+        tab1.type = 'button';
+        tab1.dataset.tab = '#slide-1';
+        tab1.innerHTML = `
+          <img src="${img.stringValue}" />
         `;
 
-        clothersWrapperItem.innerHTML = `
-          <div class="main-img__slide swiper-slide tabs__item tabs__item_active" id="slide-1">
-            <img src="${img.stringValue}" />
-          </div>
+        clothersWrapperTabs.appendChild(tab1);
+
+        const slide1 = renderElement('div', ['main-img__slide', 'swiper-slide', 'tabs__item', 'tabs__item_active']);
+        slide1.id = 'slide-1';
+        slide1.innerHTML = `
+          <img src="${img.stringValue}" />
         `;
+
+        clothersWrapperItem.appendChild(slide1);
       }
     }
   }

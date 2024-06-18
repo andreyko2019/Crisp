@@ -1,4 +1,4 @@
-import { getElements } from '../composables/callDom';
+import { getElements } from '../composables/useCallDom';
 
 export class Accordion {
   accordionTitle: NodeListOf<HTMLElement>;

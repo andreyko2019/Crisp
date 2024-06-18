@@ -8,9 +8,11 @@ import { FeaturedSwiper } from './main/featured-items-swiper';
 import { PopularSwiper } from './main/most-popular';
 import { Blog } from './main/blog';
 import { Skeleton } from './components/skeleton';
+import { Search } from './components/search';
 
 document.addEventListener('DOMContentLoaded', async () => {
   new Burger();
+  new Search();
   new Accordion();
   new SummerSale(); // done
   new ShopSome(); // done
