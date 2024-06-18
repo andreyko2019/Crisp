@@ -1,6 +1,6 @@
 import Swiper from 'swiper';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
-import { getElement } from '../composables/useCallDom';
+import { getElement, renderElement } from '../composables/useCallDom';
 import { fetchComposable } from '../composables/useFetch';
 import { Slides } from '../components/interface';
 import { Loader } from '../modules/stop-preload';
@@ -73,17 +73,15 @@ export class SummerSale {
   renderSlides() {
     this.slidesArr.forEach((item) => {
       if (swiperWrapper) {
-        swiperWrapper.insertAdjacentHTML(
-          'beforeend',
-          `
-          <div class="swiper-slide summer-sale__slide">
+        const slide = renderElement('div', ['swiper-slide', 'summer-sale__slide']);
+        slide.innerHTML = `
             <picture>
               <source srcset=${item.imgWebP.stringValue} type="image/webp" />
               <img src=${item.img.stringValue}/>
             </picture>
-          </div>
-          `
-        );
+        `;
+
+        swiperWrapper.appendChild(slide);
       }
     });
   }

@@ -1,5 +1,5 @@
 import { ShopFilters } from '../components/interface';
-import { getElement } from '../composables/useCallDom';
+import { getElement, renderElement } from '../composables/useCallDom';
 import { fetchComposable } from '../composables/useFetch';
 import { LoadMoreComponent } from '../components/btnLoad';
 import { Loader } from '../modules/stop-preload';
@@ -54,51 +54,58 @@ export class ShopSome {
   }
 
   renderCard() {
-    this.shopDb.forEach((item) => {
-      if (clothersWrapper) {
-        if (item.data.sale.booleanValue === false) {
-          clothersWrapper.insertAdjacentHTML(
-            'afterbegin',
-            `
-            <a class="card shop-some__card ${item.id}" href="one-product.html?id=${item.id}">
-              <div class="card__img">
-                <picture>
-                  <source srcset=${item.data.imgWebP.stringValue} type="image/webp" />
-                  <img src=${item.data.img.stringValue} />
-                </picture>
-              </div>
-              <div class="card__info">
-                <p class="card__category">${item.data.category.stringValue}</p>
-                <h3 class="card__title">${item.data.name.stringValue}</h3>
-                <p class="card__price">${item.data.cost.stringValue}</p>
-              </div>
-            </a>
-            `
-          );
-        } else {
-          clothersWrapper.insertAdjacentHTML(
-            'afterbegin',
-            `
-            <a class="card sale shop-some__card ${item.id}" href="one-product.html?id=${item.id}">
-              <div class="card__img">
-                <picture>
-                  <source srcset=${item.data.imgWebP.stringValue} type="image/webp" />
-                  <img src=${item.data.img.stringValue} />
-                </picture>
-                <div class="card__sale">
-                  <p>-30%</p>
-                </div>
-              </div>
-              <div class="card__info">
-                <p class="card__category">${item.data.category.stringValue}</p>
-                <h3 class="card__title">${item.data.name.stringValue}</h3>
-                <p class="card__price">${item.data.costNew.stringValue} <span>${item.data.cost.stringValue}</span></p>
-              </div>
-            </a>
-                `
-          );
+    if (clothersWrapper) {
+      this.shopDb.forEach((item) => {
+        const card = renderElement('a', ['card', 'shop-some__card', item.id]) as HTMLAnchorElement;
+        card.href = `one-product.html?id=${item.id}`;
+        if (item.data.sale.booleanValue === true) {
+          card.classList.add('sale');
         }
-      }
-    });
+
+        const img = renderElement('div', 'card__img');
+        img.innerHTML += `
+            <picture>
+              <source srcset=${item.data.imgWebP.stringValue} type="image/webp" />
+              <img src=${item.data.img.stringValue} />
+            </picture>
+        `;
+        if (item.data.sale.booleanValue === true) {
+          img.innerHTML += `
+            <div class="card__sale">
+              <p>-30%</p>
+            </div>
+          `;
+        }
+
+        const info = renderElement('div', 'card__info');
+
+        const category = renderElement('p', 'card__category');
+        category.innerText = item.data.category.stringValue;
+
+        const title = renderElement('h3', 'card__title');
+        title.innerText = item.data.name.stringValue;
+
+        const price = renderElement('p', 'card__price');
+        if (item.data.sale.booleanValue === false) {
+          price.innerText = item.data.cost.stringValue;
+        } else {
+          price.innerHTML = `${item.data.costNew.stringValue} <span>${item.data.cost.stringValue}</span>`;
+        }
+
+        info.appendChild(category);
+        info.appendChild(title);
+        info.appendChild(price);
+
+        card.appendChild(img);
+        card.appendChild(info);
+
+        clothersWrapper.appendChild(card);
+      });
+
+      const btnLoad = renderElement('button', ['btn', 'shop-some__load']);
+      btnLoad.textContent = 'Load more';
+
+      clothersWrapper.appendChild(btnLoad);
+    }
   }
 }

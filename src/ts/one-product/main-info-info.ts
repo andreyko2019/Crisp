@@ -1,6 +1,7 @@
 import { OneDress } from '../components/interface';
-import { getElement, getElements } from '../composables/useCallDom';
+import { getElement, getElements, renderElement } from '../composables/useCallDom';
 import { fetchComposable } from '../composables/useFetch';
+import { Loader } from '../modules/stop-preload';
 
 const brandElement = getElement('.info__brand p');
 const titleElement = getElement('.info__title');
@@ -13,10 +14,10 @@ export class MainInfo {
 
   constructor() {
     this.clotherInfo = null;
-    this.init();
+    this.init().then(() => Loader.stop('main-info__info'));
   }
 
-  init() {
+  async init() {
     this.conectDb();
   }
 
@@ -80,15 +81,19 @@ export class MainInfo {
       this.clotherInfo.color.arrayValue.values.forEach((color) => {
         if (colorBtns) {
           colorBtns.forEach((btns) => {
-            btns.insertAdjacentHTML(
-              'beforeend',
-              `
-              <div class="color color__${color.stringValue}">
-                  <input type="radio" id="${color.stringValue}" name="color" />
-                  <div class="custom-radio"></div>
-              </div>
-              `
-            );
+            const colorBtn = renderElement('div', ['color', `color__${color.stringValue}`]);
+
+            const colorInput = renderElement('input', null) as HTMLInputElement;
+            colorInput.type = 'radio';
+            colorInput.name = 'color';
+            colorInput.id = color.stringValue;
+
+            const customRadio = renderElement('div', 'custom-radio');
+
+            colorBtn.appendChild(colorInput);
+            colorBtn.appendChild(customRadio);
+
+            btns.appendChild(colorBtn);
           });
         }
       });
