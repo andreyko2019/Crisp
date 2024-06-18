@@ -5,6 +5,7 @@ import 'swiper/swiper-bundle.css';
 import { SlidesClothersRef } from '../components/interface';
 import { Tabs } from '../components/tabs';
 import { fetchComposable } from '../composables/useFetch';
+import { Loader } from '../modules/stop-preload';
 
 Swiper.use([Pagination, Autoplay]);
 
@@ -19,10 +20,10 @@ export class MainInfoSwiper {
     this.swiper = null;
     this.slidesArr = null;
 
-    this.init();
+    this.init().then(() => Loader.stop('main-info__tabs'));
   }
 
-  init() {
+  async init() {
     this.conectDb();
   }
 
@@ -105,7 +106,7 @@ export class MainInfoSwiper {
       console.log(this.slidesArr);
       this.renderSlides();
       this.initSwiper();
-      new Tabs(); 
+      new Tabs();
     }
   }
 

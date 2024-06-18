@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   new Dropdown('.info__sizes');
   new MainInfo();
   new LikeSwiper();
-  Loader.stop();
+  Loader.stop('more-info');
 });
 
 new Skeleton();

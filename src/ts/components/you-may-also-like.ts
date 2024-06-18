@@ -3,6 +3,7 @@ import { Navigation, Autoplay } from 'swiper/modules';
 import { getElement, getElements } from '../composables/callDom';
 import { fetchComposable } from '../composables/useFetch';
 import { ShopFilters } from '../components/interface';
+import { Loader } from '../modules/stop-preload';
 
 Swiper.use([Navigation, Autoplay]);
 
@@ -16,6 +17,10 @@ export class LikeSwiper {
     this.swiper = null;
     this.slidesArr = [];
 
+    this.init().then(() => Loader.stop('you-may-also-like__swiper'));
+  }
+
+  async init() {
     this.initSwiper();
     this.loadCards();
   }

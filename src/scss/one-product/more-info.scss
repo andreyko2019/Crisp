@@ -1,5 +1,10 @@
 .more-info {
-  margin-top: 50px;
+  margin-top: 40px;
+
+  @include media-breakpoint-down(md) {
+    margin-top: 30px;
+  }
+
   &__content {
     max-width: 1242px;
     margin: 0 auto;
@@ -8,14 +13,22 @@
   .accordion {
     background-color: $grayLight;
     padding: 0 27px;
-    margin-bottom: 10px;
+    margin-bottom: 7px;
+
+    @include media-breakpoint-down(md) {
+      padding: 0 10px;
+    }
 
     &__item {
       font-family: Oswald;
-      font-size: 24px;
+      font-size: clamp(12px, 2.5vw, 24px);
       position: relative;
       width: 100%;
       padding: 24px 0;
+
+      @include media-breakpoint-down(md) {
+        padding: 17.5px 0;
+      }
 
       &::after {
         content: '';
@@ -26,7 +39,20 @@
         height: 18px;
         transform: translate(0, -50%);
         transition: all 0.5s ease;
-        background-image: url(/Crisp/src/img/svg/plus.svg);
+        background-image: url('../../img/svg/plus.svg');
+        background-size: cover;
+
+        @include media-breakpoint-down(md) {
+          width: 12px;
+          height: 12px;
+        }
+      }
+
+      &.active {
+        &::after {
+          right: 5px;
+          transform: rotate(45deg) translate(0, -50%);
+        }
       }
     }
 
@@ -41,13 +67,17 @@
       &.active {
         padding-top: 32px;
         display: flex;
-        flex-wrap: wrap;
+        justify-content: space-between;
         gap: 15px;
         padding-bottom: 19px;
         max-height: 100%;
         visibility: visible;
         transition: all 0.5s ease;
         opacity: 1;
+
+        @include media-breakpoint-down(md) {
+          flex-direction: column;
+        }
       }
 
       &::before {
@@ -61,33 +91,35 @@
 
       h4 {
         font-family: Oswald;
-        font-size: 14px;
+        font-size: clamp(12px, 2.5vw, 14px);
         line-height: 25px;
-        margin-bottom: 15px;
+        margin-bottom: 8px;
       }
 
       p,
       ul {
         font-family: RobotoLight;
-        font-size: 14px;
-        line-height: 30px;
-        max-width: 567px;
+        font-size: clamp(12px, 2.5vw, 14px);
+        line-height: 20px;
+        max-width: 570px;
+        letter-spacing: 0.1px;
+
+        @include media-breakpoint-down(md) {
+          max-width: 100%;
+        }
       }
 
       ul,
       li {
         list-style: inside;
+        line-height: 27.4px;
       }
     }
   }
 
-  &__advant {
-    width: 100%;
-    order: 2;
-  }
-
-  &__ship {
-    order: 1;
-    max-height: 128px;
+  &__left {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
   }
 }

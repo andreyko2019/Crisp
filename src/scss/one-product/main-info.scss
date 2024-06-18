@@ -18,7 +18,6 @@
     max-width: 1242px;
     margin: 0 auto;
     column-gap: 70px;
-    // row-gap: 17px;
 
     @include media-breakpoint-down(l) {
       max-width: 1343px;
@@ -392,6 +391,7 @@
               height: 200px;
               overflow: scroll;
               margin-top: 5px;
+              z-index: 5;
             }
           }
         }

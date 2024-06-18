@@ -35,7 +35,7 @@ export class Accordion {
     });
 
     if (isOpen) {
-      this.accordionContent[index].style.maxHeight = `${this.accordionContent[index].scrollHeight + 20}px`;
+      this.accordionContent[index].style.maxHeight = `fit-content`;
     } else {
       this.accordionContent[index].style.maxHeight = '0';
     }

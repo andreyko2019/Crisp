@@ -2,6 +2,7 @@ import { OneNew } from '../components/interface';
 import { Skeleton } from '../components/skeleton';
 import { getElement } from '../composables/callDom';
 import { fetchComposable } from '../composables/useFetch';
+import { Loader } from '../modules/stop-preload';
 
 const newContainer = getElement('.new-info');
 
@@ -11,7 +12,7 @@ export class NewInfo {
   constructor() {
     this.newInfo = null;
 
-    this.initInfo();
+    this.initInfo().then(() => Loader.stop('new-info'));
   }
 
   async initInfo() {

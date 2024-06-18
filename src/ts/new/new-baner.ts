@@ -1,9 +1,10 @@
 import { getElement } from '../composables/callDom';
 import { fetchComposable } from '../composables/useFetch';
+import { Loader } from '../modules/stop-preload';
 
 export class NewBaner {
   constructor() {
-    this.initBaner();
+    this.initBaner().then(() => Loader.stop('new-baner'));
   }
 
   async initBaner() {

@@ -11,9 +11,8 @@ export class Calculator {
     this.buttonCountPlus = document.getElementById('buttonCountPlus') as HTMLInputElement;
     this.buttonCountMinus = document.getElementById('buttonCountMinus') as HTMLInputElement;
 
-    // Extract initial price from the calculation element
     const initialPriceText = this.calculationElement.innerHTML.trim();
-    this.calculation = +initialPriceText.replace(',', '.'); // Convert comma to dot for numeric parsing
+    this.calculation = +initialPriceText.replace(',', '.');
 
     this.buttonCountPlus.onclick = this.incrementCount.bind(this);
     this.buttonCountMinus.onclick = this.decrementCount.bind(this);

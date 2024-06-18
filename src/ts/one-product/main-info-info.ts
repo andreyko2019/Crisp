@@ -1,6 +1,7 @@
 import { OneDress } from '../components/interface';
 import { getElement, getElements } from '../composables/callDom';
 import { fetchComposable } from '../composables/useFetch';
+import { Loader } from '../modules/stop-preload';
 
 const brandElement = getElement('.info__brand p');
 const titleElement = getElement('.info__title');
@@ -13,10 +14,10 @@ export class MainInfo {
 
   constructor() {
     this.clotherInfo = null;
-    this.init();
+    this.init().then(() => Loader.stop('main-info__info'));
   }
 
-  init() {
+  async init() {
     this.conectDb();
   }
 
