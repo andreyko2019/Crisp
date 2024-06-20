@@ -12,6 +12,8 @@ export class Skeleton {
 
   removeSkeleton() {
     document.addEventListener('loadingIsFinished', (event: CustomEvent) => {
+      this.allSkeleton = getElements('.skeleton');
+
       let totals = 0;
       if (event.detail) {
         const blockImages: NodeListOf<HTMLImageElement> = document.querySelectorAll('.' + event.detail.block + ' img');
@@ -22,14 +24,18 @@ export class Skeleton {
         blockImages.forEach((img: HTMLImageElement) => {
           if (img.complete) {
             totals += 1;
-            if (totals >= event!.detail!.requiredImagesCount) {
-              this.removeClassname(event);
+            if (event.detail?.requiredImagesCount) {
+              if (totals >= event.detail.requiredImagesCount) {
+                this.removeClassname(event);
+              }
             }
           }
           img.onload = () => {
             totals += 1;
-            if (totals >= event!.detail!.requiredImagesCount) {
-              this.removeClassname(event);
+            if (event.detail?.requiredImagesCount) {
+              if (totals >= event.detail.requiredImagesCount) {
+                this.removeClassname(event);
+              }
             }
           };
         });
@@ -39,8 +45,10 @@ export class Skeleton {
 
   removeClassname(event: CustomEvent) {
     this.allSkeleton.forEach((item) => {
-      if (item.classList.contains(event!.detail!.block)) {
-        item.classList.remove('skeleton');
+      if (event.detail?.block) {
+        if (item.classList.contains(event.detail.block)) {
+          item.classList.remove('skeleton');
+        }
       }
     });
   }

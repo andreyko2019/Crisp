@@ -1,0 +1,58 @@
+<div class="sign-up">
+  <div class="container">
+    <div class="sign-up__content">
+      <h2 class="sign-up__title">Create New Customer Account</h2>
+
+      <div class="sign-up__form">
+        <form class="form" id="sign-up">
+          <div class="form__personal-info">
+            <h3 class="form__title">Personal Information</h3>
+            <div class="form__item">
+              <label for="email-sign-up">First name <span>*</span></label>
+              <div class="form__input">
+                <input type="text" class="form__item-input" placeholder="Your first name" id="name-sign-up" onsubmit="event.preventDefault();" />
+              </div>
+            </div>
+            <div class="form__item">
+              <label for="email-sign-up">Last name <span>*</span></label>
+              <div class="form__input">
+                <input type="text" class="form__item-input" placeholder="Your last name" id="surname-sign-up" onsubmit="event.preventDefault();" />
+              </div>
+            </div>
+            <label class="form__agree">
+              <input type="checkbox" autocomplete="false" />
+              <div class="custom-checkbox"></div>
+              Sign Up for Newsletter
+            </label>
+          </div>
+
+          <div class="form__newsletter">
+            <h3 class="form__title">Sign Up for Newsletter</h3>
+            <div class="form__item">
+              <label for="#email-login" class="form__item-label">E-mail <span>*</span></label>
+              <div class="form__input">
+                <input type="email" class="form__item-input" placeholder="Your e-mail" id="email" onsubmit="event.preventDefault();" />
+              </div>
+            </div>
+            <div class="form__item">
+              <label for="#password" class="form__item-label">Passwrod <span>*</span></label>
+              <div class="form__input">
+                <input type="password" class="form__item-input" placeholder="Your password" id="password" onsubmit="event.preventDefault();" />
+              </div>
+            </div>
+            <div class="form__item">
+              <label for="#confirm-password" class="form__item-label">Confirm Passwrod <span>*</span></label>
+              <div class="form__input">
+                <input type="password" class="form__item-input" placeholder="Your password" id="confirm-password" onsubmit="event.preventDefault();" />
+              </div>
+            </div>
+            <div class="form__buttons">
+              <button class="btn black create" type="submit">create an account</button>
+              <a href="#" onclick="history.back();return false;" class="back">back</a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

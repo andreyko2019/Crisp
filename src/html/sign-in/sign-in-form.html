@@ -1,0 +1,30 @@
+<div class="sign-in">
+  <div class="container">
+    <div class="sign-in__content">
+      <h2 class="sign-in__title">Create New Customer Account</h2>
+
+      <div class="sign-in__form">
+        <form class="form" id="sign-in">
+          <div class="form__newsletter">
+            <div class="form__item">
+              <label for="#email-login" class="form__item-label">E-mail <span>*</span></label>
+              <div class="form__input">
+                <input type="email" class="form__item-input" placeholder="Your e-mail" id="email" onsubmit="event.preventDefault();" />
+              </div>
+            </div>
+            <div class="form__item">
+              <label for="#password" class="form__item-label">Passwrod <span>*</span></label>
+              <div class="form__input">
+                <input type="password" class="form__item-input" placeholder="Your password" id="password" onsubmit="event.preventDefault();" />
+              </div>
+            </div>
+            <div class="form__buttons">
+              <button class="btn black create" type="submit">Log In</button>
+              <a href="#" onclick="history.back();return false;" class="back">back</a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
