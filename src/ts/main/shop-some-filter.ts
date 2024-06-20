@@ -1,15 +1,15 @@
 import { ShopFilters } from '../components/interface';
-import { getElement, getElements } from '../composables/callDom';
+import { getElement, getElements, renderElement } from '../composables/useCallDom';
 import { fetchComposable } from '../composables/useFetch';
 
-interface FirebaseResponse {
-  document: {
-    fields: ShopFilters;
-  };
-}
+const clothersWrapper = getElement('.shop-some__items');
 
 export class ShopFilter {
+  shopDb: { id: string; data: ShopFilters }[];
+
   constructor() {
+    this.shopDb = [];
+
     this.initEventListeners();
   }
 
@@ -41,18 +41,25 @@ export class ShopFilter {
 
     const url = `https://firestore.googleapis.com/v1/projects/${firebaseConfig.projectId}/databases/(default)/documents:runQuery`;
 
-    const response = await fetchComposable<FirebaseResponse[], typeof requestBody>(url, {
+    const response = await fetchComposable<{ document: { name: string; fields: ShopFilters } }[], typeof requestBody>(url, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
       body: requestBody,
     });
 
     if (response.error) {
       console.error('Произошла ошибка:', response.error);
     } else if (response.data && Array.isArray(response.data) && response.data.length > 0) {
-      const items = response.data.filter((item) => item.document && item.document.fields).map((item) => item.document.fields);
+      const items = response.data
+        .filter((item) => item.document && item.document.fields)
+        .map((item) => {
+          const id = item.document.name.split('/').pop(); // Extracting id from the document name
+          return {
+            id, // This could be undefined, handle this case
+            data: item.document.fields,
+          };
+        })
+        .filter((item): item is { id: string; data: ShopFilters } => !!item.id); // Ensure id is not undefined
+
       console.log(items);
       this.updateContent(items);
     } else {
@@ -60,50 +67,54 @@ export class ShopFilter {
     }
   }
 
-  private updateContent(items: ShopFilters[]): void {
-    const shopItemsContainer = getElement('.shop-some__items');
-
-    if (shopItemsContainer) {
-      shopItemsContainer.innerHTML = '';
+  private updateContent(items: { id: string; data: ShopFilters }[]): void {
+    if (clothersWrapper) {
+      clothersWrapper.innerHTML = '';
       items.forEach((item) => {
-        if (item.sale.booleanValue === false) {
-          const cardHTML = `
-          <a class="card shop-some__card" href="#">
-            <div class="card__img">
-              <picture>
-                <source srcset=${item.imgWebP.stringValue} type="image/webp" />
-                <img src=${item.img.stringValue} />
-              </picture>
-            </div>
-            <div class="card__info">
-              <p class="card__category">${item.category.stringValue}</p>
-              <h3 class="card__title">${item.name.stringValue}</h3>
-              <p class="card__price">${item.cost.stringValue}</p>
-            </div>
-          </a>
-        `;
-          shopItemsContainer.innerHTML += cardHTML;
-        } else {
-          const cardHTML = `
-          <a class="card sale shop-some__card" href="#">
-            <div class="card__img">
-              <picture>
-                <source srcset=${item.imgWebP.stringValue} type="image/webp" />
-                <img src=${item.img.stringValue} />
-              </picture>
-              <div class="card__sale">
-                <p>-30%</p>
-              </div>
-            </div>
-            <div class="card__info">
-              <p class="card__category">${item.category.stringValue}</p>
-              <h3 class="card__title">${item.name.stringValue}</h3>
-              <p class="card__price">${item.costNew.stringValue} <span>${item.cost.stringValue}</span></p>
-            </div>
-          </a>
-        `;
-          shopItemsContainer.innerHTML += cardHTML;
+        const card = renderElement('a', ['card', 'shop-some__card', item.id]) as HTMLAnchorElement;
+        card.href = `one-product.html?id=${item.id}`;
+        if (item.data.sale.booleanValue === true) {
+          card.classList.add('sale');
         }
+
+        const img = renderElement('div', 'card__img');
+        img.innerHTML += `
+            <picture>
+              <source srcset=${item.data.imgWebP.stringValue} type="image/webp" />
+              <img src=${item.data.img.stringValue} />
+            </picture>
+        `;
+        if (item.data.sale.booleanValue === true) {
+          img.innerHTML += `
+            <div class="card__sale">
+              <p>-30%</p>
+            </div>
+          `;
+        }
+
+        const info = renderElement('div', 'card__info');
+
+        const category = renderElement('p', 'card__category');
+        category.innerText = item.data.category.stringValue;
+
+        const title = renderElement('h3', 'card__title');
+        title.innerText = item.data.name.stringValue;
+
+        const price = renderElement('p', 'card__price');
+        if (item.data.sale.booleanValue === false) {
+          price.innerText = item.data.cost.stringValue;
+        } else {
+          price.innerHTML = `${item.data.costNew.stringValue} <span>${item.data.cost.stringValue}</span>`;
+        }
+
+        info.appendChild(category);
+        info.appendChild(title);
+        info.appendChild(price);
+
+        card.appendChild(img);
+        card.appendChild(info);
+
+        clothersWrapper.appendChild(card);
       });
 
       const cards = getElements('.shop-some__card');
@@ -120,7 +131,7 @@ export class ShopFilter {
         const loadMoreButton = document.createElement('button');
         loadMoreButton.classList.add('btn', 'shop-some__load');
         loadMoreButton.textContent = 'Load more';
-        shopItemsContainer.insertAdjacentElement('beforeend', loadMoreButton);
+        clothersWrapper.insertAdjacentElement('beforeend', loadMoreButton);
       }
 
       const btn = getElement('.shop-some__load');

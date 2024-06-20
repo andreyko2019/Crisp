@@ -1,6 +1,5 @@
 import { ShopFilters } from '../components/interface';
-
-import { getElement } from '../composables/callDom';
+import { getElement } from '../composables/useCallDom';
 import { fetchComposable } from '../composables/useFetch';
 import { LoadMoreComponent } from '../components/btnLoad';
 

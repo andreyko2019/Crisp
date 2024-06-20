@@ -8,20 +8,23 @@ import { FeaturedSwiper } from './main/featured-items-swiper';
 import { PopularSwiper } from './main/most-popular';
 import { Blog } from './main/blog';
 import { Skeleton } from './components/skeleton';
+import { Search } from './components/search';
 
 
 document.addEventListener('DOMContentLoaded', async () => {
   new Burger();
+  new Search();
   new Accordion();
-  new SummerSale();
-  new ShopSome();
+  new SummerSale(); // done
+  new ShopSome(); // done
   new ShopFilter();
-  new FeaturedSwiper();
-  new PopularSwiper();
-  new Blog();
-  Loader.stop();
-  
-
+  new FeaturedSwiper(); // done
+  new PopularSwiper(); // done
+  new Blog(); // done
+  Loader.stop('brands__item');
+  Loader.stop('sales');
+  Loader.stop('limits');
+  Loader.stop('explore__content');
 });
 
 new Skeleton();

@@ -1,6 +1,7 @@
 import { News } from '../components/interface';
-import { getElement } from '../composables/callDom';
+import { getElement, renderElement } from '../composables/useCallDom';
 import { fetchComposable } from '../composables/useFetch';
+import { Loader } from '../modules/stop-preload';
 
 const newsWrapper = getElement('.blog__cards');
 
@@ -10,7 +11,7 @@ export class Blog {
   constructor() {
     this.newsDb = [];
 
-    this.loadCards();
+    this.loadCards().then(() => Loader.stop('blog__cards'));
   }
 
   async loadCards() {
@@ -55,21 +56,30 @@ export class Blog {
   renderCard() {
     this.newsDb.forEach((item) => {
       if (newsWrapper) {
-        newsWrapper.insertAdjacentHTML(
-          'afterbegin',
-          `
-            <a class="blog__card new ${item.id}" href="new.html?id=${item.id}">
-                <p class="new__category">${item.data.type?.stringValue}</p>
-                <p class="new__title">${item.data.title?.stringValue}</p>
-                <p class="new__info">${item.data.shortInfo?.stringValue}</p>
-                <div class="new__date-and-auth">
-                <p class="date">${item.data.date?.stringValue}</p>
-                by
-                <p class="author">${item.data.author?.stringValue}</p>
-                </div>
-            </a>
-            `
-        );
+        const oneNew = renderElement('a', ['blog__card', 'new', item.id]) as HTMLAnchorElement;
+        oneNew.href = `new.html?id=${item.id}`;
+
+        const category = renderElement('p', 'new__category');
+        category.innerText = item.data.type?.stringValue;
+
+        const title = renderElement('p', 'new__title');
+        title.innerText = item.data.title?.stringValue;
+
+        const info = renderElement('p', 'new__info');
+        info.innerText = item.data.shortInfo?.stringValue;
+
+        const dateAuth = renderElement('p', 'new__date-and-auth');
+        dateAuth.innerHTML = `
+          <span class="date">${item.data.date?.stringValue}</span>
+          by
+          <span class="author">${item.data.author?.stringValue}</span>`;
+
+        oneNew.appendChild(category);
+        oneNew.appendChild(title);
+        oneNew.appendChild(info);
+        oneNew.appendChild(dateAuth);
+
+        newsWrapper.appendChild(oneNew);
       }
     });
   }

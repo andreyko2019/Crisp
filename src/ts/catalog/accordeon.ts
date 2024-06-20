@@ -1,6 +1,6 @@
-import { getElements, getElement } from '../composables/callDom';
 import { ShopSome } from '../main/shop-some';
 import { ShopFilters } from '../components/interface';
+import { getElements, getElement } from '../composables/useCallDom';
 
 // export class FilterAccordeon extends ShopSome{
 //   accordeonButtons: NodeListOf<HTMLElement>;
