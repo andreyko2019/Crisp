@@ -9,6 +9,7 @@ import { PopularSwiper } from './main/most-popular';
 import { Blog } from './main/blog';
 import { Skeleton } from './components/skeleton';
 
+
 document.addEventListener('DOMContentLoaded', async () => {
   new Burger();
   new Accordion();
@@ -19,6 +20,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   new PopularSwiper();
   new Blog();
   Loader.stop();
+  
+
 });
 
 new Skeleton();

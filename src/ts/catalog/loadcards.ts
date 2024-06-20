@@ -405,17 +405,19 @@ export function loadCards() {
               }
             }
             currentArray.push(item);
+            console.log(item)
           });
-          console.log(currentArray);
+          // console.log(currentArray);
           this.renderedCards = currentArray;
-          console.log(this.renderedCards);
+          // console.log(this.renderedCards);
           localStorage.setItem('Cards', JSON.stringify(this.renderedCards));
         }
       }
     }
 
     sortedCards() {
-      // console.log(this.limitCardsAll);
+      // const limitCardsAll = this.renderedCards;
+      // console.log(limitCardsAll);
       // console.log(this.sortOrder);
 
       // console.log(this.renderedCards)
