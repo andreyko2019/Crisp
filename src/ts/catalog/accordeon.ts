@@ -1,9 +1,11 @@
 import { getElements, getElement } from '../composables/callDom';
+import { ShopSome } from '../main/shop-some';
 
-export class FilterAccordeon {
+export class FilterAccordeon extends ShopSome{
   accordeonButtons: NodeListOf<HTMLElement>;
 
   constructor() {
+    super();
     this.accordeonButtons = getElements('.accordeon__button') as NodeListOf<HTMLElement>;
 
     this.accordeonButtons.forEach((button) => {
@@ -25,5 +27,12 @@ export class FilterAccordeon {
       content.style.maxHeight = '0';
       span.style.opacity = '1';
     }
+  }
+
+}
+
+export class BrandFilter extends FilterAccordeon {
+  constructor() {
+    super();
   }
 }

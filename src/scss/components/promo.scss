@@ -162,4 +162,37 @@
       letter-spacing: 0.05em;
     }
   }
+
+  &_catalog {
+    background-image: url('../../img/catalog/bg-2.png');
+    height: 430px;
+    .promo__info {
+      left: 179px;
+    }
+
+    .promo__title {
+      color: $white;
+
+      &::before {
+        border-color: $white;
+      }
+    }
+
+    .promo__text {
+      color: $white;
+    }
+
+    .promo__btn {
+      color: $white;
+      border-color: $white;
+
+      &:hover {
+        background: $white;
+        transition:
+          color 0.5s ease,
+          background 0.5s ease;
+        color: $black;
+      }
+    }
+  }
 }
