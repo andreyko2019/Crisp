@@ -1,0 +1,166 @@
+.sign-in {
+  margin-top: 36px;
+  margin-bottom: 58px;
+
+  @include media-breakpoint-down(sm) {
+    margin-top: 18px;
+    margin-bottom: 26px;
+  }
+
+  &__content {
+    max-width: 1454px;
+    margin: 0 auto;
+  }
+
+  &__title {
+    font-family: Oswald;
+    font-size: clamp(18px, 4vw, 48px);
+    font-weight: 400;
+    line-height: 68px;
+    text-align: center;
+    margin-bottom: 24px;
+
+    @include media-breakpoint-down(sm) {
+      text-align: left;
+      line-height: normal;
+      margin-bottom: 8px;
+    }
+  }
+
+  &__form {
+    padding: 20px;
+    padding-top: 88px;
+    padding-bottom: 124px;
+    border: 1px solid $grayMedium;
+
+    @include media-breakpoint-down(sm) {
+      border: none;
+      border-top: 1px solid $grayMedium;
+      padding: 0;
+      padding-top: 16px;
+    }
+  }
+
+  .form {
+    max-width: 606px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    &__input {
+      max-width: 443px;
+      width: 100%;
+    }
+
+    &__title {
+      font-family: Oswald;
+      font-size: clamp(12px, 2.5vw, 24px);
+      line-height: 68px;
+
+      @include media-breakpoint-down(sm) {
+        color: $grayMedium;
+        text-transform: uppercase;
+        line-height: 20.75px;
+        margin-bottom: 2px;
+      }
+    }
+
+    input[type='email'],
+    input[type='password'] {
+      border: 1px solid #c4c4c4;
+      max-width: 443px;
+      width: 100%;
+      min-height: 44px;
+      font-family: RobotoMedium;
+      font-size: clamp(12px, 1.5vw, 16px);
+      line-height: 20px;
+      padding: 0 16px;
+
+      @include media-breakpoint-down(sm) {
+        min-height: 40px;
+      }
+    }
+
+    &__item {
+      display: flex;
+      justify-content: space-between;
+
+      @include media-breakpoint-down(sm) {
+        flex-direction: column;
+      }
+    }
+
+    label {
+      font-family: RobotoMedium;
+      font-size: clamp(12px, 1.5vw, 16px);
+      line-height: 20px;
+      display: flex;
+      gap: 10px;
+      margin-top: 5px;
+
+      span {
+        color: $redHover;
+      }
+    }
+
+    &__newsletter {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+
+      @include media-breakpoint-down(sm) {
+        gap: 6px;
+      }
+    }
+
+    &__buttons {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 45px;
+
+      @include media-breakpoint-down(sm) {
+        margin-top: 23px;
+      }
+
+      .black {
+        color: $white;
+        background-color: $black;
+        border-color: $black;
+        max-width: 270px;
+        width: 100%;
+
+        @include media-breakpoint-down(sm) {
+          max-width: 138px;
+          padding: 7px 0;
+        }
+
+        &:hover {
+          background-color: $grayLight;
+          color: $black;
+          border-color: $grayMedium;
+        }
+      }
+
+      .back {
+        font-family: Oswald;
+        font-size: 14px;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        color: $grayMedium;
+      }
+    }
+
+    .just-validate-error-label {
+      padding: 0 16px;
+      min-height: 35px;
+      background-color: $grayLight;
+      font-family: RobotoMedium;
+      font-size: 14px;
+      line-height: 20px;
+      display: flex;
+      align-items: center;
+    }
+  }
+}

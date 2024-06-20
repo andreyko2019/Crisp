@@ -1,6 +1,7 @@
 import { ShopFilters } from '../components/interface';
 import { getElement, getElements, renderElement } from '../composables/useCallDom';
 import { fetchComposable } from '../composables/useFetch';
+import { Loader } from '../modules/stop-preload';
 
 const clothersWrapper = getElement('.shop-some__items');
 
@@ -14,6 +15,8 @@ export class ShopFilter {
   }
 
   private async sendFetchRequest(category: string): Promise<void> {
+    document.getElementsByClassName('shop-some__items')[0].classList.add('skeleton');
+
     const firebaseConfig = {
       projectId: 'crisp-b06bf',
     };
@@ -159,7 +162,9 @@ export class ShopFilter {
         const category = target.parentNode?.textContent?.trim();
 
         if (category) {
-          this.sendFetchRequest(category.toUpperCase());
+          this.sendFetchRequest(category.toUpperCase()).then(() => {
+            Loader.stop('shop-some__items');
+          });
         }
       }
     });

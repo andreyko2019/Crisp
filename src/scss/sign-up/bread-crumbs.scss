@@ -1,0 +1,12 @@
+.bread-crumbs {
+  width: 100%;
+  text-align: center;
+  margin: 25px 0;
+
+  @include media-breakpoint-down(sm) {
+    margin: 12px 0;
+    text-align: left;
+    padding-left: 15px;
+    font-size: 10px;
+  }
+}

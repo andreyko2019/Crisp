@@ -46,3 +46,11 @@ export interface OneDress {
 export interface CustomEvent extends Event {
   readonly detail?: { block: string; requiredImagesCount: number };
 }
+
+export interface CustomValidator {
+  fields: {
+    [key: string]: {
+      value: string;
+    };
+  };
+}
