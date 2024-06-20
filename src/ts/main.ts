@@ -10,6 +10,7 @@ import { Blog } from './main/blog';
 import { Skeleton } from './components/skeleton';
 import { Search } from './components/search';
 
+
 document.addEventListener('DOMContentLoaded', async () => {
   new Burger();
   new Search();

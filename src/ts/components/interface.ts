@@ -11,6 +11,7 @@ export interface SlidesClothersRef extends Slides {
 }
 
 export interface ShopFilters extends Slides {
+  brand: { stringValue: string };
   category: { stringValue: string };
   name: { stringValue: string };
   cost: { stringValue: string };
