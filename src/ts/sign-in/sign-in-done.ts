@@ -1,15 +1,17 @@
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth, db } from '../modules/firebase';
+import { auth } from '../modules/firebase';
 import { getElement } from '../composables/useCallDom';
-import { collection, getDocs } from 'firebase/firestore';
+import { fetchComposable } from '../composables/useFetch';
 
 interface User {
-  id: string;
-  uid: string;
+  uid: { stringValue: string };
 }
 
 export class GoAcc {
+  user: { id: string; data: User }[];
+
   constructor() {
+    this.user = [];
     this.init();
   }
 
@@ -29,33 +31,54 @@ export class GoAcc {
     const password = passwordElement.value;
 
     try {
-      const userData = await getDocs(collection(db, 'users'));
-      const allUsers: User[] = [];
+      const firebaseConfig = {
+        projectId: 'crisp-b06bf',
+      };
 
-      userData.forEach((doc) => {
-        const data = doc.data();
-        allUsers.push({
-          id: doc.id,
-          uid: data.uid,
-        });
+      const requestBody = {
+        structuredQuery: {
+          from: [{ collectionId: 'users' }],
+        },
+      };
+
+      const url = `https://firestore.googleapis.com/v1/projects/${firebaseConfig.projectId}/databases/(default)/documents:runQuery`;
+
+      const response = await fetchComposable<{ document: { name: string; fields: User } }[], typeof requestBody>(url, {
+        method: 'POST',
+        body: requestBody,
       });
 
-      try {
-        const user = await signInWithEmailAndPassword(auth, email, password);
-        const userUid = user.user.uid;
-        const userExist = allUsers.find((item) => item.uid === userUid);
+      if (response.error) {
+        console.error('Error fetching data:', response.error);
+        return;
+      }
 
-        if (userExist) {
-          document.cookie = `UID=${user.user.uid}`;
-          console.log('User signed in and cookie set');
-        } else {
-          console.log('User not found in database');
+      if (response.data) {
+        response.data.forEach((doc) => {
+          if (doc.document && doc.document.fields) {
+            const docId = doc.document.name.split('/').pop() || '';
+            this.user.push({ id: docId, data: doc.document.fields });
+          }
+        });
+
+        try {
+          const user = await signInWithEmailAndPassword(auth, email, password);
+          const userUid = user.user.uid;
+
+          const userExist = this.user.find((item) => item.data.uid.stringValue === userUid);
+
+          if (userExist) {
+            document.cookie = `UID=${user.user.uid}`;
+            console.log('User signed in and cookie set');
+          } else {
+            console.log('User not found in database');
+          }
+        } catch (error) {
+          console.error('Error signing in:', error);
         }
-      } catch (error) {
-        console.error('There was an error signing in:', error);
       }
     } catch (error) {
-      console.error('There was an error fetching user data:', error);
+      console.error('Error fetching user data:', error);
     }
   }
 }
