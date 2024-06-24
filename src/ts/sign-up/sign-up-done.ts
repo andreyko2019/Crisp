@@ -3,12 +3,6 @@ import { auth } from '../modules/firebase';
 import { getElement } from '../composables/useCallDom';
 import { fetchComposable } from '../composables/useFetch';
 
-interface User {
-  uid: { stringValue: string };
-  name: { stringValue: string };
-  surname: { stringValue: string };
-}
-
 export class CreateAcc {
   constructor() {
     this.init();

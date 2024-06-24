@@ -156,9 +156,70 @@
   &__login-and-buy {
     display: flex;
     gap: 20px;
+    position: relative;
 
-    @include media-breakpoint-down(md) {
+    .pop-up {
+      position: absolute;
+      top: 79px;
+      width: 388px;
       display: none;
+      left: -25px;
+      background: white;
+      padding: 45px 30px;
+      z-index: 10;
+      box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
+
+      &.active {
+        display: block;
+      }
+
+      .clother {
+        display: flex;
+        gap: 17px;
+        width: 100%;
+        color: $black;
+        padding: 20px 0 15px;
+        position: relative;
+
+        &::before {
+          content: '';
+          position: absolute;
+          width: 100%;
+          height: 1px;
+          background-color: $grayMedium;
+          left: 0;
+          bottom: 0;
+        }
+
+        &__img {
+          max-width: 83px;
+
+          img {
+            width: 100%;
+          }
+        }
+
+        &__name {
+          font-size: 20px;
+          margin-bottom: 7px;
+        }
+
+        &__size,
+        &__art {
+          color: $grayMedium;
+          text-transform: uppercase;
+          line-height: 20px;
+
+          span {
+            color: $black;
+          }
+        }
+
+        &__count {
+          font-size: 14px;
+          margin-top: 7px;
+        }
+      }
     }
 
     .log-and-sign {
@@ -166,6 +227,10 @@
       font-weight: 600;
       line-height: 33px;
       font-size: 14px;
+
+      @include media-breakpoint-down(md) {
+        display: none;
+      }
 
       a {
         position: relative;
@@ -199,6 +264,12 @@
         height: 20px;
       }
 
+      &__likes {
+        @include media-breakpoint-down(md) {
+          display: none;
+        }
+      }
+
       &__bag {
         display: flex;
         align-items: center;
@@ -212,6 +283,10 @@
           letter-spacing: 0.25px;
           font-size: 12px;
 
+          @include media-breakpoint-down(md) {
+            display: none;
+          }
+
           span {
             font-family: Oswald;
             font-weight: bold;
@@ -219,6 +294,33 @@
             letter-spacing: 1.6px;
             font-size: 14px;
           }
+        }
+      }
+    }
+
+    .search {
+      display: none;
+
+      @include media-breakpoint-down(md) {
+        display: flex;
+      }
+
+      svg {
+        width: 19px;
+        height: 19px;
+      }
+
+      input {
+        display: none;
+      }
+
+      &.active {
+        display: flex;
+        gap: 15px;
+
+        input {
+          display: block;
+          width: 100%;
         }
       }
     }
@@ -285,27 +387,6 @@
       display: flex;
       align-items: center;
       gap: 15px;
-    }
-
-    .search {
-      svg {
-        width: 19px;
-        height: 19px;
-      }
-
-      input {
-        display: none;
-      }
-
-      &.active {
-        display: flex;
-        gap: 15px;
-
-        input {
-          display: block;
-          width: 100%;
-        }
-      }
     }
 
     .buy {

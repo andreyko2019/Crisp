@@ -7,6 +7,7 @@ import { Calculator } from './one-product/main-info-culc';
 import { Dropdown } from './components/custom-drop-down';
 import { MainInfo } from './one-product/main-info-info';
 import { LikeSwiper } from './components/you-may-also-like';
+import { AddToBag } from './one-product/add-to-bag';
 
 document.addEventListener('DOMContentLoaded', async () => {
   new Burger();
@@ -16,6 +17,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   new Dropdown('.info__sizes');
   new MainInfo();
   new LikeSwiper();
+  new AddToBag();
   Loader.stop('more-info');
 });
 

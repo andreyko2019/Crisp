@@ -43,6 +43,11 @@ export interface OneDress {
   size: { arrayValue: { values: { stringValue: string }[] } };
 }
 
+export interface OneDressBag extends OneDress {
+  img: { stringValue: string };
+  imgWebP: { stringValue: string };
+}
+
 export interface CustomEvent extends Event {
   readonly detail?: { block: string; requiredImagesCount: number };
 }
