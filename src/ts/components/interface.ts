@@ -14,6 +14,7 @@ export interface ShopFilters extends Slides {
   brand: { stringValue: string };
   category: { stringValue: string };
   name: { stringValue: string };
+  length: { stringValue: string | undefined };
   cost: { stringValue: string };
   costNew: { stringValue: string | undefined };
   sale: { booleanValue: boolean };

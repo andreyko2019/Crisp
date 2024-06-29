@@ -5,6 +5,7 @@ import { Loader } from './modules/stop-preload';
 // import { loadShowenBrands } from './catalog/accordeon';
 import { loadCards } from './catalog/loadcards';
 import { FilterAccordeon } from './catalog/accordeon';
+// import { rangeSliderWork } from './catalog/range-slider';
 
 document.addEventListener('DOMContentLoaded', async () => {
   new Burger();
@@ -14,4 +15,5 @@ document.addEventListener('DOMContentLoaded', async () => {
   // dropdownWork();
   loadCards();
   // loadShowenBrands();
+  // rangeSliderWork();
 });
