@@ -1,286 +1,11 @@
 import { ShopFilters } from '../components/interface';
 import { getElement } from '../composables/useCallDom';
-import { fetchComposable } from '../composables/useFetch';
-import { LoadMoreComponent } from '../components/btnLoad';
+import { ShopSome } from '../main/shop-some';
 
 export function loadCards() {
   const clothersWrapper = getElement('.shop-some__items');
-
-  class ShopSome {
-    shopDb: { id: string; data: ShopFilters }[];
-
-    constructor() {
-      this.shopDb = [];
-
-      this.loadCards();
-    }
-
-    async loadCards() {
-      const firebaseConfig = {
-        projectId: 'crisp-b06bf',
-      };
-
-      const requestBody: { structuredQuery: { from: { collectionId: string }[] } } = {
-        structuredQuery: {
-          from: [
-            {
-              collectionId: 'clothers',
-            },
-          ],
-        },
-      };
-
-      const url = `https://firestore.googleapis.com/v1/projects/${firebaseConfig.projectId}/databases/(default)/documents:runQuery`;
-
-      const response = await fetchComposable<{ document: { name: string; fields: ShopFilters } }[], typeof requestBody>(url, {
-        method: 'POST',
-        body: requestBody,
-      });
-
-      if (response.error) {
-        console.error('Ошибка при загрузке данных:', response.error);
-        return;
-      }
-
-      if (response.data) {
-        response.data.forEach((doc) => {
-          const docId = doc.document.name.split('/').pop() || '';
-          this.shopDb.push({ id: docId, data: doc.document.fields });
-        });
-        // console.log(this.shopDb);
-        this.renderCard();
-        new LoadMoreComponent('.shop-some__items', '.shop-some__card', '.shop-some__load', 8, 8);
-      }
-    }
-
-    renderCard() {
-      this.shopDb.forEach((item) => {
-        if (clothersWrapper) {
-          if (item.data.sale.booleanValue === false) {
-            clothersWrapper.insertAdjacentHTML(
-              'afterbegin',
-              `
-            <a class="card shop-some__card ${item.id}" href="one-product.html?id=${item.id}">
-              <div class="card__img">
-                <picture>
-                  <source srcset=${item.data.imgWebP.stringValue} type="image/webp" />
-                  <img src=${item.data.img.stringValue} />
-                </picture>
-              </div>
-              <div class="card__info">
-                <p class="card__category">${item.data.category.stringValue}</p>
-                <h3 class="card__title">${item.data.name.stringValue}</h3>
-                <p class="card__price">${item.data.cost.stringValue}</p>
-              </div>
-            </a>
-            `
-            );
-          } else {
-            clothersWrapper.insertAdjacentHTML(
-              'afterbegin',
-              `
-            <a class="card sale shop-some__card ${item.id}" href="one-product.html?id=${item.id}">
-              <div class="card__img">
-                <picture>
-                  <source srcset=${item.data.imgWebP.stringValue} type="image/webp" />
-                  <img src=${item.data.img.stringValue} />
-                </picture>
-                <div class="card__sale">
-                  <p>-30%</p>
-                </div>
-              </div>
-              <div class="card__info">
-                <p class="card__category">${item.data.category.stringValue}</p>
-                <h3 class="card__title">${item.data.name.stringValue}</h3>
-                <p class="card__price">${item.data.costNew.stringValue} <span>${item.data.cost.stringValue}</span></p>
-              </div>
-            </a>
-                `
-            );
-          }
-        }
-      });
-    }
-  }
-
-  // class Dropdown extends ShopSome {
-  //   dropdownBox: HTMLElement | null;
-  //   arrowSvg: HTMLElement | null;
-  //   menu: HTMLElement | null;
-  //   options: NodeListOf<HTMLElement>;
-  //   sortOptions: NodeListOf<HTMLElement>;
-  //   selectedText: HTMLElement | null;
-  //   selectedOrder: HTMLElement | null;
-  //   sortOrder: 'ascend' | 'descend';
-  //   sortItems: NodeListOf<HTMLElement>;
-
-  //   constructor(dropdown: HTMLElement) {
-  //     super();
-  //     console.log(this.shopDb);
-
-  //     this.dropdownBox = dropdown.querySelector('.dropdown__box');
-  //     this.arrowSvg = dropdown.querySelector('.dropdown__svg-arrow');
-  //     this.menu = dropdown.querySelector('.dropdown__menu');
-  //     this.options = dropdown.querySelectorAll('.dropdown__menu-item');
-  //     this.sortOptions = dropdown.querySelectorAll('.sort-item');
-  //     this.selectedText = dropdown.querySelector('.limit');
-  //     this.selectedOrder = dropdown.querySelector('.dropdown__text');
-  //     this.sortItems = dropdown.querySelectorAll('.sort-item');
-  //     this.sortOrder = 'ascend';
-
-  //     this.dropdownBox?.addEventListener('click', () => {
-  //       this.arrowSvg?.classList.toggle('dropdown__svg-arrow_rotate');
-  //       this.menu?.classList.toggle('dropdown__menu_open');
-  //     });
-
-  //     this.options.forEach((option) => {
-  //       option.addEventListener('click', () => {
-  //         if (this.selectedText instanceof HTMLElement && option instanceof HTMLElement) {
-  //           this.selectedText.innerText = option.innerText;
-  //           this.menu?.classList.remove('dropdown__menu_open');
-  //         }
-
-  //         this.arrowSvg?.classList.remove('dropdown__svg-arrow_rotate');
-
-  //         this.options.forEach((opt) => {
-  //           opt.classList.remove('dropdown__menu-item_active');
-  //         });
-  //         option.classList.add('dropdown__menu-item_active');
-  //         this.renderCard();
-
-  //         // if (option.innerText === 'price (low to high)') {
-  //         //   this.sortOrder = 'ascend';
-  //         // } else {
-  //         //   this.sortOrder = 'descend';
-  //         // }
-  //         // this.renderCard();
-  //       });
-  //     });
-
-  //     this.sortItems.forEach((item) => {
-  //       item.addEventListener('click', () => {
-  //         console.log(item.innerText)
-  //         if (this.selectedOrder instanceof HTMLElement && item instanceof HTMLElement) {
-  //           this.selectedOrder.innerText = item.innerText;
-  //           this.menu?.classList.remove('dropdown__menu_open');
-
-  //         }
-  //       });
-  //       if (item.innerText === 'PRICE (LOW TO HIGH)') {
-  //         this.sortOrder = 'ascend';
-  //         console.log(item.innerText);
-  //       } else {
-  //         this.sortOrder = 'descend';
-  //       }
-  //       // this.sortedCards();
-  //       this.sortedCards();
-  //     });
-  //   }
-
-  //   sortedCards() {
-  //     console.log(this.sortOrder)
-  //     if (this.sortOrder === 'ascend') {
-  //       this.shopDb.sort((a, b) => {
-  //         const costStr1 = Object.values(a.data.cost.stringValue);
-  //         const costStr2 = Object.values(b.data.cost.stringValue);
-  //         const costNum1 = costStr1.join('').trim().split(' ')[0].replace(',', '.');
-  //         const costNum2 = costStr2.join('').trim().split(' ')[0].replace(',', '.');
-
-  //         return Number(costNum1) - Number(costNum2);
-  //       });
-  //     } else {
-  //       this.shopDb.sort((a, b) => {
-  //         const costStr1 = Object.values(a.data.cost.stringValue);
-  //         const costStr2 = Object.values(b.data.cost.stringValue);
-  //         const costNum1 = costStr1.join('').trim().split(' ')[0].replace(',', '.');
-  //         const costNum2 = costStr2.join('').trim().split(' ')[0].replace(',', '.');
-  //         return Number(costNum2) - Number(costNum1);
-  //       });
-  //     }
-  //   }
-
-  //   renderCard() {
-
-  //     const limitCards = Number(this.selectedText?.textContent);
-
-  //     const visibleCards = this.shopDb.slice(0, limitCards);
-
-  //     console.log(limitCards);
-  //     console.log(this.selectedText)
-  //     console.log(this.selectedOrder)
-
-  //     if (clothersWrapper) {
-  //       clothersWrapper.innerHTML = '';
-
-  //       visibleCards.forEach((item) => {
-  //         if (clothersWrapper) {
-  //           if (item.data.sale.booleanValue === false) {
-  //             clothersWrapper.insertAdjacentHTML(
-  //               'afterbegin',
-  //               `
-  //           <a class="card shop-some__card ${item.id}" href="one-product.html?id=${item.id}">
-  //             <div class="card__img">
-  //               <picture>
-  //                 <source srcset=${item.data.imgWebP.stringValue} type="image/webp" />
-  //                 <img src=${item.data.img.stringValue} />
-  //               </picture>
-  //             </div>
-  //             <div class="card__info">
-  //               <p class="card__category">${item.data.category.stringValue}</p>
-  //               <h3 class="card__title">${item.data.name.stringValue}</h3>
-  //               <p class="card__price">${item.data.cost.stringValue}</p>
-  //             </div>
-  //           </a>
-  //           `
-  //             );
-  //           } else {
-  //             clothersWrapper.insertAdjacentHTML(
-  //               'afterbegin',
-  //               `
-  //           <a class="card sale shop-some__card ${item.id}" href="one-product.html?id=${item.id}">
-  //             <div class="card__img">
-  //               <picture>
-  //                 <source srcset=${item.data.imgWebP.stringValue} type="image/webp" />
-  //                 <img src=${item.data.img.stringValue} />
-  //               </picture>
-  //               <div class="card__sale">
-  //                 <p>-30%</p>
-  //               </div>
-  //             </div>
-  //             <div class="card__info">
-  //               <p class="card__category">${item.data.category.stringValue}</p>
-  //               <h3 class="card__title">${item.data.name.stringValue}</h3>
-  //               <p class="card__price">${item.data.costNew.stringValue} <span>${item.data.cost.stringValue}</span></p>
-  //             </div>
-  //           </a>
-  //               `
-  //             );
-  //           }
-  //         }
-  //       });
-  //     }
-
-  //     // if (this.sortOrder === 'ascend') {
-  //     //   visibleCards.sort((a, b) => {
-  //     //     const costStr1 = Object.values(a.data.cost.stringValue);
-  //     //     const costStr2 = Object.values(b.data.cost.stringValue);
-  //     //     const costNum1 = costStr1.join('').trim().split(' ')[0].replace(',', '.');
-  //     //     const costNum2 = costStr2.join('').trim().split(' ')[0].replace(',', '.');
-
-  //     //     return Number(costNum1) - Number(costNum2);
-  //     //   });
-  //     // } else {
-  //     //   visibleCards.sort((a, b) => {
-  //     //     const costStr1 = Object.values(a.data.cost.stringValue);
-  //     //     const costStr2 = Object.values(b.data.cost.stringValue);
-  //     //     const costNum1 = costStr1.join('').trim().split(' ')[0].replace(',', '.');
-  //     //     const costNum2 = costStr2.join('').trim().split(' ')[0].replace(',', '.');
-  //     //     return Number(costNum2) - Number(costNum1);
-  //     //   });
-  //     // }
-  //   }
-  // }
-
+  const allCardsArr: { id: string; data: ShopFilters; }[] = [];
+  let limitCardsAll = 0;
   class Dropdown extends ShopSome {
     dropdownBox: HTMLElement | null;
     arrowSvg: HTMLElement | null;
@@ -291,7 +16,8 @@ export function loadCards() {
     selectedOrder: HTMLElement | null;
     sortOrder: 'ascend' | 'descend';
     sortItems: NodeListOf<HTMLElement>;
-    limitCardsAll: number;
+    // limitCardsAll: number;
+    
     renderedCards: { id: string; data: ShopFilters }[];
 
     constructor(dropdown: HTMLElement) {
@@ -305,7 +31,8 @@ export function loadCards() {
       this.selectedOrder = dropdown.querySelector('.dropdown__text');
       this.sortItems = dropdown.querySelectorAll('.sort-item');
       this.sortOrder = 'ascend';
-      this.limitCardsAll = 0;
+      // this.limitCardsAll = 0;
+      
       this.renderedCards = [];
 
       this.dropdownBox?.addEventListener('click', () => {
@@ -349,12 +76,14 @@ export function loadCards() {
       });
     }
 
-    renderCard() {
+    renderCard =() => {
+      allCardsArr.length = 0;
       const currentArray: { id: string; data: ShopFilters }[] = [];
       if (this.selectedText) {
-        const limitCards = Number(this.selectedText?.textContent);
-        console.log(this.limitCardsAll);
-        const visibleCards = this.shopDb.slice(0, limitCards);
+        // const limitCards = Number(this.selectedText?.textContent);
+        limitCardsAll = Number(this.selectedText?.textContent);
+        console.log(limitCardsAll)
+        const visibleCards = this.shopDb.slice(0, limitCardsAll);
         if (clothersWrapper) {
           clothersWrapper.innerHTML = '';
 
@@ -404,19 +133,34 @@ export function loadCards() {
               }
             }
             currentArray.push(item);
-            console.log(item)
+            
+            // allCardsArr.push(item)
+            allCardsArr.push(...currentArray);
+            
           });
-          // console.log(currentArray);
-          this.renderedCards = currentArray;
+          
+          allCardsArr.push(...currentArray);
+          console.log(allCardsArr);
+          // this.renderedCards = currentArray;
           // console.log(this.renderedCards);
           localStorage.setItem('Cards', JSON.stringify(this.renderedCards));
         }
       }
+
+      // allCardsArr.push(...currentArray);
+      // console.log(allCardsArr);
     }
 
-    sortedCards() {
-      // const limitCardsAll = this.renderedCards;
+    // setTimeout(() => {
+    //   this.sortedCards();
+    // },0);
+    
+    sortedCards=()=> {
+      // const limitCardsAll = [...allCardsArr];
+      console.log(limitCardsAll)
+      const visibleCards = this.shopDb.slice(0, limitCardsAll);
       // console.log(limitCardsAll);
+      // console.log(allCardsArr)
       // console.log(this.sortOrder);
 
       // console.log(this.renderedCards)
@@ -424,20 +168,24 @@ export function loadCards() {
       // console.log(savedCards)
 
       if (this.sortOrder === 'ascend') {
-        this.shopDb.sort((a, b) => {
+        visibleCards.sort((a, b) => {
           const costStr1 = Object.values(a.data.cost.stringValue);
           const costStr2 = Object.values(b.data.cost.stringValue);
           const costNum1 = costStr1.join('').trim().split(' ')[0].replace(',', '.');
           const costNum2 = costStr2.join('').trim().split(' ')[0].replace(',', '.');
-
+          console.log(Number(costNum1), Number(costNum2));
+          console.log(this.sortOrder)
           return Number(costNum1) - Number(costNum2);
+          
         });
       } else {
-        this.shopDb.sort((a, b) => {
+        visibleCards.sort((a, b) => {
           const costStr1 = Object.values(a.data.cost.stringValue);
           const costStr2 = Object.values(b.data.cost.stringValue);
           const costNum1 = costStr1.join('').trim().split(' ')[0].replace(',', '.');
           const costNum2 = costStr2.join('').trim().split(' ')[0].replace(',', '.');
+          console.log(this.sortOrder);
+          console.log(Number(costNum1), Number(costNum2));
           return Number(costNum2) - Number(costNum1);
         });
       }
@@ -445,7 +193,7 @@ export function loadCards() {
       if (clothersWrapper) {
         clothersWrapper.innerHTML = '';
 
-        this.shopDb.forEach((item) => {
+        visibleCards.forEach((item) => {
           if (clothersWrapper) {
             if (item.data.sale.booleanValue === false) {
               clothersWrapper.insertAdjacentHTML(

@@ -7,6 +7,7 @@ import { Loader } from '../modules/stop-preload';
 const clothersWrapper = getElement('.shop-some__items');
 
 export class ShopSome {
+  
   shopDb: { id: string; data: ShopFilters }[];
 
   constructor() {
