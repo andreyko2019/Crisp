@@ -2,13 +2,10 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../modules/firebase';
 import { getElement } from '../composables/useCallDom';
 import { fetchComposable } from '../composables/useFetch';
-
-interface User {
-  uid: { stringValue: string };
-}
+import { UserUid } from '../components/interface';
 
 export class GoAcc {
-  user: { id: string; data: User }[];
+  user: { id: string; data: UserUid }[];
 
   constructor() {
     this.user = [];
@@ -43,7 +40,7 @@ export class GoAcc {
 
       const url = `https://firestore.googleapis.com/v1/projects/${firebaseConfig.projectId}/databases/(default)/documents:runQuery`;
 
-      const response = await fetchComposable<{ document: { name: string; fields: User } }[], typeof requestBody>(url, {
+      const response = await fetchComposable<{ document: { name: string; fields: UserUid } }[], typeof requestBody>(url, {
         method: 'POST',
         body: requestBody,
       });
@@ -61,6 +58,8 @@ export class GoAcc {
           }
         });
 
+        console.log(this.user);
+
         try {
           const user = await signInWithEmailAndPassword(auth, email, password);
           const userUid = user.user.uid;
@@ -69,6 +68,7 @@ export class GoAcc {
 
           if (userExist) {
             document.cookie = `UID=${user.user.uid}`;
+            window.location.href = '/Crisp/cabinet.html';
             console.log('User signed in and cookie set');
           } else {
             console.log('User not found in database');

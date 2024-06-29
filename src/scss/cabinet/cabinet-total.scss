@@ -1,0 +1,306 @@
+.cabinet {
+  margin-bottom: 64px;
+
+  &__content {
+    max-width: 1454px;
+    margin: 0 auto;
+    padding: 70px 15px;
+    border: 1px solid $grayMedium;
+
+    @include media-breakpoint-down(sm) {
+      padding: 0;
+      border: none;
+    }
+  }
+
+  &__inner {
+    max-width: 1058px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 288px auto;
+    gap: 108px;
+    min-height: 573px;
+
+    @include media-breakpoint-down(md) {
+      grid-template-columns: 213px auto;
+      gap: 50px;
+    }
+
+    @include media-breakpoint-down(sm) {
+      grid-template-columns: auto;
+      min-height: fit-content;
+    }
+  }
+
+  .tabs {
+    display: flex;
+    flex-direction: column;
+
+    &__nav-btn {
+      background-color: transparent;
+      font-family: Oswald;
+      font-size: 18px;
+      line-height: 24px;
+      color: $gray;
+      padding: 0 13px;
+      min-height: 44px;
+      text-align-last: left;
+
+      &_active {
+        background-color: $grayLight;
+        color: $black;
+      }
+
+      &:nth-child(4),
+      &:nth-child(6) {
+        pointer-events: none;
+      }
+    }
+
+    &__item {
+      display: none;
+
+      &_active {
+        display: block;
+      }
+    }
+  }
+
+  .dashboard,
+  .account-info {
+    &__title {
+      font-family: Oswald;
+      font-size: clamp(14px, 2vw, 24px);
+      margin-bottom: 25px;
+
+      @include media-breakpoint-down(sm) {
+        text-transform: uppercase;
+        color: $gray;
+        line-height: 20.75px;
+        margin-bottom: 6px;
+      }
+    }
+  }
+
+  .dashboard {
+    .acc-info {
+      margin-bottom: 64px;
+
+      @include media-breakpoint-down(sm) {
+        margin-bottom: 20px;
+      }
+    }
+
+    .acc-info,
+    .address-boock {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+
+      @include media-breakpoint-down(sm) {
+        gap: 20px;
+      }
+
+      @include media-breakpoint-down(xxs) {
+        grid-template-columns: 1fr;
+      }
+
+      .title {
+        font-family: Oswald;
+        font-size: clamp(12px, 2vw, 18px);
+        line-height: 26.68px;
+        letter-spacing: 0.5px;
+        color: #3f3f3f;
+        margin-bottom: 17px;
+        text-transform: uppercase;
+
+        @include media-breakpoint-down(sm) {
+          margin-bottom: 0;
+        }
+      }
+
+      p {
+        font-family: RobotoLight;
+        font-size: clamp(12px, 2vw, 16px);
+        line-height: 20px;
+        color: $gray;
+
+        @include media-breakpoint-down(sm) {
+          line-height: 16px;
+        }
+      }
+
+      .buttons {
+        display: flex;
+        gap: 12px;
+        margin-top: 9px;
+
+        @include media-breakpoint-down(sm) {
+          margin-top: 4px;
+        }
+      }
+
+      .btn {
+        font-family: RobotoMedium;
+        font-size: clamp(10px, 2vw, 14px);
+        line-height: 20px;
+        text-align: center;
+        color: $black;
+        background-color: #e6f1fa;
+        border: none;
+        width: fit-content;
+        height: fit-content;
+        text-transform: none;
+        padding: 0 10px;
+      }
+    }
+  }
+
+  .account-info {
+    .form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      max-width: 528px;
+
+      @include media-breakpoint-down(sm) {
+        gap: 5px;
+        max-width: 392px;
+      }
+
+      &__input {
+        max-width: 392px;
+        width: 100%;
+      }
+
+      &__title {
+        font-family: Oswald;
+        font-size: clamp(12px, 2.5vw, 24px);
+        line-height: 68px;
+
+        @include media-breakpoint-down(sm) {
+          color: $grayMedium;
+          text-transform: uppercase;
+          line-height: 20.75px;
+          margin-bottom: 2px;
+        }
+      }
+
+      input[type='text'],
+      input[type='email'],
+      input[type='password'] {
+        border: 1px solid #c4c4c4;
+        max-width: 443px;
+        width: 100%;
+        min-height: 44px;
+        font-family: RobotoMedium;
+        font-size: clamp(12px, 1.5vw, 16px);
+        line-height: 20px;
+        padding: 0 16px;
+
+        @include media-breakpoint-down(sm) {
+          min-height: 40px;
+        }
+      }
+
+      &__item {
+        display: flex;
+        justify-content: space-between;
+
+        @include media-breakpoint-down(sm) {
+          flex-direction: column;
+        }
+      }
+
+      label {
+        font-family: RobotoMedium;
+        font-size: clamp(12px, 1.5vw, 16px);
+        line-height: 20px;
+        display: flex;
+        gap: 5px;
+        margin-top: 5px;
+
+        span {
+          color: $redHover;
+        }
+      }
+
+      &__agree {
+        color: $gray;
+        position: relative;
+        cursor: pointer;
+        gap: 0 !important;
+        align-items: center;
+        margin-top: 0 !important;
+
+        @include media-breakpoint-down(sm) {
+          margin-top: 5px !important;
+        }
+
+        .custom-checkbox {
+          position: relative;
+          left: 0;
+          display: inline-block;
+          margin-right: 5px;
+          border: 1px solid rgb(130, 130, 130);
+          width: 10px;
+          height: 10px;
+
+          &::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            display: inline-block;
+            border: 1px solid $black;
+            width: 10px;
+            height: 10px;
+            transform: translate(-50%, -50%) scale(0);
+            transition: 0.2s ease;
+            background-color: $black;
+            background-image: url('../../../src/img/svg/check.svg');
+            background-repeat: no-repeat;
+            background-position: center;
+          }
+        }
+
+        input[type='checkbox'] {
+          width: 0;
+          height: 0;
+          opacity: 0;
+
+          &:checked + .custom-checkbox::before {
+            transform: translate(-50%, -50%) scale(1);
+          }
+        }
+      }
+
+      &__button {
+        margin-top: 42px;
+
+        @include media-breakpoint-down(sm) {
+          margin-top: 12px;
+        }
+
+        .black {
+          color: $white;
+          background-color: $black;
+          border-color: $black;
+          max-width: 140px;
+          width: 100%;
+
+          @include media-breakpoint-down(sm) {
+            max-width: 100%;
+            padding: 7px 0;
+          }
+
+          &:hover {
+            background-color: $grayLight;
+            color: $black;
+            border-color: $grayMedium;
+          }
+        }
+      }
+    }
+  }
+}

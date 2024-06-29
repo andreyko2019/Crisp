@@ -1,4 +1,4 @@
-type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
+type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH'; // Добавляем метод PATCH в тип HttpMethod
 
 type FetchOptions<TBody = undefined> = {
   method?: HttpMethod;
@@ -19,7 +19,7 @@ type FetchResponse<T> = {
 export const fetchComposable = async <TResponse, TBody = undefined>(url: string, options: FetchOptions<TBody> = {}): Promise<FetchResponse<TResponse>> => {
   const { method = 'GET', headers = {}, body } = options;
 
-  const validMethods: HttpMethod[] = ['GET', 'POST', 'PUT', 'DELETE'];
+  const validMethods: HttpMethod[] = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH']; // Включаем PATCH в список допустимых методов
   if (!validMethods.includes(method)) {
     return {
       data: null,

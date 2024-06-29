@@ -40,6 +40,7 @@ export class CreateAcc {
           uid: { stringValue: user.uid },
           name: { stringValue: name },
           surname: { stringValue: surname },
+          email: { stringValue: email },
         },
       };
 
@@ -59,6 +60,7 @@ export class CreateAcc {
 
       console.log(user.uid);
       document.cookie = `UID=${user.uid}`;
+      window.location.href = '/Crisp/cabinet.html';
     } catch (error) {
       console.log('There was an error:', error);
     }

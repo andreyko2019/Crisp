@@ -59,3 +59,27 @@ export interface CustomValidator {
     };
   };
 }
+
+export interface UserUid {
+  uid: { stringValue: string };
+}
+
+export interface UserData extends UserUid {
+  name: { stringValue: string };
+  surname: { stringValue: string };
+  email: { stringValue: string };
+  billing?: { stringValue: string };
+  shoppingAddress?: { stringValue: string };
+}
+
+export interface Billing {
+  country: { stringValue: string };
+  city: { stringValue: string };
+  street: { stringValue: string };
+  house: { stringValue: string };
+}
+
+export interface Shopping extends Billing {
+  phone: { stringValue: string };
+  zip: { stringValue: string };
+}
