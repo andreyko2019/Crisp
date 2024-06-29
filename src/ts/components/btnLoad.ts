@@ -1,4 +1,4 @@
-import { getElement, getElements } from '../composables/callDom';
+import { getElement, getElements } from '../composables/useCallDom';
 
 export class LoadMoreComponent {
   containerSelector: string;

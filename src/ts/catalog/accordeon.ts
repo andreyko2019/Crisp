@@ -1,6 +1,6 @@
-import { getElements, getElement } from '../composables/callDom';
 import { ShopSome } from '../main/shop-some';
-import { ShopFilters } from '../components/interface';
+import { getElement, getElements } from '../composables/useCallDom';
+
 import noUiSlider from 'nouislider';
 const clothersWrapper = getElement('.shop-some__items');
 

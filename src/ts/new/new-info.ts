@@ -1,7 +1,8 @@
 import { OneNew } from '../components/interface';
 import { Skeleton } from '../components/skeleton';
-import { getElement } from '../composables/callDom';
+import { getElement, renderElement } from '../composables/useCallDom';
 import { fetchComposable } from '../composables/useFetch';
+import { Loader } from '../modules/stop-preload';
 
 const newContainer = getElement('.new-info');
 
@@ -11,7 +12,7 @@ export class NewInfo {
   constructor() {
     this.newInfo = null;
 
-    this.initInfo();
+    this.initInfo().then(() => Loader.stop('new-info'));
   }
 
   async initInfo() {
@@ -44,25 +45,31 @@ export class NewInfo {
   renderNew() {
     if (newContainer && this.newInfo != null) {
       newContainer.innerHTML = '';
-      newContainer.insertAdjacentHTML(
-        'beforeend',
-        `
-        <h3 class="new-info__title">${this.newInfo.textTitle.stringValue}</h3>
-        <p class="new-info__text">
-            ${this.newInfo.textFirst.stringValue}
-        </p>
-        <div class="new-info__img">
-            <picture>
-                <source srcset="${this.newInfo.newImgWebP.stringValue}" type="image/webp" />
-                <img src="${this.newInfo.newImg.stringValue}"/>
-            </picture>
-        </div>
-        <h3 class="new-info__title">${this.newInfo.textTitle.stringValue}</h3>
-        <p class="new-info__text">
-            ${this.newInfo.textSecond.stringValue}
-        </p>              
-        `
-      );
+      const newTitle1 = renderElement('h3', 'new-info__title');
+      newTitle1.textContent = this.newInfo.textTitle.stringValue;
+
+      const newText1 = renderElement('p', 'new-info__text');
+      newText1.textContent = this.newInfo.textFirst.stringValue;
+
+      const newImg = renderElement('div', 'new-info__img');
+      newImg.innerHTML = `
+        <picture>
+          <source srcset="${this.newInfo.newImgWebP.stringValue}" type="image/webp" />
+          <img src="${this.newInfo.newImg.stringValue}"/>
+        </picture>
+      `;
+
+      const newTitle2 = renderElement('h3', 'new-info__title');
+      newTitle2.textContent = this.newInfo.textTitle.stringValue;
+
+      const newText2 = renderElement('p', 'new-info__text');
+      newText2.textContent = this.newInfo.textSecond.stringValue;
+
+      newContainer.appendChild(newTitle1);
+      newContainer.appendChild(newText1);
+      newContainer.appendChild(newImg);
+      newContainer.appendChild(newTitle2);
+      newContainer.appendChild(newText2);
     }
   }
 }

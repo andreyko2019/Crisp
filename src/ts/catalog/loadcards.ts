@@ -1,8 +1,5 @@
 import { ShopFilters } from '../components/interface';
-
-import { getElement } from '../composables/callDom';
-// import { fetchComposable } from '../composables/useFetch';
-// import { LoadMoreComponent } from '../components/btnLoad';
+import { getElement } from '../composables/useCallDom';
 import { ShopSome } from '../main/shop-some';
 
 export function loadCards() {

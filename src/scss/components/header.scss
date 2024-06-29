@@ -20,12 +20,17 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      min-height: 35.66px;
     }
   }
 
   &__logo {
     width: 94px;
     height: 44px;
+
+    &.hidden {
+      display: none;
+    }
 
     @include media-breakpoint-down(md) {
       width: 66.23px;
@@ -226,6 +231,10 @@
     height: 15px;
     z-index: 11;
 
+    &.hidden {
+      display: none;
+    }
+
     @include media-breakpoint-down(md) {
       display: block;
     }
@@ -295,6 +304,14 @@
         input {
           display: block;
           width: 100%;
+        }
+      }
+    }
+
+    .buy {
+      &__bag {
+        &.hidden {
+          display: none;
         }
       }
     }

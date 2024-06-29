@@ -51,9 +51,8 @@
     min-height: 100px;
 
     &-wrapper {
-      display: flex;
       @include media-breakpoint-down(md) {
-        display: grid;
+        display: grid !important;
         justify-items: center;
         grid-template-columns: repeat(auto-fit, minmax(249px, 1fr));
         gap: 23px 14px;

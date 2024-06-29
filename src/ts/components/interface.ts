@@ -35,3 +35,23 @@ export interface OneNew {
   textFirst: { stringValue: string };
   textSecond: { stringValue: string };
 }
+
+export interface OneDress {
+  brand: { stringValue: string };
+  name: { stringValue: string };
+  cost: { stringValue: string };
+  color: { arrayValue: { values: { stringValue: string }[] } };
+  size: { arrayValue: { values: { stringValue: string }[] } };
+}
+
+export interface CustomEvent extends Event {
+  readonly detail?: { block: string; requiredImagesCount: number };
+}
+
+export interface CustomValidator {
+  fields: {
+    [key: string]: {
+      value: string;
+    };
+  };
+}

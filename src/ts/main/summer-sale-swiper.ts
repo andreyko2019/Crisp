@@ -1,8 +1,9 @@
 import Swiper from 'swiper';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
-import { getElement } from '../composables/callDom';
+import { getElement, renderElement } from '../composables/useCallDom';
 import { fetchComposable } from '../composables/useFetch';
 import { Slides } from '../components/interface';
+import { Loader } from '../modules/stop-preload';
 
 Swiper.use([Navigation, Pagination, Autoplay]);
 
@@ -28,9 +29,10 @@ export class SummerSale {
       },
     });
     this.slidesArr = [];
-    this.loadCards();
+    this.loadCards().then(() => {
+      Loader.stop('summer-sale');
+    });
   }
-
   async loadCards() {
     const firebaseConfig = {
       projectId: 'crisp-b06bf',
@@ -71,17 +73,15 @@ export class SummerSale {
   renderSlides() {
     this.slidesArr.forEach((item) => {
       if (swiperWrapper) {
-        swiperWrapper.insertAdjacentHTML(
-          'beforeend',
-          `
-          <div class="swiper-slide summer-sale__slide">
+        const slide = renderElement('div', ['swiper-slide', 'summer-sale__slide']);
+        slide.innerHTML = `
             <picture>
               <source srcset=${item.imgWebP.stringValue} type="image/webp" />
               <img src=${item.img.stringValue}/>
             </picture>
-          </div>
-          `
-        );
+        `;
+
+        swiperWrapper.appendChild(slide);
       }
     });
   }
