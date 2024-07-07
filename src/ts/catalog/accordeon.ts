@@ -114,7 +114,7 @@ export class FilterAccordeon extends ShopSome {
   renderCards() {
     if (clothersWrapper) {
       clothersWrapper.innerHTML = '';
-
+      console.log('wrapper is here');
       this.filteredCards.forEach((item) => {
         if (clothersWrapper) {
           if (item.data.sale.booleanValue === false) {
@@ -160,6 +160,7 @@ export class FilterAccordeon extends ShopSome {
             );
           }
         }
+        console.log(shopBlock);
       });
     }
   }
@@ -198,7 +199,7 @@ export class FilterAccordeon extends ShopSome {
   changeInputs() {
     this.inputs.forEach((input, index) => {
       input?.addEventListener('change', (event) => {
-        const target = event.currentTarget as HTMLInputElement; // Type casting to HTMLInputElement
+        const target = event.currentTarget as HTMLInputElement;
         if (target) {
           this.setRangeSlider(index, parseFloat(target.value));
           this.applyFilters();

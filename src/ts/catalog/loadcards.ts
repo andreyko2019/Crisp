@@ -1,6 +1,9 @@
 import { ShopFilters } from '../components/interface';
 import { getElement } from '../composables/useCallDom';
 import { ShopSome } from '../main/shop-some';
+const shopBlock = getElement('.catalog__shop');
+const nothing = getElement('.nothing');
+
 
 export function loadCards() {
   const clothersWrapper = getElement('.shop-some__items');
@@ -138,10 +141,13 @@ export function loadCards() {
             }
           });
           
-          allCardsArr.push(...currentArray);
-          console.log(allCardsArr);
+          // allCardsArr.push(...currentArray);
+          // console.log(allCardsArr);
           localStorage.setItem('Cards', JSON.stringify(this.renderedCards));
+          console.log(shopBlock) 
         }
+        shopBlock?.classList.remove('catalog__shop_no-cards');
+        nothing?.classList.remove('nothing_active');
       }
     }
 
