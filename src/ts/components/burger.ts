@@ -34,9 +34,21 @@ export class Burger {
   }
 
   bag() {
-    if (bagList) {
-      this.bagBtn?.addEventListener('click', function () {
+    const bagBtnSvg = this.bagBtn?.querySelector('.bag');
+    const bagBtnSumm = this.bagBtn?.querySelector('.summ');
+    if (bagBtnSvg && bagBtnSumm && bagList) {
+      bagBtnSvg.addEventListener('click', function () {
         bagList.classList.toggle('active');
+      });
+      bagBtnSumm.addEventListener('click', function () {
+        bagList.classList.toggle('active');
+      });
+    }
+
+    const closeBag = bagList?.querySelector('.pop-up__close');
+    if (closeBag && bagList) {
+      closeBag.addEventListener('click', function () {
+        bagList.classList.remove('active');
       });
     }
   }
@@ -70,7 +82,6 @@ export class Burger {
       menu?.appendChild(goAccMob);
       menu?.appendChild(logOut);
 
-      // Add event handlers for logout buttons
       const logOutBtns = getElements('.log-out');
       logOutBtns.forEach((logOutBtn) => {
         logOutBtn.addEventListener('click', this.logOut.bind(this));

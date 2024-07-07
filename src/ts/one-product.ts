@@ -8,6 +8,7 @@ import { Dropdown } from './one-product/custom-drop-down';
 import { MainInfo } from './one-product/main-info-info';
 import { LikeSwiper } from './components/you-may-also-like';
 import { AddToBag } from './one-product/add-to-bag';
+import { Search } from './components/search';
 
 document.addEventListener('DOMContentLoaded', async () => {
   new Burger();
@@ -19,6 +20,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   new MainInfo();
   new LikeSwiper();
   Loader.stop('more-info');
+  new Search();
 });
 
 new Skeleton();

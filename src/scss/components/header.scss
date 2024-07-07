@@ -237,6 +237,19 @@
         background: $black;
         color: $white;
       }
+
+      .empty-cart-message {
+        color: $gray;
+        text-align: center;
+        font-size: clamp(12px, 2.5vw, 16px);
+        margin-top: 15px;
+      }
+
+      .prod-in-bag {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
     }
 
     .log-and-sign {
