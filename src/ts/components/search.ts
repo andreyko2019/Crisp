@@ -3,7 +3,6 @@ import { fetchComposable } from '../composables/useFetch';
 import { OneDressBag } from './interface';
 
 const search = getElements('.search');
-const searchBtn = getElements('.search svg');
 
 export class Search {
   prodArr: { id: string; data: OneDressBag }[];

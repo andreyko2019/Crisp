@@ -6,7 +6,6 @@ const clothersWrapper = getElement('.shop-some__items');
 const shopBlock = getElement('.catalog__shop');
 const nothing = getElement('.nothing');
 
-
 export class FilterAccordeon extends ShopSome {
   accordeonButtons: NodeListOf<HTMLElement>;
   lengthLabels: NodeListOf<Element>;
@@ -16,9 +15,9 @@ export class FilterAccordeon extends ShopSome {
   minPrice: number | null;
   maxPrice: number | null;
   rangeSlider: any;
-  inputs: [Element | null, Element | null];
-  inputFirst: Element | null;
-  inputSecond: Element | null;
+  inputs: [HTMLInputElement | null, HTMLInputElement | null];
+  inputFirst: HTMLInputElement | null;
+  inputSecond: HTMLInputElement | null;
   filteredCards: any[];
 
   constructor() {
@@ -28,12 +27,14 @@ export class FilterAccordeon extends ShopSome {
     this.lengthLabels = getElements('.length-item');
     this.minPrice = null;
     this.maxPrice = null;
+    this.brand = null;
+    this.length = null;
     this.rangeSlider = document.getElementById('range-slider');
 
-    this.inputFirst = getElement('.range__input_first');
-    this.inputSecond = getElement('.range__input_second');
+    this.inputFirst = getElement('.range__input_first') as HTMLInputElement;
+    this.inputSecond = getElement('.range__input_second') as HTMLInputElement;
     this.inputs = [this.inputFirst, this.inputSecond];
-    this.filteredCards = [...this.shopDb]; 
+    this.filteredCards = [...this.shopDb];
 
     this.labels.forEach((label) => {
       label.addEventListener('click', () => {
@@ -79,7 +80,6 @@ export class FilterAccordeon extends ShopSome {
 
   applyFilters() {
     this.filteredCards = [...this.shopDb];
-    
 
     if (this.brand) {
       this.filteredCards = this.filteredCards.filter((card) => {
@@ -161,9 +161,7 @@ export class FilterAccordeon extends ShopSome {
           }
         }
       });
-    } 
-
-    
+    }
   }
 
   initializeSlider() {
@@ -178,18 +176,21 @@ export class FilterAccordeon extends ShopSome {
     });
 
     this.rangeSlider.noUiSlider.on('update', (values: any, handle: any) => {
-      this.inputs[handle].value = Math.round(values[handle]);
-      if (handle === 0) {
-        this.minPrice = Math.round(values[handle]);
-      } else {
-        this.maxPrice = Math.round(values[handle]);
+      const inputElement = this.inputs[handle];
+      if (inputElement) {
+        inputElement.value = String(Math.round(values[handle]));
+        if (handle === 0) {
+          this.minPrice = Math.round(values[handle]);
+        } else {
+          this.maxPrice = Math.round(values[handle]);
+        }
+        this.applyFilters();
       }
-      this.applyFilters();
     });
   }
 
   setRangeSlider(inputIndex: number, value: number) {
-    const array = [null, null];
+    const array: (number | null)[] = [null, null];
     array[inputIndex] = value;
     this.rangeSlider.noUiSlider.set(array);
   }
@@ -197,8 +198,11 @@ export class FilterAccordeon extends ShopSome {
   changeInputs() {
     this.inputs.forEach((input, index) => {
       input?.addEventListener('change', (event) => {
-        this.setRangeSlider(index, parseFloat(event.currentTarget.value));
-        this.applyFilters();
+        const target = event.currentTarget as HTMLInputElement; // Type casting to HTMLInputElement
+        if (target) {
+          this.setRangeSlider(index, parseFloat(target.value));
+          this.applyFilters();
+        }
       });
     });
   }
