@@ -17,6 +17,18 @@ const pages = [
     name: 'catalog',
     path: resolve(__dirname, 'catalog.html'),
   },
+  {
+    name: 'sign-in',
+    path: resolve(__dirname, 'sign-in.html'),
+  },
+  {
+    name: 'sign-up',
+    path: resolve(__dirname, 'sign-up.html'),
+  },
+  {
+    name: 'cabinet',
+    path: resolve(__dirname, 'cabinet.html'),
+  },
 ];
 
 export default pages;
