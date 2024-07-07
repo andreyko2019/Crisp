@@ -8,7 +8,6 @@ export class AccInfo {
 
   constructor() {
     this.uid = this.getCookie('UID');
-
     this.init();
   }
 
@@ -52,23 +51,28 @@ export class AccInfo {
 
     const url = `https://firestore.googleapis.com/v1/projects/${firebaseConfig.projectId}/databases/(default)/documents:runQuery`;
 
-    const response = await fetchComposable<{ document: { fields: UserData } }[], typeof requestBody>(url, {
-      method: 'POST',
-      body: requestBody,
-    });
+    try {
+      const response = await fetchComposable<{ document: { name: string; fields: UserData } }[], typeof requestBody>(url, {
+        method: 'POST',
+        body: requestBody,
+      });
 
-    if (response.error) {
-      console.error('Error fetching data:', response.error);
-      return;
-    }
-
-    if (response.data && response.data.length > 0) {
-      const doc = response.data[0];
-      if (doc.document && doc.document.fields) {
-        this.userData = doc.document.fields;
-        console.log(this.userData);
-        this.updateUi();
+      if (response.error) {
+        console.error('Error fetching data:', response.error);
+        return;
       }
+
+      if (response.data && response.data.length > 0) {
+        const doc = response.data[0];
+        if (doc.document && doc.document.fields) {
+          this.userData = doc.document.fields;
+          this.uid = doc.document.name.split('/').pop(); // Extract document ID from the document name
+          console.log(this.userData);
+          this.updateUi();
+        }
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
     }
   }
 
@@ -125,16 +129,20 @@ export class AccInfo {
     console.log('Request URL:', url);
     console.log('Request body:', requestBody);
 
-    const response = await fetchComposable<any, typeof requestBody>(url, {
-      method: 'PATCH',
-      body: requestBody,
-    });
+    try {
+      const response = await fetchComposable<{ updateTime: string }, typeof requestBody>(url, {
+        method: 'PATCH',
+        body: requestBody,
+      });
 
-    if (response.error) {
-      console.error('Error updating data:', response.error);
-      return;
+      if (response.error) {
+        console.error('Error updating data:', response.error);
+        return;
+      }
+
+      console.log('Data updated successfully:', response.data);
+    } catch (error) {
+      console.error('Error updating data:', error);
     }
-
-    console.log('Data updated successfully:', response.data);
   }
 }

@@ -10,4 +10,8 @@
     align-items: center;
     justify-content: center;
   }
+
+  @include media-breakpoint-down(sm) {
+    display: none;
+  }
 }

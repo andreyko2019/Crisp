@@ -76,10 +76,11 @@ export interface Billing {
   country: { stringValue: string };
   city: { stringValue: string };
   street: { stringValue: string };
-  house: { stringValue: string };
 }
 
 export interface Shopping extends Billing {
   phone: { stringValue: string };
   zip: { stringValue: string };
+  company?: { stringValue: string };
+  fax?: { stringValue: string };
 }
