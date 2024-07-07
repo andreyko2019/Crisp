@@ -1,0 +1,17 @@
+.title {
+  h2 {
+    font-family: Oswald;
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 68px;
+    min-height: 90px;
+    margin-bottom: 17px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @include media-breakpoint-down(sm) {
+    display: none;
+  }
+}

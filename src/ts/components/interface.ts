@@ -44,6 +44,11 @@ export interface OneDress {
   size: { arrayValue: { values: { stringValue: string }[] } };
 }
 
+export interface OneDressBag extends OneDress {
+  img: { stringValue: string };
+  imgWebP: { stringValue: string };
+}
+
 export interface CustomEvent extends Event {
   readonly detail?: { block: string; requiredImagesCount: number };
 }
@@ -54,4 +59,29 @@ export interface CustomValidator {
       value: string;
     };
   };
+}
+
+export interface UserUid {
+  uid: { stringValue: string };
+}
+
+export interface UserData extends UserUid {
+  name: { stringValue: string };
+  surname: { stringValue: string };
+  email: { stringValue: string };
+  billing?: { stringValue: string };
+  shoppingAddress?: { stringValue: string };
+}
+
+export interface Billing {
+  country: { stringValue: string };
+  city: { stringValue: string };
+  street: { stringValue: string };
+}
+
+export interface Shopping extends Billing {
+  phone: { stringValue: string };
+  zip: { stringValue: string };
+  company?: { stringValue: string };
+  fax?: { stringValue: string };
 }

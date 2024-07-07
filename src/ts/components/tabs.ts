@@ -5,8 +5,8 @@ export class Tabs {
   private tabsItems: NodeListOf<HTMLElement>;
 
   constructor() {
-    this.tabsBtn = getElements('.tabs__nav-btn') as NodeListOf<HTMLElement>;
-    this.tabsItems = getElements('.tabs__item') as NodeListOf<HTMLElement>;
+    this.tabsBtn = getElements('.tabs__nav-btn');
+    this.tabsItems = getElements('.tabs__item');
 
     this.init();
   }

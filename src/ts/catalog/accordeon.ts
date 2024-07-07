@@ -6,7 +6,6 @@ const clothersWrapper = getElement('.shop-some__items');
 const shopBlock = getElement('.catalog__shop');
 const nothing = getElement('.nothing');
 
-
 export class FilterAccordeon extends ShopSome {
   accordeonButtons: NodeListOf<HTMLElement>;
   lengthLabels: NodeListOf<Element>;
@@ -16,9 +15,9 @@ export class FilterAccordeon extends ShopSome {
   minPrice: number | null;
   maxPrice: number | null;
   rangeSlider: any;
-  inputs: [Element | null, Element | null];
-  inputFirst: Element | null;
-  inputSecond: Element | null;
+  inputs: [HTMLInputElement | null, HTMLInputElement | null];
+  inputFirst: HTMLInputElement | null;
+  inputSecond: HTMLInputElement | null;
   filteredCards: any[];
 
   constructor() {
@@ -178,13 +177,16 @@ export class FilterAccordeon extends ShopSome {
     });
 
     this.rangeSlider.noUiSlider.on('update', (values: any, handle: any) => {
-      this.inputs[handle].value = Math.round(values[handle]);
-      if (handle === 0) {
-        this.minPrice = Math.round(values[handle]);
-      } else {
-        this.maxPrice = Math.round(values[handle]);
+      const inputElement = this.inputs[handle];
+      if (inputElement) {
+        inputElement.value = String(Math.round(values[handle]));
+        if (handle === 0) {
+          this.minPrice = Math.round(values[handle]);
+        } else {
+          this.maxPrice = Math.round(values[handle]);
+        }
+        this.applyFilters();
       }
-      this.applyFilters();
     });
   }
 

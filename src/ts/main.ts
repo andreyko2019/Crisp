@@ -9,11 +9,12 @@ import { PopularSwiper } from './main/most-popular';
 import { Blog } from './main/blog';
 import { Skeleton } from './components/skeleton';
 import { Search } from './components/search';
-
+import { AddToBag } from './one-product/add-to-bag';
 
 document.addEventListener('DOMContentLoaded', async () => {
   new Burger();
   new Search();
+  new AddToBag();
   new Accordion();
   new SummerSale(); // done
   new ShopSome(); // done

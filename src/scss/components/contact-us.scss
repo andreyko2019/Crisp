@@ -1,0 +1,78 @@
+.contact-us {
+  position: fixed;
+  right: 0;
+  top: 349px;
+  display: flex;
+  align-items: flex-end;
+  z-index: 5;
+
+  &.show-content .contact-us__content {
+    right: 37px;
+
+    @include media-breakpoint-down(sm) {
+      right: 25px;
+    }
+  }
+
+  &__btn {
+    width: 200px;
+    height: 40px;
+    transform: rotate(90deg);
+    transform-origin: bottom right;
+    background: black;
+    color: white;
+    font-size: 14px;
+    line-height: 20.75px;
+    letter-spacing: 0.5px;
+    text-align: center;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-family: Oswald;
+    margin-right: 40px;
+
+    @include media-breakpoint-down(sm) {
+      width: 145px;
+      height: 25px;
+      font-size: 10px;
+      margin-right: 25px;
+    }
+  }
+
+  &__content {
+    position: absolute;
+    right: -100%;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 30px;
+    background: black;
+    height: 200px;
+    justify-content: center;
+    transition: right 0.3s ease;
+
+    @include media-breakpoint-down(sm) {
+      padding: 10px;
+      height: 145px;
+    }
+
+    a {
+      color: $white;
+      font-family: Oswald;
+      font-size: 14px;
+      line-height: 20.75px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 15px;
+
+      @include media-breakpoint-down(sm) {
+        font-size: 10px;
+        line-height: normal;
+        margin-bottom: 10px;
+      }
+
+      span {
+        color: $grayMedium;
+      }
+    }
+  }
+}

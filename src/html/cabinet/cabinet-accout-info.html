@@ -1,0 +1,32 @@
+<div class="cabinet__acc-info account-info tabs__item" id="account-information">
+  <div class="account-info__title">Account Information</div>
+  <div class="account-info__form">
+    <form class="form">
+      <div class="form__item">
+        <label for="name">First name <span>*</span></label>
+        <div class="form__input">
+          <input type="text" class="form__item-input" placeholder="Your first name" id="name" onsubmit="event.preventDefault();" />
+        </div>
+      </div>
+      <div class="form__item">
+        <label for="surname">Last name <span>*</span></label>
+        <div class="form__input">
+          <input type="text" class="form__item-input" placeholder="Your last name" id="surname" onsubmit="event.preventDefault();" />
+        </div>
+      </div>
+      <label class="form__agree">
+        <input type="checkbox" autocomplete="false" />
+        <div class="custom-checkbox"></div>
+        Change Email
+      </label>
+      <label class="form__agree">
+        <input type="checkbox" autocomplete="false" />
+        <div class="custom-checkbox"></div>
+        Change Password
+      </label>
+      <div class="form__button">
+        <button class="btn black save" type="submit">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
