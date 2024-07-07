@@ -60,7 +60,7 @@ export class CreateAcc {
 
       console.log(user.uid);
       document.cookie = `UID=${user.uid}`;
-      window.location.href = '/Crisp/cabinet.html';
+      window.location.href = '/Crisp/cabinet.html#account-dashboard';
     } catch (error) {
       console.log('There was an error:', error);
     }

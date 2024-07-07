@@ -8,7 +8,6 @@ export class Dashboard {
 
   constructor() {
     this.uid = this.getCookie('UID');
-
     this.init();
   }
 
@@ -94,14 +93,14 @@ export class Dashboard {
   async billing() {
     if (this.userData && this.userData.billing?.stringValue) {
       const billing = this.userData.billing.stringValue;
-      let billingData = null;
+      let billingData: Billing | null = null;
       const firebaseConfig = {
         projectId: 'crisp-b06bf',
       };
 
       const firestoreApiUrl = `https://firestore.googleapis.com/v1/projects/${firebaseConfig.projectId}/databases/(default)/documents/billing/${billing}`;
 
-      const response = await fetchComposable<{ fields: Billing }>(firestoreApiUrl); // Исправлено здесь
+      const response = await fetchComposable<{ fields: Billing }>(firestoreApiUrl);
       if (response.error) {
         console.error('Ошибка при загрузке данных:', response.error);
         return;
@@ -112,7 +111,7 @@ export class Dashboard {
 
         const billingField = getElement('.billing-address');
         if (billingField) {
-          billingField.innerHTML = `${billingData.country.stringValue}, ${billingData.city.stringValue}, ${billingData.street.stringValue} street, ${billingData.house.stringValue}`;
+          billingField.innerHTML = `${billingData.country.stringValue}, ${billingData.city.stringValue}, ${billingData.street.stringValue} street`;
         }
       }
     }
@@ -121,26 +120,35 @@ export class Dashboard {
   async shoppingAdress() {
     if (this.userData && this.userData.shoppingAddress?.stringValue) {
       const shopping = this.userData.shoppingAddress.stringValue;
-      let shoppingData = null;
+      let shoppingData: Shopping[] = [];
       const firebaseConfig = {
         projectId: 'crisp-b06bf',
       };
 
-      const firestoreApiUrl = `https://firestore.googleapis.com/v1/projects/${firebaseConfig.projectId}/databases/(default)/documents/shopping-address/${shopping}`;
+      const firestoreApiUrl = `https://firestore.googleapis.com/v1/projects/${firebaseConfig.projectId}/databases/(default)/documents/shopping-address/${shopping}/allUserAddress`;
 
-      const response = await fetchComposable<{ fields: Shopping }>(firestoreApiUrl); // Исправлено здесь
+      const response = await fetchComposable<{ documents: { fields: Shopping }[] }>(firestoreApiUrl);
       if (response.error) {
         console.error('Ошибка при загрузке данных:', response.error);
         return;
       }
 
-      if (response.data) {
-        shoppingData = response.data.fields;
+      console.log('Response data:', response.data);
+
+      if (response.data && Array.isArray(response.data.documents)) {
+        response.data.documents.forEach((doc) => {
+          if (doc.fields) {
+            shoppingData.push(doc.fields);
+          }
+        });
 
         const shoppingField = getElement('.shopping-address');
-        if (shoppingField) {
-          shoppingField.innerHTML = `${shoppingData.phone.stringValue}<br>${shoppingData.country.stringValue}, ${shoppingData.city.stringValue}, ${shoppingData.street.stringValue} street, ${shoppingData.house.stringValue}, ${shoppingData.zip.stringValue}`;
+        if (shoppingField && shoppingData.length > 0) {
+          const firstAddress = shoppingData[0];
+          shoppingField.innerHTML = `${firstAddress.phone.stringValue}<br>${firstAddress.country.stringValue}, ${firstAddress.city.stringValue}, ${firstAddress.street.stringValue} street, ${firstAddress.zip.stringValue}`;
         }
+      } else {
+        console.error('Response data is not in the expected format:', response.data);
       }
     }
   }

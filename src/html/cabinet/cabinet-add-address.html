@@ -1,0 +1,79 @@
+<div class="cabinet__add-address add-address tabs__item" id="address-book">
+  <div class="add-address__item contact">
+    <div class="add-address__title">Contact Information</div>
+    <div class="contact__form">
+      <form class="form">
+        <div class="form__item">
+          <label for="name">First name <span>*</span></label>
+          <div class="form__input">
+            <input type="text" class="form__item-input" placeholder="Your first name" id="name" onsubmit="event.preventDefault();" />
+          </div>
+        </div>
+        <div class="form__item">
+          <label for="surname">Last name <span>*</span></label>
+          <div class="form__input">
+            <input type="text" class="form__item-input" placeholder="Your last name" id="surname" onsubmit="event.preventDefault();" />
+          </div>
+        </div>
+        <div class="form__item">
+          <label for="company">Company</label>
+          <div class="form__input">
+            <input type="text" class="form__item-input" id="company" onsubmit="event.preventDefault();" />
+          </div>
+        </div>
+        <div class="form__item">
+          <label for="phone">Phone Number <span>*</span></label>
+          <div class="form__input">
+            <input type="tel" class="form__item-input" id="phone" onsubmit="event.preventDefault();" />
+          </div>
+        </div>
+        <div class="form__item">
+          <label for="fax">Fax</label>
+          <div class="form__input">
+            <input type="text" class="form__item-input" id="fax" onsubmit="event.preventDefault();" />
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="add-address__item address">
+    <div class="add-address__title">Address</div>
+    <div class="address__form">
+      <form class="form">
+        <div class="form__item">
+          <label for="street">Street Address <span>*</span></label>
+          <div class="form__input">
+            <input type="text" class="form__item-input" id="street" onsubmit="event.preventDefault();" />
+          </div>
+        </div>
+        <div class="form__item">
+          <label for="country">Country <span>*</span></label>
+          <!-- dropdown -->
+          <div class="form__dropdown drop-down" id="country">
+            <div class="drop-down__select"></div>
+            <div class="drop-down__list">
+              <div class="drop-down__item">Ukraine</div>
+              <div class="drop-down__item">USA</div>
+              <div class="drop-down__item">Canada</div>
+            </div>
+          </div>
+        </div>
+        <div class="form__item">
+          <label for="state">State/Province <span>*</span></label>
+          <!-- dropdown -->
+          <div class="form__dropdown drop-down" id="state">
+            <div class="drop-down__select"></div>
+            <div class="drop-down__list"></div>
+          </div>
+        </div>
+        <div class="form__item">
+          <label for="zip">Zip/Postal Code <span>*</span></label>
+          <div class="form__input">
+            <input type="text" class="form__item-input" id="zip" onsubmit="event.preventDefault();" />
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <button class="add-address__save btn black" type="submit">Save Adress</button>
+</div>

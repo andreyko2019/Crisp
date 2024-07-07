@@ -292,6 +292,10 @@
         align-items: center;
         gap: 10px;
 
+        &.hidden {
+          display: none;
+        }
+
         .summ {
           max-width: 80px;
           font-family: RobotoMedium;
@@ -317,6 +321,7 @@
 
     .search {
       display: none;
+      position: relative;
 
       @include media-breakpoint-down(md) {
         display: flex;
@@ -334,10 +339,13 @@
       &.active {
         display: flex;
         gap: 15px;
+        min-width: 93vw;
+        position: relative;
 
         input {
           display: block;
           width: 100%;
+          padding: 0 15px;
         }
       }
     }
@@ -397,29 +405,41 @@
     }
   }
 
-  &__search-and-bag {
-    display: none;
+  .search {
+    &__popup {
+      display: none !important;
+      width: 320px;
+      height: 455px;
+      position: absolute;
+      top: 115px;
+      background-color: $white;
+      display: block;
+      overflow-y: scroll;
+      padding: 20px 15px;
 
-    @include media-breakpoint-down(md) {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .buy {
-      &__bag {
-        &.hidden {
-          display: none;
-        }
+      &.active {
+        display: block !important;
       }
-    }
 
-    .bag {
-      position: relative;
+      @include media-breakpoint-down(md) {
+        width: 100vw;
+        height: 100vh;
+        left: -15px;
+        top: 36px;
+      }
 
-      svg {
-        width: 18px;
-        height: 21.2px;
+      .card {
+        display: flex;
+        gap: 20px;
+        width: 100%;
+        height: fit-content;
+        margin: 0 auto;
+        margin-bottom: 15px;
+
+        &__img {
+          max-width: 56px;
+          height: fit-content;
+        }
       }
     }
   }
