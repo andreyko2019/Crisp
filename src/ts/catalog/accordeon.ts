@@ -1,8 +1,11 @@
 import { ShopSome } from '../main/shop-some';
 import { getElement, getElements } from '../composables/useCallDom';
-
 import noUiSlider from 'nouislider';
+
 const clothersWrapper = getElement('.shop-some__items');
+const shopBlock = getElement('.catalog__shop');
+const nothing = getElement('.nothing');
+
 
 export class FilterAccordeon extends ShopSome {
   accordeonButtons: NodeListOf<HTMLElement>;
@@ -10,42 +13,40 @@ export class FilterAccordeon extends ShopSome {
   labels: NodeListOf<Element>;
   brand: string | null;
   length: string | null;
-  colors: NodeListOf<Element>;
+  minPrice: number | null;
+  maxPrice: number | null;
   rangeSlider: any;
   inputs: [Element | null, Element | null];
   inputFirst: Element | null;
   inputSecond: Element | null;
+  filteredCards: any[];
 
   constructor() {
     super();
     this.accordeonButtons = getElements('.accordeon__button') as NodeListOf<HTMLElement>;
     this.labels = getElements('.brand-item');
     this.lengthLabels = getElements('.length-item');
-    this.colors = getElements('.color');
-    let button: HTMLElement;
-    let content: HTMLElement;
-    let span: HTMLElement;
-    this.brand = '';
-    this.length = '';
+    this.minPrice = null;
+    this.maxPrice = null;
     this.rangeSlider = document.getElementById('range-slider');
 
     this.inputFirst = getElement('.range__input_first');
     this.inputSecond = getElement('.range__input_second');
     this.inputs = [this.inputFirst, this.inputSecond];
+    this.filteredCards = [...this.shopDb]; 
 
     this.labels.forEach((label) => {
       label.addEventListener('click', () => {
         this.brand = label.textContent;
-        // console.log(this.brand)
-        this.filterCards();
+        this.applyFilters();
       });
     });
 
     this.accordeonButtons.forEach((btn) => {
       btn.addEventListener('click', () => {
-        button = btn;
-        content = button.nextElementSibling as HTMLElement;
-        span = button.children[1].children[1] as HTMLElement;
+        const button = btn;
+        const content = button.nextElementSibling as HTMLElement;
+        const span = button.children[1].children[1] as HTMLElement;
 
         this.toggleFunc(content, span);
       });
@@ -54,22 +55,13 @@ export class FilterAccordeon extends ShopSome {
     this.lengthLabels.forEach((label) => {
       label.addEventListener('click', () => {
         this.length = label.textContent;
-        // console.log(this.brand)
-        this.filterCardsByLength();
-      });
-    });
-
-    this.colors.forEach((color) => {
-      color.addEventListener('click', () => {
-        console.log(color.getAttribute('data-color'));
-        console.log(color);
+        this.applyFilters();
       });
     });
 
     if (this.rangeSlider) {
       this.initializeSlider();
       this.changeInputs();
-      
     }
   }
 
@@ -85,80 +77,45 @@ export class FilterAccordeon extends ShopSome {
     }
   }
 
-  filterCards() {
-    const allCards = [...this.shopDb];
-    if (!this.brand) {
-      return;
-    }
+  applyFilters() {
+    this.filteredCards = [...this.shopDb];
+    
 
-    const filteredCardsByBrand = allCards.filter((card) => {
-      return card.data.brand.stringValue.toLocaleLowerCase() === this.brand!.trim();
-    });
-
-    if (clothersWrapper) {
-      clothersWrapper.innerHTML = '';
-
-      filteredCardsByBrand.forEach((item) => {
-        if (clothersWrapper) {
-          if (item.data.sale.booleanValue === false) {
-            clothersWrapper.insertAdjacentHTML(
-              'afterbegin',
-              `
-            <a class="card shop-some__card ${item.id}" href="one-product.html?id=${item.id}">
-              <div class="card__img">
-                <picture>
-                  <source srcset=${item.data.imgWebP.stringValue} type="image/webp" />
-                  <img src=${item.data.img.stringValue} />
-                </picture>
-              </div>
-              <div class="card__info">
-                <p class="card__category">${item.data.category.stringValue}</p>
-                <h3 class="card__title">${item.data.name.stringValue}</h3>
-                <p class="card__price">${item.data.cost.stringValue}</p>
-              </div>
-            </a>
-            `
-            );
-          } else {
-            clothersWrapper.insertAdjacentHTML(
-              'afterbegin',
-              `
-            <a class="card sale shop-some__card ${item.id}" href="one-product.html?id=${item.id}">
-              <div class="card__img">
-                <picture>
-                  <source srcset=${item.data.imgWebP.stringValue} type="image/webp" />
-                  <img src=${item.data.img.stringValue} />
-                </picture>
-                <div class="card__sale">
-                  <p>-30%</p>
-                </div>
-              </div>
-              <div class="card__info">
-                <p class="card__category">${item.data.category.stringValue}</p>
-                <h3 class="card__title">${item.data.name.stringValue}</h3>
-                <p class="card__price">${item.data.costNew.stringValue} <span>${item.data.cost.stringValue}</span></p>
-              </div>
-            </a>
-                `
-            );
-          }
-        }
+    if (this.brand) {
+      this.filteredCards = this.filteredCards.filter((card) => {
+        return card.data.brand.stringValue.toLocaleLowerCase() === this.brand!.trim();
       });
     }
+
+    if (this.length) {
+      this.filteredCards = this.filteredCards.filter((card) => {
+        return card.data.length.stringValue === this.length!.trim();
+      });
+    }
+
+    if (this.minPrice !== null && this.maxPrice !== null) {
+      this.filteredCards = this.filteredCards.filter((card) => {
+        const price = parseFloat(card.data.cost.stringValue);
+        return price >= this.minPrice! && price <= this.maxPrice!;
+      });
+    }
+
+    if (this.filteredCards.length === 0) {
+      shopBlock?.classList.add('catalog__shop_no-cards');
+      nothing?.classList.add('nothing_active');
+    } else {
+      shopBlock?.classList.remove('catalog__shop_no-cards');
+      nothing?.classList.remove('nothing_active');
+    }
+
+    this.renderCards();
   }
 
-  filterCardsByLength() {
-    const allCards = [...this.shopDb];
-
-    const filteredCards = allCards.filter((card) => {
-      console.log(this.length?.trim(), card.data.length.stringValue);
-      return card.data.length.stringValue === this.length!.trim();
-    });
-
+  renderCards() {
     if (clothersWrapper) {
       clothersWrapper.innerHTML = '';
 
-      filteredCards.forEach((item) => {
+      this.filteredCards.forEach((item) => {
         if (clothersWrapper) {
           if (item.data.sale.booleanValue === false) {
             clothersWrapper.insertAdjacentHTML(
@@ -199,12 +156,14 @@ export class FilterAccordeon extends ShopSome {
                   <p class="card__price">${item.data.costNew.stringValue} <span>${item.data.cost.stringValue}</span></p>
                 </div>
               </a>
-                  `
+              `
             );
           }
         }
       });
-    }
+    } 
+
+    
   }
 
   initializeSlider() {
@@ -220,6 +179,12 @@ export class FilterAccordeon extends ShopSome {
 
     this.rangeSlider.noUiSlider.on('update', (values: any, handle: any) => {
       this.inputs[handle].value = Math.round(values[handle]);
+      if (handle === 0) {
+        this.minPrice = Math.round(values[handle]);
+      } else {
+        this.maxPrice = Math.round(values[handle]);
+      }
+      this.applyFilters();
     });
   }
 
@@ -227,142 +192,14 @@ export class FilterAccordeon extends ShopSome {
     const array = [null, null];
     array[inputIndex] = value;
     this.rangeSlider.noUiSlider.set(array);
-    console.log(array);
   }
 
   changeInputs() {
     this.inputs.forEach((input, index) => {
       input?.addEventListener('change', (event) => {
         this.setRangeSlider(index, parseFloat(event.currentTarget.value));
+        this.applyFilters();
       });
     });
   }
 }
-
-//  filterCardsByLength() {
-//     const allCards = [...this.shopDb];
-
-//     const filteredCards = allCards.filter((card) => {
-//       // if (!card.data.length.stringValue) {
-//       //   return;
-//       // }
-//       console.log(this.length?.trim(), card.data.length.stringValue);
-//       return card.data.length.stringValue === this.length!.trim();
-//     });
-
-//     if (clothersWrapper) {
-//       clothersWrapper.innerHTML = '';
-
-//       filteredCards.forEach((item) => {
-//         if (clothersWrapper) {
-//           if (item.data.sale.booleanValue === false) {
-//             clothersWrapper.insertAdjacentHTML(
-//               'afterbegin',
-//               `
-//             <a class="card shop-some__card ${item.id}" href="one-product.html?id=${item.id}">
-//               <div class="card__img">
-//                 <picture>
-//                   <source srcset=${item.data.imgWebP.stringValue} type="image/webp" />
-//                   <img src=${item.data.img.stringValue} />
-//                 </picture>
-//               </div>
-//               <div class="card__info">
-//                 <p class="card__category">${item.data.category.stringValue}</p>
-//                 <h3 class="card__title">${item.data.name.stringValue}</h3>
-//                 <p class="card__price">${item.data.cost.stringValue}</p>
-//               </div>
-//             </a>
-//             `
-//             );
-//           } else {
-//             clothersWrapper.insertAdjacentHTML(
-//               'afterbegin',
-//               `
-//             <a class="card sale shop-some__card ${item.id}" href="one-product.html?id=${item.id}">
-//               <div class="card__img">
-//                 <picture>
-//                   <source srcset=${item.data.imgWebP.stringValue} type="image/webp" />
-//                   <img src=${item.data.img.stringValue} />
-//                 </picture>
-//                 <div class="card__sale">
-//                   <p>-30%</p>
-//                 </div>
-//               </div>
-//               <div class="card__info">
-//                 <p class="card__category">${item.data.category.stringValue}</p>
-//                 <h3 class="card__title">${item.data.name.stringValue}</h3>
-//                 <p class="card__price">${item.data.costNew.stringValue} <span>${item.data.cost.stringValue}</span></p>
-//               </div>
-//             </a>
-//                 `
-//             );
-//           }
-//         }
-//       });
-//     }
-//   }
-
-// filterCardsByLength() {
-//     if (!this.length) {
-//       return;
-//     }
-
-//     const filteredByLength = this.filteredCards.filter((card) => {
-//       console.log(this.length?.trim(), card.data.length.stringValue);
-//       return card.data.length.stringValue === this.length!.trim();
-//     });
-
-//     console.log(filteredByLength);
-//     console.log(this.filteredCards)
-
-//     if (clothersWrapper) {
-//       clothersWrapper.innerHTML = '';
-
-//       filteredByLength.forEach((item) => {
-//         if (clothersWrapper) {
-//           if (item.data.sale.booleanValue === false) {
-//             clothersWrapper.insertAdjacentHTML(
-//               'afterbegin',
-//               `
-//               <a class="card shop-some__card ${item.id}" href="one-product.html?id=${item.id}">
-//                 <div class="card__img">
-//                   <picture>
-//                     <source srcset=${item.data.imgWebP.stringValue} type="image/webp" />
-//                     <img src=${item.data.img.stringValue} />
-//                   </picture>
-//                 </div>
-//                 <div class="card__info">
-//                   <p class="card__category">${item.data.category.stringValue}</p>
-//                   <h3 class="card__title">${item.data.name.stringValue}</h3>
-//                   <p class="card__price">${item.data.cost.stringValue}</p>
-//                 </div>
-//               </a>
-//               `
-//             );
-//           } else {
-//             clothersWrapper.insertAdjacentHTML(
-//               'afterbegin',
-//               `
-//               <a class="card sale shop-some__card ${item.id}" href="one-product.html?id=${item.id}">
-//                 <div class="card__img">
-//                   <picture>
-//                     <source srcset=${item.data.imgWebP.stringValue} type="image/webp" />
-//                     <img src=${item.data.img.stringValue} />
-//                   </picture>
-//                   <div class="card__sale">
-//                     <p>-30%</p>
-//                   </div>
-//                 </div>
-//                 <div class="card__info">
-//                   <p class="card__category">${item.data.category.stringValue}</p>
-//                   <h3 class="card__title">${item.data.name.stringValue}</h3>
-//                   <p class="card__price">${item.data.costNew.stringValue} <span>${item.data.cost.stringValue}</span></p>
-//                 </div>
-//               </a>
-//                   `
-//             );
-//           }
-//         }
-//       });
-//     }
-//   }

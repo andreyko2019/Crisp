@@ -6,6 +6,8 @@ export function loadCards() {
   const clothersWrapper = getElement('.shop-some__items');
   const allCardsArr: { id: string; data: ShopFilters; }[] = [];
   let limitCardsAll = 0;
+
+  
   class Dropdown extends ShopSome {
     dropdownBox: HTMLElement | null;
     arrowSvg: HTMLElement | null;
@@ -14,7 +16,7 @@ export function loadCards() {
     sortOptions: NodeListOf<HTMLElement>;
     selectedText: HTMLElement | null;
     selectedOrder: HTMLElement | null;
-    sortOrder: 'ascend' | 'descend';
+    sortOrder: 'ascend' | 'descend' | 'default';
     sortItems: NodeListOf<HTMLElement>;
     // limitCardsAll: number;
     
@@ -67,10 +69,12 @@ export function loadCards() {
           }
           if (item.innerText === 'HIGH') {
             this.sortOrder = 'ascend';
-          } else {
+          } else if (item.innerText === "LOW"){
             this.sortOrder = 'descend';
+          } else {
+            this.sortOrder = 'default'
           }
-          console.log(this.sortOrder);
+          
           this.sortedCards();
         });
       });
@@ -132,23 +136,13 @@ export function loadCards() {
                 );
               }
             }
-            currentArray.push(item);
-            
-            // allCardsArr.push(item)
-            allCardsArr.push(...currentArray);
-            
           });
           
           allCardsArr.push(...currentArray);
           console.log(allCardsArr);
-          // this.renderedCards = currentArray;
-          // console.log(this.renderedCards);
           localStorage.setItem('Cards', JSON.stringify(this.renderedCards));
         }
       }
-
-      // allCardsArr.push(...currentArray);
-      // console.log(allCardsArr);
     }
 
     // setTimeout(() => {
@@ -156,7 +150,6 @@ export function loadCards() {
     // },0);
     
     sortedCards=()=> {
-      // const limitCardsAll = [...allCardsArr];
       console.log(limitCardsAll)
       const visibleCards = this.shopDb.slice(0, limitCardsAll);
       // console.log(limitCardsAll);
@@ -173,21 +166,24 @@ export function loadCards() {
           const costStr2 = Object.values(b.data.cost.stringValue);
           const costNum1 = costStr1.join('').trim().split(' ')[0].replace(',', '.');
           const costNum2 = costStr2.join('').trim().split(' ')[0].replace(',', '.');
-          console.log(Number(costNum1), Number(costNum2));
-          console.log(this.sortOrder)
           return Number(costNum1) - Number(costNum2);
           
         });
-      } else {
+      } else if(this.sortOrder === 'descend') {
         visibleCards.sort((a, b) => {
           const costStr1 = Object.values(a.data.cost.stringValue);
           const costStr2 = Object.values(b.data.cost.stringValue);
           const costNum1 = costStr1.join('').trim().split(' ')[0].replace(',', '.');
           const costNum2 = costStr2.join('').trim().split(' ')[0].replace(',', '.');
-          console.log(this.sortOrder);
-          console.log(Number(costNum1), Number(costNum2));
           return Number(costNum2) - Number(costNum1);
         });
+      } else {
+        visibleCards.sort((a,b) =>{
+          const brand1 = a.data.brand.stringValue;
+          const brand2 = b.data.brand.stringValue;
+          return brand1.localeCompare(brand2);
+          
+        })
       }
 
       if (clothersWrapper) {
@@ -231,7 +227,7 @@ export function loadCards() {
               <div class="card__info">
                 <p class="card__category">${item.data.category.stringValue}</p>
                 <h3 class="card__title">${item.data.name.stringValue}</h3>
-                <p class="card__price">${item.data.costNew.stringValue} <span>${item.data.cost.stringValue}</span></p>
+                <p class="card__price">$${item.data.cost.stringValue} <span>${item.data.costNew.stringValue}</span></p>
               </div>
             </a>
                 `
