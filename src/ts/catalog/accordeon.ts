@@ -28,12 +28,14 @@ export class FilterAccordeon extends ShopSome {
     this.lengthLabels = getElements('.length-item');
     this.minPrice = null;
     this.maxPrice = null;
+    this.brand = null;
+    this.length = null;
     this.rangeSlider = document.getElementById('range-slider');
 
-    this.inputFirst = getElement('.range__input_first');
-    this.inputSecond = getElement('.range__input_second');
+    this.inputFirst = getElement('.range__input_first') as HTMLInputElement;
+    this.inputSecond = getElement('.range__input_second') as HTMLInputElement;
     this.inputs = [this.inputFirst, this.inputSecond];
-    this.filteredCards = [...this.shopDb]; 
+    this.filteredCards = [...this.shopDb];
 
     this.labels.forEach((label) => {
       label.addEventListener('click', () => {
@@ -79,7 +81,6 @@ export class FilterAccordeon extends ShopSome {
 
   applyFilters() {
     this.filteredCards = [...this.shopDb];
-    
 
     if (this.brand) {
       this.filteredCards = this.filteredCards.filter((card) => {
@@ -114,7 +115,7 @@ export class FilterAccordeon extends ShopSome {
   renderCards() {
     if (clothersWrapper) {
       clothersWrapper.innerHTML = '';
-
+      console.log('wrapper is here');
       this.filteredCards.forEach((item) => {
         if (clothersWrapper) {
           if (item.data.sale.booleanValue === false) {
@@ -160,10 +161,9 @@ export class FilterAccordeon extends ShopSome {
             );
           }
         }
+        console.log(shopBlock);
       });
-    } 
-
-    
+    }
   }
 
   initializeSlider() {
@@ -189,7 +189,7 @@ export class FilterAccordeon extends ShopSome {
   }
 
   setRangeSlider(inputIndex: number, value: number) {
-    const array = [null, null];
+    const array: (number | null)[] = [null, null];
     array[inputIndex] = value;
     this.rangeSlider.noUiSlider.set(array);
   }
@@ -197,8 +197,11 @@ export class FilterAccordeon extends ShopSome {
   changeInputs() {
     this.inputs.forEach((input, index) => {
       input?.addEventListener('change', (event) => {
-        this.setRangeSlider(index, parseFloat(event.currentTarget.value));
-        this.applyFilters();
+        const target = event.currentTarget as HTMLInputElement;
+        if (target) {
+          this.setRangeSlider(index, parseFloat(target.value));
+          this.applyFilters();
+        }
       });
     });
   }
