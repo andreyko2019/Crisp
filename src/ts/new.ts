@@ -6,6 +6,7 @@ import { NewInfo } from './new/new-info';
 import { LikeSwiper } from './components/you-may-also-like';
 import { Skeleton } from './components/skeleton';
 import { AddToBag } from './one-product/add-to-bag';
+import { Search } from './components/search';
 
 document.addEventListener('DOMContentLoaded', async () => {
   new Burger();
@@ -15,6 +16,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   new NewBaner();
   new NewInfo();
   Loader.stop('adds');
+  new Search();
 });
 
 new Skeleton();

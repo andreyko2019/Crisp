@@ -130,56 +130,66 @@ export class AddToBag {
     if (bagContent) {
       bagContent.innerHTML = '';
 
-      this.cart.forEach((item) => {
-        const oneItem = renderElement('a', ['clother', item.id, item.size]) as HTMLAnchorElement;
-        oneItem.href = `one-product.html?id=${item.id}`;
+      if (this.cart.length === 0) {
+        const emptyMessage = renderElement('p', 'empty-cart-message');
+        emptyMessage.textContent = 'Your bag is empty.';
+        bagContent?.appendChild(emptyMessage);
+      } else {
+        this.cart.forEach((item) => {
+          const card = renderElement('div', 'prod-in-bag');
 
-        const img = renderElement('div', 'clother__img');
-        img.innerHTML = `
+          const oneItem = renderElement('a', ['clother', item.id, item.size]) as HTMLAnchorElement;
+          oneItem.href = `one-product.html?id=${item.id}`;
+
+          const img = renderElement('div', 'clother__img');
+          img.innerHTML = `
           <picture>
             <source srcset=${item.data.imgWebP.stringValue} type="image/webp" />
             <img src=${item.data.img.stringValue} />
           </picture>
         `;
 
-        const info = renderElement('div', 'clother__info');
+          const info = renderElement('div', 'clother__info');
 
-        const name = renderElement('p', 'clother__name');
-        name.textContent = item.data.name.stringValue;
+          const name = renderElement('p', 'clother__name');
+          name.textContent = item.data.name.stringValue;
 
-        const size = renderElement('p', 'clother__size');
-        size.innerHTML = `Size: <span>${item.size}</span>`;
+          const size = renderElement('p', 'clother__size');
+          size.innerHTML = `Size: <span>${item.size}</span>`;
 
-        const articul = renderElement('p', 'clother__art');
-        articul.innerHTML = `
+          const articul = renderElement('p', 'clother__art');
+          articul.innerHTML = `
           Art.No.: <span>434536465<span>
         `;
 
-        const count = renderElement('p', 'clother__count');
-        count.innerHTML = `
+          const count = renderElement('p', 'clother__count');
+          count.innerHTML = `
           ${item.quantity} x ${(item.price / item.quantity).toFixed(2)} EUR
         `;
 
-        const close = renderElement('div', 'clother__remove');
-        close.innerHTML = `
+          const close = renderElement('div', 'clother__remove');
+          close.innerHTML = `
           <svg>
             <use href="#remove"></use>
           </svg>
         `;
 
-        info.appendChild(name);
-        info.appendChild(size);
-        info.appendChild(articul);
-        info.appendChild(count);
+          info.appendChild(name);
+          info.appendChild(size);
+          info.appendChild(articul);
+          info.appendChild(count);
 
-        oneItem.appendChild(img);
-        oneItem.appendChild(info);
-        oneItem.appendChild(close);
+          oneItem.appendChild(img);
+          oneItem.appendChild(info);
 
-        bagContent.appendChild(oneItem);
+          card.appendChild(oneItem);
+          card.appendChild(close);
 
-        this.removeClother(oneItem, item);
-      });
+          bagContent.appendChild(card);
+
+          this.removeClother(card, item);
+        });
+      }
 
       this.updateTotal();
     }
