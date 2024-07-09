@@ -1,43 +1,17 @@
 import { getElement } from '../composables/useCallDom';
+import { Dropdown } from '../components/dropdown';
 
 const stateDropdown = getElement('.drop-down#state');
 
-export class DropdownForm {
-  private dropdownSelect: HTMLElement;
-  private dropdownMenu: HTMLElement;
-  private menuItems: NodeListOf<HTMLElement>;
-
+export class DropdownForm extends Dropdown {
   constructor(dropdownSelectSelector: string, dropdownMenuSelector: string) {
-    const dropdownSelect = getElement(dropdownSelectSelector);
-    const dropdownMenu = getElement(dropdownMenuSelector);
-
-    if (!dropdownSelect || !dropdownMenu) {
-      throw new Error('Dropdown select or menu element not found');
-    }
-
-    this.dropdownSelect = dropdownSelect;
-    this.dropdownMenu = dropdownMenu;
-    this.menuItems = this.dropdownMenu.querySelectorAll('.drop-down__item');
-
-    this.init();
+    super(dropdownSelectSelector, dropdownMenuSelector);
   }
 
-  init() {
-    this.dropdownSelect.addEventListener('click', (event) => this.toggleMenu(event));
-    this.menuItems.forEach((item) => {
-      item.addEventListener('click', () => this.onItemClick(item));
-    });
-    document.addEventListener('click', (event) => this.handleOutsideClick(event));
-
-    // Ensure the dropdown menu is initially hidden
-    this.dropdownMenu.classList.add('hidden');
-  }
-
-  private onItemClick(item: HTMLElement) {
+  override onItemClick(item: HTMLElement) {
+    super.onItemClick(item);
     const selectedValue = item.textContent;
     if (selectedValue) {
-      this.dropdownSelect.textContent = selectedValue;
-      this.teardownDropdown();
       this.updateStateDropdown(selectedValue);
     }
   }
@@ -49,7 +23,6 @@ export class DropdownForm {
       return;
     }
 
-    // Clear the state dropdown select
     const stateSelect = stateDropdown.querySelector('.drop-down__select');
     if (stateSelect) {
       stateSelect.textContent = '';
@@ -90,22 +63,5 @@ export class DropdownForm {
     };
 
     return statesByCountry[country] || [];
-  }
-
-  private teardownDropdown() {
-    this.dropdownMenu.classList.add('hidden');
-    this.dropdownSelect.classList.remove('active');
-  }
-
-  private toggleMenu(event: Event) {
-    event.stopPropagation();
-    this.dropdownSelect.classList.toggle('active');
-    this.dropdownMenu.classList.toggle('hidden');
-  }
-
-  private handleOutsideClick(event: MouseEvent) {
-    if (!this.dropdownSelect.contains(event.target as Node) && !this.dropdownMenu.contains(event.target as Node)) {
-      this.teardownDropdown();
-    }
   }
 }

@@ -1,5 +1,5 @@
 import { Burger } from './components/burger';
-import { Accordion } from './components/accordion';
+import { Accordion } from './components/accordeon';
 import { SummerSale } from './main/summer-sale-swiper';
 import { Loader } from './modules/stop-preload';
 import { ShopSome } from './main/shop-some';

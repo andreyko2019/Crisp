@@ -4,13 +4,11 @@ import { ShopSome } from '../main/shop-some';
 const shopBlock = getElement('.catalog__shop');
 const nothing = getElement('.nothing');
 
-
 export function loadCards() {
   const clothersWrapper = getElement('.shop-some__items');
-  const allCardsArr: { id: string; data: ShopFilters; }[] = [];
+  const allCardsArr: { id: string; data: ShopFilters }[] = [];
   let limitCardsAll = 0;
 
-  
   class Dropdown extends ShopSome {
     dropdownBox: HTMLElement | null;
     arrowSvg: HTMLElement | null;
@@ -21,8 +19,7 @@ export function loadCards() {
     selectedOrder: HTMLElement | null;
     sortOrder: 'ascend' | 'descend' | 'default';
     sortItems: NodeListOf<HTMLElement>;
-    // limitCardsAll: number;
-    
+
     renderedCards: { id: string; data: ShopFilters }[];
 
     constructor(dropdown: HTMLElement) {
@@ -36,8 +33,7 @@ export function loadCards() {
       this.selectedOrder = dropdown.querySelector('.dropdown__text');
       this.sortItems = dropdown.querySelectorAll('.sort-item');
       this.sortOrder = 'ascend';
-      // this.limitCardsAll = 0;
-      
+
       this.renderedCards = [];
 
       this.dropdownBox?.addEventListener('click', () => {
@@ -59,7 +55,6 @@ export function loadCards() {
           });
           option.classList.add('dropdown__menu-item_active');
           this.renderCard();
-
         });
       });
 
@@ -72,24 +67,23 @@ export function loadCards() {
           }
           if (item.innerText === 'HIGH') {
             this.sortOrder = 'ascend';
-          } else if (item.innerText === "LOW"){
+          } else if (item.innerText === 'LOW') {
             this.sortOrder = 'descend';
           } else {
-            this.sortOrder = 'default'
+            this.sortOrder = 'default';
           }
-          
+
           this.sortedCards();
         });
       });
     }
 
-    renderCard =() => {
+    renderCard = () => {
       allCardsArr.length = 0;
       const currentArray: { id: string; data: ShopFilters }[] = [];
       if (this.selectedText) {
-        // const limitCards = Number(this.selectedText?.textContent);
         limitCardsAll = Number(this.selectedText?.textContent);
-        console.log(limitCardsAll)
+        console.log(limitCardsAll);
         const visibleCards = this.shopDb.slice(0, limitCardsAll);
         if (clothersWrapper) {
           clothersWrapper.innerHTML = '';
@@ -140,31 +134,18 @@ export function loadCards() {
               }
             }
           });
-          
-          // allCardsArr.push(...currentArray);
-          // console.log(allCardsArr);
+
           localStorage.setItem('Cards', JSON.stringify(this.renderedCards));
-          console.log(shopBlock) 
+          console.log(shopBlock);
         }
         shopBlock?.classList.remove('catalog__shop_no-cards');
         nothing?.classList.remove('nothing_active');
       }
-    }
+    };
 
-    // setTimeout(() => {
-    //   this.sortedCards();
-    // },0);
-    
-    sortedCards=()=> {
-      console.log(limitCardsAll)
+    sortedCards = () => {
+      console.log(limitCardsAll);
       const visibleCards = this.shopDb.slice(0, limitCardsAll);
-      // console.log(limitCardsAll);
-      // console.log(allCardsArr)
-      // console.log(this.sortOrder);
-
-      // console.log(this.renderedCards)
-      // const savedCards = JSON.parse(localStorage.getItem("Cards"));
-      // console.log(savedCards)
 
       if (this.sortOrder === 'ascend') {
         visibleCards.sort((a, b) => {
@@ -173,9 +154,8 @@ export function loadCards() {
           const costNum1 = costStr1.join('').trim().split(' ')[0].replace(',', '.');
           const costNum2 = costStr2.join('').trim().split(' ')[0].replace(',', '.');
           return Number(costNum1) - Number(costNum2);
-          
         });
-      } else if(this.sortOrder === 'descend') {
+      } else if (this.sortOrder === 'descend') {
         visibleCards.sort((a, b) => {
           const costStr1 = Object.values(a.data.cost.stringValue);
           const costStr2 = Object.values(b.data.cost.stringValue);
@@ -184,12 +164,11 @@ export function loadCards() {
           return Number(costNum2) - Number(costNum1);
         });
       } else {
-        visibleCards.sort((a,b) =>{
+        visibleCards.sort((a, b) => {
           const brand1 = a.data.brand.stringValue;
           const brand2 = b.data.brand.stringValue;
           return brand1.localeCompare(brand2);
-          
-        })
+        });
       }
 
       if (clothersWrapper) {
@@ -242,7 +221,7 @@ export function loadCards() {
           }
         });
       }
-    }
+    };
   }
 
   const dropdowns = document.querySelectorAll<HTMLElement>('.dropdown');
