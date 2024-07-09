@@ -11,14 +11,22 @@ export class FilterAccordeon extends ShopSome {
   lengthLabels: NodeListOf<Element>;
   labels: NodeListOf<Element>;
   brand: string | null;
+  brandChecked: HTMLElement | null;
   length: string | null;
+  lengthChecked: HTMLElement | null;
+
   minPrice: number | null;
   maxPrice: number | null;
+  minPriceChecked: HTMLElement | null;
+  maxPriceChecked: HTMLElement | null;
   rangeSlider: any;
   inputs: [HTMLInputElement | null, HTMLInputElement | null];
   inputFirst: HTMLInputElement | null;
   inputSecond: HTMLInputElement | null;
   filteredCards: any[];
+  colorBlocks: NodeListOf<HTMLElement> | null;
+  colorChecked: HTMLElement | null;
+
 
   constructor() {
     super();
@@ -28,17 +36,28 @@ export class FilterAccordeon extends ShopSome {
     this.minPrice = null;
     this.maxPrice = null;
     this.brand = null;
+    this.brandChecked = getElement('.used-filters__value_brand');
     this.length = null;
+    this.lengthChecked = getElement('.used-filters__value_length');
+
     this.rangeSlider = document.getElementById('range-slider');
+    this.minPriceChecked = getElement('.used-filters__range-value-min');
+    this.maxPriceChecked = getElement('.used-filters__range-value-max');
 
     this.inputFirst = getElement('.range__input_first') as HTMLInputElement;
     this.inputSecond = getElement('.range__input_second') as HTMLInputElement;
     this.inputs = [this.inputFirst, this.inputSecond];
     this.filteredCards = [...this.shopDb];
+    this.colorBlocks = getElements('.color');
+    this.colorChecked = getElement('.used-filters__color-value');
 
     this.labels.forEach((label) => {
       label.addEventListener('click', () => {
         this.brand = label.textContent;
+        if (this.brandChecked) {
+          this.brandChecked.textContent = label.textContent;
+          this.brandChecked.nextElementSibling?.classList.add('used-filters__svg_cust_active');
+        }
         this.applyFilters();
       });
     });
@@ -56,9 +75,21 @@ export class FilterAccordeon extends ShopSome {
     this.lengthLabels.forEach((label) => {
       label.addEventListener('click', () => {
         this.length = label.textContent;
+        if (this.lengthChecked) {
+          this.lengthChecked.textContent = label.textContent;
+          this.lengthChecked.nextElementSibling?.classList.add('used-filters__svg_cust_active');
+        }
         this.applyFilters();
       });
     });
+
+    this.colorBlocks.forEach((color) => {
+      color.addEventListener('click', () => {
+        this.colorChecked?.appendChild(color);
+        console.log('clicck')
+        console.log(this.colorChecked)
+      })
+    })
 
     if (this.rangeSlider) {
       this.initializeSlider();
@@ -182,8 +213,16 @@ export class FilterAccordeon extends ShopSome {
         inputElement.value = String(Math.round(values[handle]));
         if (handle === 0) {
           this.minPrice = Math.round(values[handle]);
+          if (this.minPriceChecked) {
+            this.minPriceChecked.textContent = `${this.minPrice} EUR`;
+            this.minPriceChecked.nextElementSibling?.classList.add('used-filters__svg_cust_active');
+
+          }
         } else {
           this.maxPrice = Math.round(values[handle]);
+          if (this.maxPriceChecked) {
+            this.maxPriceChecked.textContent = `${this.maxPrice} EUR`;
+          }
         }
         this.applyFilters();
       }
@@ -200,6 +239,7 @@ export class FilterAccordeon extends ShopSome {
     this.inputs.forEach((input, index) => {
       input?.addEventListener('change', (event) => {
         const target = event.currentTarget as HTMLInputElement;
+        console.log(target);
         if (target) {
           this.setRangeSlider(index, parseFloat(target.value));
           this.applyFilters();
