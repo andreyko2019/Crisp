@@ -14,7 +14,6 @@ export class FilterAccordeon extends ShopSome {
   brandChecked: HTMLElement | null;
   length: string | null;
   lengthChecked: HTMLElement | null;
-
   minPrice: number | null;
   maxPrice: number | null;
   minPriceChecked: HTMLElement | null;
@@ -24,8 +23,14 @@ export class FilterAccordeon extends ShopSome {
   inputFirst: HTMLInputElement | null;
   inputSecond: HTMLInputElement | null;
   filteredCards: any[];
-  colorBlocks: NodeListOf<HTMLElement> | null;
+  allCheckedFilters: HTMLElement | null;
+  colors: NodeListOf<HTMLElement> | null;
   colorChecked: HTMLElement | null;
+  brandBlock: HTMLElement | null;
+  colorsBlock: HTMLElement | null;
+  lengthBlock: HTMLElement | null;
+  sizeBlock: HTMLElement | null;
+  priceBlock: HTMLElement | null;
 
 
   constructor() {
@@ -48,8 +53,14 @@ export class FilterAccordeon extends ShopSome {
     this.inputSecond = getElement('.range__input_second') as HTMLInputElement;
     this.inputs = [this.inputFirst, this.inputSecond];
     this.filteredCards = [...this.shopDb];
-    this.colorBlocks = getElements('.color');
+    this.colors = getElements('.color');
     this.colorChecked = getElement('.used-filters__color-value');
+    this.brandBlock = getElement('.used-filters__brand-box');
+    this.priceBlock = getElement('.used-filters__price-box');
+    this.sizeBlock = getElement('.used-filters__size-box');
+    this.colorsBlock = getElement('.used-filters__color-box');
+    this.lengthBlock = getElement('.used-filters__length-box');
+    this.allCheckedFilters = getElement('.used-filters');
 
     this.labels.forEach((label) => {
       label.addEventListener('click', () => {
@@ -57,6 +68,8 @@ export class FilterAccordeon extends ShopSome {
         if (this.brandChecked) {
           this.brandChecked.textContent = label.textContent;
           this.brandChecked.nextElementSibling?.classList.add('used-filters__svg_cust_active');
+          this.allCheckedFilters?.classList.add('used-filters_active');
+          this.brandBlock?.classList.add('used-filters__brand-box_active');
         }
         this.applyFilters();
       });
@@ -78,16 +91,33 @@ export class FilterAccordeon extends ShopSome {
         if (this.lengthChecked) {
           this.lengthChecked.textContent = label.textContent;
           this.lengthChecked.nextElementSibling?.classList.add('used-filters__svg_cust_active');
+          this.allCheckedFilters?.classList.add('used-filters_active');
+          this.lengthBlock?.classList.add('used-filters__length-box_active')
         }
         this.applyFilters();
       });
     });
 
-    this.colorBlocks.forEach((color) => {
+    this.colors.forEach((color) => {
       color.addEventListener('click', () => {
-        this.colorChecked?.appendChild(color);
-        console.log('clicck')
-        console.log(this.colorChecked)
+        const copyColorBlock = color.cloneNode(true);
+        this.colorChecked?.appendChild(copyColorBlock);
+        this.colorsBlock?.classList.add('used-filters__color-box_active');
+        this.colorChecked?.nextElementSibling?.classList.add('used-filters__svg_cust_active');
+        const dataCheck = color.getAttribute('data-color');
+        
+
+        console.log(this.colorChecked?.children);
+        if (this.colorChecked?.children) {
+          const colorsInCheked = Array(this.colorChecked?.children);
+          colorsInCheked.forEach((color) => {
+            console.log(color)
+
+            Array(color).forEach((col) => {
+              console.log(col)
+            })
+          })
+        }
       })
     })
 
@@ -125,6 +155,7 @@ export class FilterAccordeon extends ShopSome {
     }
 
     if (this.minPrice !== null && this.maxPrice !== null) {
+      // this.allCheckedFilters?.classList.add('used-filters_active');
       this.filteredCards = this.filteredCards.filter((card) => {
         const price = parseFloat(card.data.cost.stringValue);
         return price >= this.minPrice! && price <= this.maxPrice!;
@@ -208,6 +239,7 @@ export class FilterAccordeon extends ShopSome {
     });
 
     this.rangeSlider.noUiSlider.on('update', (values: any, handle: any) => {
+      // this.allCheckedFilters?.classList.add('used-filters_active');
       const inputElement = this.inputs[handle];
       if (inputElement) {
         inputElement.value = String(Math.round(values[handle]));
@@ -216,6 +248,7 @@ export class FilterAccordeon extends ShopSome {
           if (this.minPriceChecked) {
             this.minPriceChecked.textContent = `${this.minPrice} EUR`;
             this.minPriceChecked.nextElementSibling?.classList.add('used-filters__svg_cust_active');
+            // this.allCheckedFilters?.classList.add('used-filters_active');
 
           }
         } else {
