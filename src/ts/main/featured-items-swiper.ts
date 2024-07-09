@@ -69,13 +69,14 @@ export class FeaturedSwiper {
       projectId: 'crisp-b06bf',
     };
 
-    const requestBody: { structuredQuery: { from: { collectionId: string }[] } } = {
+    const requestBody: { structuredQuery: { from: { collectionId: string }[]; limit?: number } } = {
       structuredQuery: {
         from: [
           {
             collectionId: 'clothers',
           },
         ],
+        limit: 8,
       },
     };
 
@@ -98,9 +99,10 @@ export class FeaturedSwiper {
       });
       console.log(this.slidesArr);
       this.renderSlides();
-      this.loadMore();
+      this.hidden();
+
       if (this.swiper) {
-        this.swiper.update(); // Update the Swiper after adding slides
+        this.swiper.update();
       }
     }
   }
