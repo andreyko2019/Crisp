@@ -394,19 +394,22 @@
     .form {
       display: flex;
       flex-direction: column;
-      gap: 15px;
       max-width: 528px;
       margin-bottom: 50px;
       cursor: pointer;
 
       @include media-breakpoint-down(sm) {
-        gap: 5px;
         max-width: 392px;
       }
 
       &__input {
         max-width: 392px;
         width: 100%;
+        margin-bottom: 15px;
+
+        @include media-breakpoint-down(sm) {
+          margin-bottom: 5px;
+        }
       }
 
       &__title {
@@ -465,6 +468,11 @@
         max-width: 392px;
         width: 100%;
         position: relative;
+        margin-bottom: 15px;
+
+        @include media-breakpoint-down(sm) {
+          margin-bottom: 5px;
+        }
       }
     }
 
@@ -485,6 +493,17 @@
         color: $black;
         border-color: $grayMedium;
       }
+    }
+
+    .just-validate-error-label {
+      padding: 0 16px;
+      min-height: 35px;
+      background-color: $grayLight;
+      font-family: RobotoMedium;
+      font-size: 14px;
+      line-height: 20px;
+      display: flex;
+      align-items: center;
     }
   }
 }

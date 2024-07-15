@@ -1,8 +1,8 @@
 <div class="cabinet__add-address add-address tabs__item" id="address-book">
-  <div class="add-address__item contact">
-    <div class="add-address__title">Contact Information</div>
-    <div class="contact__form">
-      <form class="form">
+  <form class="form">
+    <div class="add-address__item contact">
+      <div class="add-address__title">Contact Information</div>
+      <div class="contact__form">
         <div class="form__item">
           <label for="name">First name <span>*</span></label>
           <div class="form__input">
@@ -33,13 +33,11 @@
             <input type="text" class="form__item-input" id="fax" onsubmit="event.preventDefault();" />
           </div>
         </div>
-      </form>
+      </div>
     </div>
-  </div>
-  <div class="add-address__item address">
-    <div class="add-address__title">Address</div>
-    <div class="address__form">
-      <form class="form">
+    <div class="add-address__item address">
+      <div class="add-address__title">Address</div>
+      <div class="address__form">
         <div class="form__item">
           <label for="street">Street Address <span>*</span></label>
           <div class="form__input">
@@ -48,22 +46,24 @@
         </div>
         <div class="form__item">
           <label for="country">Country <span>*</span></label>
-          <!-- dropdown -->
-          <div class="form__dropdown drop-down" id="country">
-            <div class="drop-down__select"></div>
-            <div class="drop-down__list">
-              <div class="drop-down__item">Ukraine</div>
-              <div class="drop-down__item">USA</div>
-              <div class="drop-down__item">Canada</div>
+          <div class="form__dropdown">
+            <div class="drop-down" id="country">
+              <div class="drop-down__select"></div>
+              <div class="drop-down__list">
+                <div class="drop-down__item">Ukraine</div>
+                <div class="drop-down__item">USA</div>
+                <div class="drop-down__item">Canada</div>
+              </div>
             </div>
+            <input type="hidden" id="country-hidden" name="country" />
           </div>
         </div>
         <div class="form__item">
           <label for="state">State/Province <span>*</span></label>
-          <!-- dropdown -->
           <div class="form__dropdown drop-down" id="state">
             <div class="drop-down__select"></div>
             <div class="drop-down__list"></div>
+            <input type="hidden" id="state-hidden" name="state" />
           </div>
         </div>
         <div class="form__item">
@@ -72,8 +72,8 @@
             <input type="text" class="form__item-input" id="zip" onsubmit="event.preventDefault();" />
           </div>
         </div>
-      </form>
+      </div>
     </div>
-  </div>
-  <button class="add-address__save btn black" type="submit">Save Adress</button>
+    <button class="add-address__save btn black" type="submit">Save Address</button>
+  </form>
 </div>
