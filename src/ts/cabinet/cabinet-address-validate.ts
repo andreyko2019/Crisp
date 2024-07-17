@@ -81,6 +81,7 @@ export class AddressValidate {
     validate.onSuccess(() => {
       console.log('Form is valid');
       new AddAddress();
+      window.location.reload();
     });
   }
 }
