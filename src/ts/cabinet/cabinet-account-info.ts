@@ -141,6 +141,7 @@ export class AccInfo {
       }
 
       console.log('Data updated successfully:', response.data);
+      window.location.reload();
     } catch (error) {
       console.error('Error updating data:', error);
     }

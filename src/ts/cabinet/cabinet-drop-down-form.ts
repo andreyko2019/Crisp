@@ -2,6 +2,8 @@ import { getElement } from '../composables/useCallDom';
 import { Dropdown } from '../components/dropdown';
 
 const stateDropdown = getElement('.drop-down#state');
+const countryInput = getElement('#country-hidden') as HTMLInputElement;
+const stateInput = getElement('#state-hidden') as HTMLInputElement;
 
 export class DropdownForm extends Dropdown {
   constructor(dropdownSelectSelector: string, dropdownMenuSelector: string) {
@@ -10,9 +12,11 @@ export class DropdownForm extends Dropdown {
 
   override onItemClick(item: HTMLElement) {
     super.onItemClick(item);
+
     const selectedValue = item.textContent;
     if (selectedValue) {
       this.updateStateDropdown(selectedValue);
+      this.updateHiddenInputFields(selectedValue);
     }
   }
 
@@ -50,6 +54,7 @@ export class DropdownForm extends Dropdown {
             stateSelect.textContent = item.textContent;
           }
           this.teardownDropdown();
+          this.updateHiddenInputFields(item.textContent);
         });
       });
     }
@@ -63,5 +68,15 @@ export class DropdownForm extends Dropdown {
     };
 
     return statesByCountry[country] || [];
+  }
+
+  private updateHiddenInputFields(selectedValue: string | null) {
+    const country = this.dropdownSelect.textContent;
+    if (country) {
+      countryInput.value = country;
+    }
+    if (selectedValue) {
+      stateInput.value = selectedValue;
+    }
   }
 }
