@@ -26,7 +26,7 @@
   }
 
   @include media-breakpoint-down(xxs) {
-    height: 110px0;
+    height: 110px;
   }
 
   &__title {
@@ -165,9 +165,48 @@
 
   &_catalog {
     background-image: url('../../img/catalog/bg-2.png');
+    background-repeat: no-repeat;
+    background-size: cover;
     height: 430px;
+
+    @include media-breakpoint-down(lg) {
+      height: 400px;
+    }
+
+    @include media-breakpoint-down(md) {
+      height: 300px;
+    }
+
+    @include media-breakpoint-down(sm) {
+      height: 220px;
+    }
+
+    @include media-breakpoint-down(xs) {
+      height: 180px;
+    }
+
+    @include media-breakpoint-down(xxs) {
+      height: 110px;
+    }
     .promo__info {
       left: 179px;
+      @include media-breakpoint-down(lg) {
+        left: 100px;
+        top: 40px;
+      }
+
+      @include media-breakpoint-down(md) {
+        top: 10px;
+      }
+
+      @include media-breakpoint-down(sm) {
+        left: 0;
+      }
+
+      @include media-breakpoint-down(xxs) {
+        left: 19px;
+        top: 5px;
+      }
     }
 
     .promo__title {

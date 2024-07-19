@@ -9,6 +9,10 @@
   border: 1px solid $black;
   padding: 15px 22px 40px 21px;
 
+  @include media-breakpoint-down(md) {
+    padding: 10px;
+  }
+
   &__top {
     display: flex;
     justify-content: space-between;
@@ -75,6 +79,20 @@
     align-items: center;
     gap: 8px;
     flex-wrap: wrap;
+  }
+
+  &__size-value {
+    display: flex; 
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+
+    p {
+      font-weight: 400;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-family: Oswald;
+    }
   }
 
   // &__price-box {

@@ -21,7 +21,7 @@
                   <div class="used-filters__top">
                     <h2 class="used-filters__annot">Filter</h2>
                     <div class="used-filters__reset-box">
-                      <svg class="used-filters__svg">
+                      <svg class="used-filters__svg reset-all-filters">
                         <use href="#close-icon"></use>
                       </svg>
                       <p class="used-filters__reset-text used-filters__reset-text_main">reset all</p>
@@ -32,7 +32,7 @@
 
                     <div class="used-filters__reset-box">
                       <p class="used-filters__value used-filters__value_brand"></p>
-                      <svg class="used-filters__svg used-filters__svg_cust">
+                      <svg class="used-filters__svg used-filters__svg_cust reset-brand">
                         <use href="#close-icon"></use>
                       </svg>
                     </div>
@@ -43,7 +43,7 @@
 
                     <div class="used-filters__reset-box">
                       <div class="used-filters__size-value"></div>
-                      <svg class="used-filters__svg used-filters__svg_cust">
+                      <svg class="used-filters__svg used-filters__svg_cust reset-size">
                         <use href="#close-icon"></use>
                       </svg>
                     </div>
@@ -54,7 +54,7 @@
 
                     <div class="used-filters__reset-box">
                       <p class="used-filters__value used-filters__value_length"></p>
-                      <svg class="used-filters__svg used-filters__svg_cust">
+                      <svg class="used-filters__svg used-filters__svg_cust reset-length">
                         <use href="#close-icon"></use>
                       </svg>
                     </div>
@@ -64,7 +64,7 @@
                     <h2 class="used-filters__title">Color:</h2>
                     <div class="used-filters__reset-box">
                       <div class="used-filters__color-value"></div>
-                      <svg class="used-filters__svg used-filters__svg_cust">
+                      <svg class="used-filters__svg used-filters__svg_cust reset-color">
                         <use href="#close-icon"></use>
                       </svg>
                     </div>
@@ -95,6 +95,10 @@
               </div>
 
               <div class="catalog__shop">
+                <img src="./src/img/catalog/filter.svg" alt="" class="catalog__filter-svg" />
+                <svg class="catalog__filter-close-filters">
+                  <use href="#close-icon"></use>
+                </svg>
                 <div class="catalog__shop-dropdowns">
                   <div class="content-bottom__dropdown dropdown">
                     <div class="dropdown__box">
@@ -126,6 +130,7 @@
                     </ul>
                   </div>
                 </div>
+
                 <div class="shop-some__items catalog__cards">
                   <button class="btn shop-some__load">Load more</button>
                 </div>

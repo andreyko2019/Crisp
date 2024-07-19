@@ -1,14 +1,69 @@
 .catalog {
   padding: 72px 0 78px;
+
+  @include media-breakpoint-down(md) {
+    padding: 50px 0 50px;
+  }
+
+  @include media-breakpoint-down(xs) {
+    padding: 25px 0 31px;
+  }
   &__inner {
     display: flex;
     justify-content: space-between;
+    gap: 40px;
+
+    @include media-breakpoint-down(md) {
+      flex-direction: column;
+      gap: 20px;
+    }
   }
 
   &__filter-forms {
     display: flex;
     flex-direction: column;
-    width: 355px;
+    max-width: 365px;
+
+    @include media-breakpoint-down(l) {
+      max-width: 310px;
+    }
+
+    @include media-breakpoint-down(lg) {
+      max-width: 200px;
+    }
+
+    @include media-breakpoint-down(md) {
+      display: none;
+      // flex-direction: row;
+    }
+
+    &_active {
+      display: flex;
+    }
+  }
+
+  &__filter-svg {
+    width: 44px;
+    height: 44px;
+    display: none;
+
+    @include media-breakpoint-down(md) {
+      display: block;
+    }
+
+    &_unvis {
+      display: none;
+    }
+  }
+
+  &__filter-close-filters {
+    width: 36px;
+    height: 36px;
+    display: none;
+
+    &_visible {
+      display: block;
+    }
   }
 
   &__shop {
@@ -20,6 +75,10 @@
     &_no-cards {
       width: 100%;
       margin-left: 40px;
+
+      @include media-breakpoint-down(md) {
+        margin-left: 0;
+      }
     }
   }
 
@@ -27,10 +86,24 @@
     display: flex;
     justify-content: flex-end;
     gap: 20px;
+
+    @include media-breakpoint-down(md) {
+      flex-direction: column;
+      // margin-top: 20px;
+    }
   }
 
   &__cards {
+    max-width: 1454px;
     width: 100%;
+
+     @include media-breakpoint-down(l) {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    @include media-breakpoint-down(sm) {
+      grid-template-columns: 1fr 1fr;
+    }
   }
 
   .nothing {

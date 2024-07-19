@@ -12,6 +12,7 @@ export class FilterAccordeon extends ShopSome {
   labels: NodeListOf<Element>;
   brand: string | null;
   brandChecked: HTMLElement | null;
+  resetBrand: HTMLElement | null;
   length: string | null;
   lengthChecked: HTMLElement | null;
   minPrice: number | null;
@@ -28,12 +29,19 @@ export class FilterAccordeon extends ShopSome {
   colorChecked: HTMLElement | null;
   brandBlock: HTMLElement | null;
   colorsBlock: HTMLElement | null;
+  resetColor: HTMLElement | null;
   lengthBlock: HTMLElement | null;
+  resetLength: HTMLElement | null;
   sizeBlock: HTMLElement | null;
   sizesList: NodeListOf<HTMLElement> | null;
   size: string;
   sizeChecked: HTMLElement | null;
   priceBlock: HTMLElement | null;
+  resetAllFilters: HTMLElement | null;
+  resetSize: HTMLElement | null;
+  filterSvg: HTMLElement | null;
+  filterForms: HTMLElement | null;
+  closeFilterForms: HTMLElement | null;
 
   constructor() {
     super();
@@ -44,8 +52,10 @@ export class FilterAccordeon extends ShopSome {
     this.maxPrice = null;
     this.brand = null;
     this.brandChecked = getElement('.used-filters__value_brand');
+    this.resetBrand = getElement('.reset-brand');
     this.length = null;
     this.lengthChecked = getElement('.used-filters__value_length');
+    this.resetLength = getElement('.reset-length');
 
     this.rangeSlider = document.getElementById('range-slider');
     this.minPriceChecked = getElement('.used-filters__range-value-min');
@@ -55,8 +65,12 @@ export class FilterAccordeon extends ShopSome {
     this.inputSecond = getElement('.range__input_second') as HTMLInputElement;
     this.inputs = [this.inputFirst, this.inputSecond];
     this.filteredCards = [...this.shopDb];
+    this.filterSvg = getElement('.catalog__filter-svg');
+    this.filterForms = getElement('.catalog__filter-forms');
+    this.closeFilterForms = getElement('.catalog__filter-close-filters');
     this.colors = getElements('.color');
     this.colorChecked = getElement('.used-filters__color-value');
+    this.resetColor = getElement('.reset-color');
     this.brandBlock = getElement('.used-filters__brand-box');
     this.priceBlock = getElement('.used-filters__price-box');
     this.sizeBlock = getElement('.used-filters__size-box');
@@ -67,6 +81,9 @@ export class FilterAccordeon extends ShopSome {
 
     this.sizesList = getElements('.sizes-list__item');
     this.size = '';
+    this.resetSize = getElement('.reset-size');
+
+    this.resetAllFilters = getElement('.reset-all-filters');
 
     this.labels.forEach((label) => {
       label.addEventListener('click', () => {
@@ -106,6 +123,7 @@ export class FilterAccordeon extends ShopSome {
 
     this.colors.forEach((color) => {
       color.addEventListener('click', () => {
+        color.classList.add('color_active');
         const copyColorBlock = color.cloneNode(true) as HTMLElement;
         this.allCheckedFilters?.classList.add('used-filters_active');
         this.colorsBlock?.classList.add('used-filters__color-box_active');
@@ -114,32 +132,83 @@ export class FilterAccordeon extends ShopSome {
         const existingColorBlock = this.colorChecked?.querySelector(`[data-color="${copyColorBlock.getAttribute('data-color')}"]`);
         if (!existingColorBlock) {
           this.colorChecked?.appendChild(copyColorBlock);
-        } 
+        }
       });
     });
 
     this.sizesList.forEach((size) => {
       size.addEventListener('click', () => {
-        const copySizeValue = size.children[2].cloneNode(true);
-        
-        console.log(size.children[2])
-        console.log(copySizeValue, this.colorChecked);
+        size.children[1].classList.add('custom-radio_active');
+        const copySizeValue = size.cloneNode(true) as HTMLElement;
         this.allCheckedFilters?.classList.add('used-filters_active');
         this.sizeBlock?.classList.add('used-filters__size-box_active');
-        this.sizeBlock?.nextElementSibling?.classList.add('used-filters__svg_cust_active');
-        this.colorChecked?.appendChild(copySizeValue);
+        this.sizeChecked?.nextElementSibling?.classList.add('used-filters__svg_cust_active');
 
-        // const existingColorBlock = this.colorChecked?.querySelector(`[for="${copySizeValue.getAttribute('for')}"]`);
-        // if (!existingColorBlock) {
-        //   this.colorChecked?.appendChild(copySizeValue);
-        // } 
-       })
-    })
+        const textContent = copySizeValue.children[2].textContent;
+        if (textContent !== null) {
+          const existingTextBlock = this.sizeChecked?.querySelector(`[data-size="${textContent}"]`);
+          if (!existingTextBlock) {
+            const newTextBlock = document.createElement('p');
+            newTextBlock.textContent = textContent;
+            newTextBlock.setAttribute('data-size', textContent);
+            this.sizeChecked?.appendChild(newTextBlock);
+          }
+        }
+      });
+    });
 
     if (this.rangeSlider) {
       this.initializeSlider();
       this.changeInputs();
     }
+
+    this.resetAllFilters?.addEventListener('click', () => {
+      this.brand = null;
+      this.length = null;
+      this.minPrice = null;
+      this.maxPrice = null;
+      this.filteredCards = [...this.shopDb];
+      this.allCheckedFilters?.classList.remove('used-filters_active');
+      this.renderCards();
+    });
+
+    this.resetSize?.addEventListener('click', () => {
+      this.sizeBlock?.classList.remove('used-filters__size-box_active');
+      if (this.sizeChecked) {
+        this.sizeChecked.innerHTML = '';
+      }
+    })
+
+    this.resetColor?.addEventListener('click', () => {
+      this.colorsBlock?.classList.remove('used-filters__color-box_active');
+      if (this.colorChecked) {
+        this.colorChecked.innerHTML = '';
+      }
+    })
+
+    this.resetBrand?.addEventListener('click', () => {
+      this.brand = null;
+      this.brandBlock?.classList.remove('used-filters__brand-box_active');
+      this.applyFilters();
+    })
+
+    this.resetLength?.addEventListener('click', () => {
+      this.length = null;
+      this.lengthBlock?.classList.remove('used-filters__length-box_active');
+      this.applyFilters();
+    })
+
+    this.filterSvg?.addEventListener('click', () => {
+      this.filterForms?.classList.add('catalog__filter-forms_active');
+      this.filterSvg?.classList.add('catalog__filter-svg_unvis');
+      this.closeFilterForms?.classList.add('catalog__filter-close-filters_visible');
+    })
+
+    this.closeFilterForms?.addEventListener('click', () => {
+      this.filterForms?.classList.remove('catalog__filter-forms_active');
+      this.filterSvg?.classList.remove('catalog__filter-svg_unvis');
+      this.closeFilterForms?.classList.remove('catalog__filter-close-filters_visible');
+    })
   }
 
   toggleFunc(content: HTMLElement, span: HTMLElement) {
