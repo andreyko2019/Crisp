@@ -97,6 +97,7 @@ export class AccInfo {
       saveButton.addEventListener('click', (event) => {
         event.preventDefault();
         this.updateData();
+        window.location.reload();
       });
     }
 

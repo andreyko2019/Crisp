@@ -7,6 +7,7 @@ import { LikeSwiper } from './components/you-may-also-like';
 import { Skeleton } from './components/skeleton';
 import { AddToBag } from './one-product/add-to-bag';
 import { Search } from './components/search';
+import { PopupCloser } from './components/pop-up-closer';
 
 document.addEventListener('DOMContentLoaded', async () => {
   new Burger();
@@ -17,6 +18,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   new NewInfo();
   Loader.stop('adds');
   new Search();
+  new PopupCloser('.buy__bag', '.bag__list');
 });
 
 new Skeleton();

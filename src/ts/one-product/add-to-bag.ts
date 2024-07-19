@@ -3,6 +3,7 @@ import { getElement, getElements, renderElement } from '../composables/useCallDo
 import { fetchComposable } from '../composables/useFetch';
 
 const addToBag = getElement('.bag__add.btn.black');
+const wishlistBtn = getElement('.card__add-to-bag .btn');
 const bagList = getElement('.bag__list');
 const bagContent = getElement('.pop-up__list');
 const totalSumElement = getElement('.summ span span');
