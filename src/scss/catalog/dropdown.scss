@@ -16,6 +16,10 @@
       background: rgba(146, 144, 144, 0.5);
     }
 
+    @include media-breakpoint-down(md) {
+      width: 202px;
+    }
+
     &_filter {
       width: 69px;
     }

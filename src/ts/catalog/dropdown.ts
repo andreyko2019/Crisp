@@ -1,3 +1,5 @@
+import { getElement, getElements } from "../composables/useCallDom";
+
 export const dropdownWork = function () {
   class Dropdown {
     dropdownBox: HTMLElement | null;
@@ -6,12 +8,13 @@ export const dropdownWork = function () {
     options: NodeListOf<HTMLElement>;
     selectedText: HTMLElement | null;
 
-    constructor(dropdown: HTMLElement) {
-      this.dropdownBox = dropdown.querySelector('.dropdown__box');
-      this.arrowSvg = dropdown.querySelector('.dropdown__svg-arrow');
-      this.menu = dropdown.querySelector('.dropdown__menu');
-      this.options = dropdown.querySelectorAll('.dropdown__menu-item');
-      this.selectedText = dropdown.querySelector('.dropdown__text');
+    constructor() {
+      // this.dropdownBox = dropdown.querySelector('.dropdown__box');
+      this.dropdownBox = getElement('.dropdown__box');
+      this.arrowSvg = getElement('.dropdown__svg-arrow');
+      this.menu = getElement('.dropdown__menu');
+      this.options = getElements('.dropdown__menu-item');
+      this.selectedText = getElement('.dropdown__text');
 
       this.dropdownBox?.addEventListener('click', () => {
         this.arrowSvg?.classList.toggle('dropdown__svg-arrow_rotate');
@@ -36,5 +39,5 @@ export const dropdownWork = function () {
   }
 
   const dropdowns = document.querySelectorAll<HTMLElement>('.dropdown');
-  dropdowns.forEach((dropdown) => new Dropdown(dropdown));
+  dropdowns.forEach(() => new Dropdown());
 };

@@ -12,6 +12,7 @@ export class FilterAccordeon extends ShopSome {
   labels: NodeListOf<Element>;
   brand: string | null;
   brandChecked: HTMLElement | null;
+  resetBrand: HTMLElement | null;
   length: string | null;
   lengthChecked: HTMLElement | null;
   minPrice: number | null;
@@ -28,10 +29,19 @@ export class FilterAccordeon extends ShopSome {
   colorChecked: HTMLElement | null;
   brandBlock: HTMLElement | null;
   colorsBlock: HTMLElement | null;
+  resetColor: HTMLElement | null;
   lengthBlock: HTMLElement | null;
+  resetLength: HTMLElement | null;
   sizeBlock: HTMLElement | null;
+  sizesList: NodeListOf<HTMLElement> | null;
+  size: string;
+  sizeChecked: HTMLElement | null;
   priceBlock: HTMLElement | null;
-
+  resetAllFilters: HTMLElement | null;
+  resetSize: HTMLElement | null;
+  filterSvg: HTMLElement | null;
+  filterForms: HTMLElement | null;
+  closeFilterForms: HTMLElement | null;
 
   constructor() {
     super();
@@ -42,8 +52,10 @@ export class FilterAccordeon extends ShopSome {
     this.maxPrice = null;
     this.brand = null;
     this.brandChecked = getElement('.used-filters__value_brand');
+    this.resetBrand = getElement('.reset-brand');
     this.length = null;
     this.lengthChecked = getElement('.used-filters__value_length');
+    this.resetLength = getElement('.reset-length');
 
     this.rangeSlider = document.getElementById('range-slider');
     this.minPriceChecked = getElement('.used-filters__range-value-min');
@@ -53,14 +65,25 @@ export class FilterAccordeon extends ShopSome {
     this.inputSecond = getElement('.range__input_second') as HTMLInputElement;
     this.inputs = [this.inputFirst, this.inputSecond];
     this.filteredCards = [...this.shopDb];
+    this.filterSvg = getElement('.catalog__filter-svg');
+    this.filterForms = getElement('.catalog__filter-forms');
+    this.closeFilterForms = getElement('.catalog__filter-close-filters');
     this.colors = getElements('.color');
     this.colorChecked = getElement('.used-filters__color-value');
+    this.resetColor = getElement('.reset-color');
     this.brandBlock = getElement('.used-filters__brand-box');
     this.priceBlock = getElement('.used-filters__price-box');
     this.sizeBlock = getElement('.used-filters__size-box');
+    this.sizeChecked = getElement('.used-filters__size-value');
     this.colorsBlock = getElement('.used-filters__color-box');
     this.lengthBlock = getElement('.used-filters__length-box');
     this.allCheckedFilters = getElement('.used-filters');
+
+    this.sizesList = getElements('.sizes-list__item');
+    this.size = '';
+    this.resetSize = getElement('.reset-size');
+
+    this.resetAllFilters = getElement('.reset-all-filters');
 
     this.labels.forEach((label) => {
       label.addEventListener('click', () => {
@@ -92,7 +115,7 @@ export class FilterAccordeon extends ShopSome {
           this.lengthChecked.textContent = label.textContent;
           this.lengthChecked.nextElementSibling?.classList.add('used-filters__svg_cust_active');
           this.allCheckedFilters?.classList.add('used-filters_active');
-          this.lengthBlock?.classList.add('used-filters__length-box_active')
+          this.lengthBlock?.classList.add('used-filters__length-box_active');
         }
         this.applyFilters();
       });
@@ -100,31 +123,92 @@ export class FilterAccordeon extends ShopSome {
 
     this.colors.forEach((color) => {
       color.addEventListener('click', () => {
-        const copyColorBlock = color.cloneNode(true);
-        this.colorChecked?.appendChild(copyColorBlock);
+        color.classList.add('color_active');
+        const copyColorBlock = color.cloneNode(true) as HTMLElement;
+        this.allCheckedFilters?.classList.add('used-filters_active');
         this.colorsBlock?.classList.add('used-filters__color-box_active');
         this.colorChecked?.nextElementSibling?.classList.add('used-filters__svg_cust_active');
-        const dataCheck = color.getAttribute('data-color');
-        
 
-        console.log(this.colorChecked?.children);
-        if (this.colorChecked?.children) {
-          const colorsInCheked = Array(this.colorChecked?.children);
-          colorsInCheked.forEach((color) => {
-            console.log(color)
-
-            Array(color).forEach((col) => {
-              console.log(col)
-            })
-          })
+        const existingColorBlock = this.colorChecked?.querySelector(`[data-color="${copyColorBlock.getAttribute('data-color')}"]`);
+        if (!existingColorBlock) {
+          this.colorChecked?.appendChild(copyColorBlock);
         }
-      })
-    })
+      });
+    });
+
+    this.sizesList.forEach((size) => {
+      size.addEventListener('click', () => {
+        size.children[1].classList.add('custom-radio_active');
+        const copySizeValue = size.cloneNode(true) as HTMLElement;
+        this.allCheckedFilters?.classList.add('used-filters_active');
+        this.sizeBlock?.classList.add('used-filters__size-box_active');
+        this.sizeChecked?.nextElementSibling?.classList.add('used-filters__svg_cust_active');
+
+        const textContent = copySizeValue.children[2].textContent;
+        if (textContent !== null) {
+          const existingTextBlock = this.sizeChecked?.querySelector(`[data-size="${textContent}"]`);
+          if (!existingTextBlock) {
+            const newTextBlock = document.createElement('p');
+            newTextBlock.textContent = textContent;
+            newTextBlock.setAttribute('data-size', textContent);
+            this.sizeChecked?.appendChild(newTextBlock);
+          }
+        }
+      });
+    });
 
     if (this.rangeSlider) {
       this.initializeSlider();
       this.changeInputs();
     }
+
+    this.resetAllFilters?.addEventListener('click', () => {
+      this.brand = null;
+      this.length = null;
+      this.minPrice = null;
+      this.maxPrice = null;
+      this.filteredCards = [...this.shopDb];
+      this.allCheckedFilters?.classList.remove('used-filters_active');
+      this.renderCards();
+    });
+
+    this.resetSize?.addEventListener('click', () => {
+      this.sizeBlock?.classList.remove('used-filters__size-box_active');
+      if (this.sizeChecked) {
+        this.sizeChecked.innerHTML = '';
+      }
+    })
+
+    this.resetColor?.addEventListener('click', () => {
+      this.colorsBlock?.classList.remove('used-filters__color-box_active');
+      if (this.colorChecked) {
+        this.colorChecked.innerHTML = '';
+      }
+    })
+
+    this.resetBrand?.addEventListener('click', () => {
+      this.brand = null;
+      this.brandBlock?.classList.remove('used-filters__brand-box_active');
+      this.applyFilters();
+    })
+
+    this.resetLength?.addEventListener('click', () => {
+      this.length = null;
+      this.lengthBlock?.classList.remove('used-filters__length-box_active');
+      this.applyFilters();
+    })
+
+    this.filterSvg?.addEventListener('click', () => {
+      this.filterForms?.classList.add('catalog__filter-forms_active');
+      this.filterSvg?.classList.add('catalog__filter-svg_unvis');
+      this.closeFilterForms?.classList.add('catalog__filter-close-filters_visible');
+    })
+
+    this.closeFilterForms?.addEventListener('click', () => {
+      this.filterForms?.classList.remove('catalog__filter-forms_active');
+      this.filterSvg?.classList.remove('catalog__filter-svg_unvis');
+      this.closeFilterForms?.classList.remove('catalog__filter-close-filters_visible');
+    })
   }
 
   toggleFunc(content: HTMLElement, span: HTMLElement) {
@@ -249,7 +333,6 @@ export class FilterAccordeon extends ShopSome {
             this.minPriceChecked.textContent = `${this.minPrice} EUR`;
             this.minPriceChecked.nextElementSibling?.classList.add('used-filters__svg_cust_active');
             // this.allCheckedFilters?.classList.add('used-filters_active');
-
           }
         } else {
           this.maxPrice = Math.round(values[handle]);
