@@ -255,7 +255,7 @@
       }
 
       &__input {
-        max-width: 392px;
+        max-width: 330px;
         width: 100%;
       }
 
@@ -504,6 +504,123 @@
       line-height: 20px;
       display: flex;
       align-items: center;
+    }
+  }
+
+  .wishlist {
+    &__all-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+
+      @include media-breakpoint-down(xs) {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px 13px;
+      }
+    }
+
+    .card {
+      height: 100%;
+
+      &__title {
+        font-size: 18px;
+        line-height: 23px;
+        font-weight: 500;
+        margin-bottom: 10px;
+
+        @include media-breakpoint-down(md) {
+          font-size: 12px;
+          line-height: 18px;
+          font-weight: 200;
+          margin-bottom: 4px;
+        }
+      }
+
+      &__price {
+        font-family: RobotoMedium;
+        font-size: 14px;
+        line-height: normal;
+        color: $gray;
+
+        @include media-breakpoint-down(md) {
+          font-family: Oswald;
+          font-size: 14px;
+          color: black;
+        }
+      }
+
+      &__add-to-bag {
+        display: flex;
+        gap: 10px;
+        margin-top: 17px;
+
+        @include media-breakpoint-down(md) {
+          margin-top: 10px;
+        }
+
+        .count {
+          width: 40px;
+          height: 40px;
+          border: 2px solid $grayMedium;
+          color: $black;
+          font-family: Oswald;
+          font-size: 16px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          @include media-breakpoint-down(md) {
+            display: none;
+          }
+        }
+
+        .black {
+          font-size: 14px;
+          letter-spacing: 0.5px;
+          color: $white;
+          background-color: $black;
+          border: none;
+          height: 40px;
+          width: 75%;
+
+          @include media-breakpoint-down(md) {
+            width: 100%;
+            font-size: 12px;
+            height: 38px;
+          }
+
+          &:hover {
+            border: 1px solid $black;
+            background-color: $white;
+            color: $black;
+          }
+        }
+      }
+    }
+
+    &__btns {
+      display: flex;
+      margin-top: 60px;
+      gap: 15px;
+
+      @include media-breakpoint-down(xs) {
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 25px;
+      }
+
+      .gray {
+        max-width: 170px;
+        width: 100%;
+        border-color: $gray;
+        color: $gray;
+
+        @include media-breakpoint-down(xs) {
+          max-width: 100%;
+          font-size: 14px;
+          height: 32px;
+        }
+      }
     }
   }
 }
