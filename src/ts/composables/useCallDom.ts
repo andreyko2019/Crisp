@@ -2,11 +2,11 @@ export function getElementId(id: string): HTMLElement | null {
   return document.getElementById(id);
 }
 
-export function getElements(selectors: string, target: Document = document): NodeListOf<HTMLElement> {
+export function getElements(selectors: string, target: HTMLElement | Document = document): NodeListOf<HTMLElement> {
   return target.querySelectorAll(selectors);
 }
 
-export function getElement(selector: string, target: Document = document): HTMLElement | null {
+export function getElement(selector: string, target: HTMLElement | Document = document): HTMLElement | null {
   return target.querySelector(selector);
 }
 

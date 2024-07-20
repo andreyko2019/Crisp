@@ -1,6 +1,8 @@
+import { updateEmail, updatePassword, reauthenticateWithCredential, EmailAuthProvider } from 'firebase/auth';
 import { UserData } from '../components/interface';
 import { getElement, getElements } from '../composables/useCallDom';
 import { fetchComposable } from '../composables/useFetch';
+import { auth } from '../modules/firebase';
 
 export class AccInfo {
   userData: UserData | undefined;
@@ -95,13 +97,55 @@ export class AccInfo {
       saveButton.addEventListener('click', (event) => {
         event.preventDefault();
         this.updateData();
+        window.location.reload();
+      });
+    }
+
+    const changeEmailCheckbox = getElement('#changeEmailCheckbox') as HTMLInputElement;
+    const changePasswordCheckbox = getElement('#changePasswordCheckbox') as HTMLInputElement;
+    const emailField = getElement('#emailField') as HTMLDivElement;
+    const passwordField = getElement('#passwordField') as HTMLDivElement;
+    const currentPasswordEmailField = getElement('#currentPasswordEmail')?.parentElement?.parentElement as HTMLDivElement;
+    const currentPasswordField = getElement('#currentPassword')?.parentElement?.parentElement as HTMLDivElement;
+
+    if (changeEmailCheckbox) {
+      changeEmailCheckbox.addEventListener('change', () => {
+        emailField.style.display = changeEmailCheckbox.checked ? 'flex' : 'none';
+        currentPasswordEmailField.style.display = changeEmailCheckbox.checked ? 'flex' : 'none';
+      });
+    }
+
+    if (changePasswordCheckbox) {
+      changePasswordCheckbox.addEventListener('change', () => {
+        passwordField.style.display = changePasswordCheckbox.checked ? 'flex' : 'none';
+        currentPasswordField.style.display = changePasswordCheckbox.checked ? 'flex' : 'none';
       });
     }
   }
 
   async updateData() {
-    const nameInp = (getElement('#name') as HTMLInputElement).value;
-    const surnameInp = (getElement('#surname') as HTMLInputElement).value;
+    const nameInpElem = getElement('#name') as HTMLInputElement;
+    const surnameInpElem = getElement('#surname') as HTMLInputElement;
+    const changeEmailElem = getElement('#changeEmailCheckbox') as HTMLInputElement;
+    const newEmailElem = getElement('#email') as HTMLInputElement;
+    const changePasswordElem = getElement('#changePasswordCheckbox') as HTMLInputElement;
+    const newPasswordElem = getElement('#password') as HTMLInputElement;
+    const currentPasswordEmailElem = getElement('#currentPasswordEmail') as HTMLInputElement;
+    const currentPasswordElem = getElement('#currentPassword') as HTMLInputElement;
+
+    if (!nameInpElem || !surnameInpElem || !changeEmailElem || !newEmailElem || !changePasswordElem || !newPasswordElem || !currentPasswordElem || !currentPasswordEmailElem) {
+      console.error('One or more input elements are not found in the DOM');
+      return;
+    }
+
+    const nameInp = nameInpElem.value;
+    const surnameInp = surnameInpElem.value;
+    const changeEmail = changeEmailElem.checked;
+    const newEmail = newEmailElem.value;
+    const changePassword = changePasswordElem.checked;
+    const newPassword = newPasswordElem.value;
+    const currentPasswordEmail = currentPasswordEmailElem.value;
+    const currentPassword = currentPasswordElem.value;
 
     if (!this.uid) {
       console.error('UID not found');
@@ -117,14 +161,18 @@ export class AccInfo {
     };
 
     const documentPath = `users/${this.uid}`;
-    const url = `https://firestore.googleapis.com/v1/projects/${firebaseConfig.projectId}/databases/(default)/documents/${documentPath}?updateMask.fieldPaths=name&updateMask.fieldPaths=surname`;
+    const url = `https://firestore.googleapis.com/v1/projects/${firebaseConfig.projectId}/databases/(default)/documents/${documentPath}?updateMask.fieldPaths=name&updateMask.fieldPaths=surname${changeEmail ? '&updateMask.fieldPaths=email' : ''}`;
 
-    const requestBody = {
+    let requestBody: { fields: { name: { stringValue: string }; surname: { stringValue: string }; email?: { stringValue: string } } } = {
       fields: {
         name: { stringValue: nameInp },
         surname: { stringValue: surnameInp },
       },
     };
+
+    if (changeEmail) {
+      requestBody.fields.email = { stringValue: newEmail };
+    }
 
     console.log('Request URL:', url);
     console.log('Request body:', requestBody);
@@ -140,9 +188,62 @@ export class AccInfo {
         return;
       }
 
+      if (changeEmail) {
+        await this.updateEmail(newEmail, currentPasswordEmail);
+      }
+
+      if (changePassword) {
+        await this.updatePassword(newPassword, currentPassword);
+      }
+
       console.log('Data updated successfully:', response.data);
     } catch (error) {
       console.error('Error updating data:', error);
+    }
+  }
+
+  async updateEmail(newEmail: string, currentPassword: string): Promise<void> {
+    const user = auth.currentUser;
+    if (user) {
+      try {
+        // Re-authenticate the user
+        await this.reauthenticateUser(currentPassword);
+
+        // Update email
+        await updateEmail(user, newEmail);
+        console.log('Email updated successfully');
+      } catch (error) {
+        console.error('Error updating email:', error);
+      }
+    }
+  }
+
+  async reauthenticateUser(password: string): Promise<void> {
+    const user = auth.currentUser;
+    if (user && user.email) {
+      const credential = EmailAuthProvider.credential(user.email, password);
+      try {
+        await reauthenticateWithCredential(user, credential);
+        console.log('User re-authenticated successfully.');
+      } catch (error) {
+        console.error('Error re-authenticating user:', error);
+      }
+    }
+  }
+
+  async updatePassword(newPassword: string, currentPassword: string): Promise<void> {
+    const user = auth.currentUser;
+    if (user) {
+      try {
+        // Re-authenticate the user before updating the password
+        await this.reauthenticateUser(currentPassword);
+
+        // Update password
+        await updatePassword(user, newPassword);
+        console.log('Password updated successfully');
+      } catch (error) {
+        console.error('Error updating password:', error);
+      }
     }
   }
 }

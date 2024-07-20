@@ -1,5 +1,5 @@
 import { Burger } from './components/burger';
-import { Accordion } from './components/accordion';
+import { Accordion } from './components/accordeon';
 import { Skeleton } from './components/skeleton';
 import { Search } from './components/search';
 import { AddToBag } from './one-product/add-to-bag';
@@ -12,6 +12,8 @@ import { Redirect } from './cabinet/cabinet-redirect';
 import { DropdownForm } from './cabinet/cabinet-drop-down-form';
 import { AddressValidate } from './cabinet/cabinet-address-validate';
 import { ContactUs } from './components/contact-us';
+import { RenderWishlistCards } from './cabinet/cabinet-load-wishlist';
+import { PopupCloser } from './components/pop-up-closer';
 
 document.addEventListener('DOMContentLoaded', async () => {
   new Redirect();
@@ -28,6 +30,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   new DropdownForm('.drop-down#state .drop-down__select', '.drop-down#state .drop-down__list');
   new AddressValidate();
   new ContactUs('.contact-us__btn', '.contact-us');
+  new RenderWishlistCards();
+  new PopupCloser('.buy__bag', '.bag__list');
 });
 
 new Skeleton();

@@ -4,6 +4,7 @@ type FetchOptions<TBody = undefined> = {
   method?: HttpMethod;
   headers?: HeadersInit;
   body?: TBody;
+  limit?: number;
 };
 
 type FetchError = {
@@ -17,9 +18,9 @@ type FetchResponse<T> = {
 };
 
 export const fetchComposable = async <TResponse, TBody = undefined>(url: string, options: FetchOptions<TBody> = {}): Promise<FetchResponse<TResponse>> => {
-  const { method = 'GET', headers = {}, body } = options;
+  const { method = 'GET', headers = {}, body, limit } = options;
 
-  const validMethods: HttpMethod[] = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH']; // Включаем PATCH в список допустимых методов
+  const validMethods: HttpMethod[] = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'];
   if (!validMethods.includes(method)) {
     return {
       data: null,
@@ -27,8 +28,10 @@ export const fetchComposable = async <TResponse, TBody = undefined>(url: string,
     };
   }
 
+  const urlWithLimit = limit ? `${url}?limit=${limit}` : url;
+
   try {
-    const response = await fetch(url, {
+    const response = await fetch(urlWithLimit, {
       method,
       headers: {
         'Content-Type': 'application/json',

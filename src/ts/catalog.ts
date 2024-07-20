@@ -1,5 +1,5 @@
 import { Burger } from './components/burger';
-import { Accordion } from './components/accordion';
+import { Accordion } from './components/accordeon';
 import { loadCards } from './catalog/loadcards';
 import { FilterAccordeon } from './catalog/accordeon';
 import { Search } from './components/search';

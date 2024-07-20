@@ -52,13 +52,14 @@ export class Search {
       projectId: 'crisp-b06bf',
     };
 
-    const requestBody: { structuredQuery: { from: { collectionId: string }[] } } = {
+    const requestBody: { structuredQuery: { from: { collectionId: string }[]; limit?: number } } = {
       structuredQuery: {
         from: [
           {
             collectionId: 'clothers',
           },
         ],
+        limit: 8,
       },
     };
 
@@ -127,8 +128,41 @@ export class Search {
     });
   }
 
-  private filter(word: string, allClother: { id: string; data: OneDressBag }[]) {
-    return allClother.filter((clother) => {
+  private async filter(word: string): Promise<{ id: string; data: OneDressBag }[]> {
+    const filteredItems: { id: string; data: OneDressBag }[] = [];
+
+    const firebaseConfig = {
+      projectId: 'crisp-b06bf',
+    };
+
+    const requestBody = {
+      structuredQuery: {
+        from: [{ collectionId: 'clothers' }],
+      },
+    };
+
+    const url = `https://firestore.googleapis.com/v1/projects/${firebaseConfig.projectId}/databases/(default)/documents:runQuery`;
+
+    const response = await fetchComposable<{ document: { name: string; fields: OneDressBag } }[], typeof requestBody>(url, {
+      method: 'POST',
+      body: requestBody,
+    });
+
+    if (response.error) {
+      console.error('Ошибка при загрузке данных:', response.error);
+      return [];
+    }
+
+    if (response.data) {
+      console.log(response.data);
+      response.data.forEach((doc) => {
+        const docId = doc.document.name.split('/').pop() || '';
+        filteredItems.push({ id: docId, data: doc.document.fields });
+      });
+      console.log(filteredItems);
+    }
+
+    return filteredItems.filter((clother) => {
       const regexp = new RegExp(word, 'gi');
       return clother.data.name.stringValue.match(regexp);
     });
@@ -139,8 +173,8 @@ export class Search {
       if (item.classList.contains('active')) {
         const input = item.querySelector('input');
         console.log(input);
-        input?.addEventListener('input', () => {
-          const filterArr = this.filter(input.value, this.prodArr);
+        input?.addEventListener('input', async () => {
+          const filterArr = await this.filter(input.value); // Wait for the promise to resolve
           const container = getElement('.search__popup.pop-up');
           if (container) {
             this.clearContainer(container);

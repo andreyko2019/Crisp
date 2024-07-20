@@ -1,29 +1,54 @@
 <div class="cabinet__acc-info account-info tabs__item" id="account-information">
   <div class="account-info__title">Account Information</div>
   <div class="account-info__form">
-    <form class="form">
+    <form class="form" id="accountForm">
       <div class="form__item">
         <label for="name">First name <span>*</span></label>
         <div class="form__input">
-          <input type="text" class="form__item-input" placeholder="Your first name" id="name" onsubmit="event.preventDefault();" />
+          <input type="text" class="form__item-input" placeholder="Your first name" id="name" autocomplete="off" />
         </div>
       </div>
       <div class="form__item">
         <label for="surname">Last name <span>*</span></label>
         <div class="form__input">
-          <input type="text" class="form__item-input" placeholder="Your last name" id="surname" onsubmit="event.preventDefault();" />
+          <input type="text" class="form__item-input" placeholder="Your last name" id="surname" autocomplete="off" />
         </div>
       </div>
       <label class="form__agree">
-        <input type="checkbox" autocomplete="false" />
+        <input type="checkbox" id="changeEmailCheckbox" autocomplete="off" />
         <div class="custom-checkbox"></div>
         Change Email
       </label>
+      <div class="form__item" id="emailField" style="display: none">
+        <label for="email">New Email <span>*</span></label>
+        <div class="form__input">
+          <input type="email" class="form__item-input" placeholder="Your new email" id="email" autocomplete="off" />
+        </div>
+      </div>
+      <div class="form__item" id="currentPasswordEmailField" style="display: none">
+        <label for="currentPasswordEmail">Current Password <span>*</span></label>
+        <div class="form__input">
+          <input type="password" class="form__item-input" placeholder="Your current password" id="currentPasswordEmail" autocomplete="off" />
+        </div>
+      </div>
+
       <label class="form__agree">
-        <input type="checkbox" autocomplete="false" />
+        <input type="checkbox" id="changePasswordCheckbox" autocomplete="off" />
         <div class="custom-checkbox"></div>
         Change Password
       </label>
+      <div class="form__item" id="passwordField" style="display: none">
+        <label for="password">New Password <span>*</span></label>
+        <div class="form__input">
+          <input type="password" class="form__item-input" placeholder="Your new password" id="password" autocomplete="off" />
+        </div>
+      </div>
+      <div class="form__item" id="currentPasswordField" style="display: none">
+        <label for="currentPassword">Current Password <span>*</span></label>
+        <div class="form__input">
+          <input type="password" class="form__item-input" placeholder="Your current password" id="currentPassword" autocomplete="off" />
+        </div>
+      </div>
       <div class="form__button">
         <button class="btn black save" type="submit">Save</button>
       </div>

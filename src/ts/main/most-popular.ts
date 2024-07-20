@@ -65,13 +65,14 @@ export class PopularSwiper {
       projectId: 'crisp-b06bf',
     };
 
-    const requestBody: { structuredQuery: { from: { collectionId: string }[] } } = {
+    const requestBody: { structuredQuery: { from: { collectionId: string }[]; limit?: number } } = {
       structuredQuery: {
         from: [
           {
             collectionId: 'clothers',
           },
         ],
+        limit: 8,
       },
     };
 

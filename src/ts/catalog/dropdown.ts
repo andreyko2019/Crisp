@@ -1,5 +1,3 @@
-// import { getElements, getElement } from '../composables/useCallDom';
-
 import { getElement, getElements } from "../composables/useCallDom";
 
 export const dropdownWork = function () {

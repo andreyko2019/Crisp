@@ -1,5 +1,5 @@
 import { Burger } from './components/burger';
-import { Accordion } from './components/accordion';
+import { Accordion } from './components/accordeon';
 import { SummerSale } from './main/summer-sale-swiper';
 import { Loader } from './modules/stop-preload';
 import { ShopSome } from './main/shop-some';
@@ -10,6 +10,7 @@ import { Blog } from './main/blog';
 import { Skeleton } from './components/skeleton';
 import { Search } from './components/search';
 import { AddToBag } from './one-product/add-to-bag';
+import { PopupCloser } from './components/pop-up-closer';
 
 document.addEventListener('DOMContentLoaded', async () => {
   new Burger();
@@ -22,6 +23,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   new FeaturedSwiper(); // done
   new PopularSwiper(); // done
   new Blog(); // done
+  new PopupCloser('.buy__bag', '.bag__list');
   Loader.stop('brands__item');
   Loader.stop('sales');
   Loader.stop('limits');
