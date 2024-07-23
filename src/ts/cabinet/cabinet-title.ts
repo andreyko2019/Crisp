@@ -23,7 +23,6 @@ export class CabinetTitle {
       });
     });
 
-    // Initialize the correct tab based on the URL hash
     this.initActiveTab();
   }
 
@@ -58,7 +57,7 @@ export class CabinetTitle {
   }
 
   private updateUrl(btn: Element) {
-    const tabId = btn.getAttribute('data-tab')?.substring(1); // Get the data-tab attribute without the #
+    const tabId = btn.getAttribute('data-tab')?.substring(1);
     if (tabId) {
       history.pushState(null, '', `#${tabId}`);
     }

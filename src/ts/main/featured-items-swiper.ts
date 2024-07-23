@@ -19,7 +19,6 @@ export class FeaturedSwiper {
 
     this.initSwiper();
     this.loadCards().then(() => {
-      console.log('being called ');
       Loader.stop('featured-items__swiper');
     });
   }
@@ -97,7 +96,6 @@ export class FeaturedSwiper {
         const docId = doc.document.name.split('/').pop() || '';
         this.slidesArr.push({ id: docId, data: doc.document.fields });
       });
-      console.log(this.slidesArr);
       this.renderSlides();
       this.hidden();
 

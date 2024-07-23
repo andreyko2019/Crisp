@@ -14,7 +14,6 @@ export class AddressValidate {
   }
 
   init() {
-    console.log(getElement('#phone'), getElement('#street'), getElement('#country'), getElement('#zip'));
     const validate = new JustValidate(this.form, {
       errorLabelStyle: {
         color: '#1D1F21',
@@ -79,7 +78,6 @@ export class AddressValidate {
       ]);
 
     validate.onSuccess(() => {
-      console.log('Form is valid');
       new AddAddress();
       window.location.reload();
     });

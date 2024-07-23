@@ -1,4 +1,4 @@
-type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH'; // Добавляем метод PATCH в тип HttpMethod
+type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
 
 type FetchOptions<TBody = undefined> = {
   method?: HttpMethod;

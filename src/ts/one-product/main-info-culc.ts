@@ -49,14 +49,13 @@ export class Calculator {
 
     if (response.data) {
       this.clotherInfo = response.data.fields;
-      console.log(this.clotherInfo);
 
       if (this.clotherInfo.cost?.stringValue) {
         const priceString = this.clotherInfo.cost.stringValue;
         const numericPart = parseFloat(priceString.replace(',', '.'));
         if (!isNaN(numericPart)) {
           this.calculation = numericPart;
-          this.updateCalculation(+this.countElement.innerHTML); // Обновление отображения расчета
+          this.updateCalculation(+this.countElement.innerHTML);
         }
       }
     }

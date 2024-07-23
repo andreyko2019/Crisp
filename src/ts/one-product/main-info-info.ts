@@ -46,7 +46,6 @@ export class MainInfo {
 
     if (response.data) {
       this.clotherInfo = response.data.fields;
-      console.log(this.clotherInfo);
       this.updateUI();
     }
   }
@@ -68,7 +67,6 @@ export class MainInfo {
       if (this.clotherInfo) {
         brandElement.textContent = this.clotherInfo.brand?.stringValue || 'No brand';
         titleElement.textContent = this.clotherInfo.name?.stringValue || 'No title';
-        console.log(brandElement, titleElement);
       } else {
         brandElement.textContent = 'No brand';
         titleElement.textContent = 'No title';
@@ -102,8 +100,6 @@ export class MainInfo {
 
   private size() {
     if (this.clotherInfo?.size?.arrayValue?.values) {
-      console.log('Sizes from Firestore:', this.clotherInfo.size.arrayValue.values);
-
       this.clotherInfo.size.arrayValue.values.forEach((size) => {
         const sizeValue = size.stringValue?.trim();
         if (sizeValue && sizesAll) {

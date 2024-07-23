@@ -12,7 +12,6 @@ export class PopupCloser {
   }
 
   private init() {
-    console.log(this.popup);
     document.addEventListener('click', this.handleClickOutside);
   }
 

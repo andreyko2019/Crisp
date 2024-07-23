@@ -7,7 +7,6 @@ import { Loader } from '../modules/stop-preload';
 const clothersWrapper = getElement('.shop-some__items');
 
 export class ShopSome {
-  
   shopDb: { id: string; data: ShopFilters }[];
 
   constructor() {
@@ -48,7 +47,6 @@ export class ShopSome {
         const docId = doc.document.name.split('/').pop() || '';
         this.shopDb.push({ id: docId, data: doc.document.fields });
       });
-      console.log(this.shopDb);
       this.renderCard();
       new LoadMoreComponent('.shop-some__items', '.shop-some__card', '.shop-some__load', 8, 8);
     }

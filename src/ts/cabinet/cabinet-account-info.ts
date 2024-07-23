@@ -14,7 +14,6 @@ export class AccInfo {
   }
 
   init() {
-    console.log(this.uid);
     this.conectDb();
     this.setupEventListeners();
   }
@@ -68,8 +67,7 @@ export class AccInfo {
         const doc = response.data[0];
         if (doc.document && doc.document.fields) {
           this.userData = doc.document.fields;
-          this.uid = doc.document.name.split('/').pop(); // Extract document ID from the document name
-          console.log(this.userData);
+          this.uid = doc.document.name.split('/').pop();
           this.updateUi();
         }
       }
@@ -152,10 +150,6 @@ export class AccInfo {
       return;
     }
 
-    console.log('Updating data for UID:', this.uid);
-    console.log('New name:', nameInp);
-    console.log('New surname:', surnameInp);
-
     const firebaseConfig = {
       projectId: 'crisp-b06bf',
     };
@@ -173,9 +167,6 @@ export class AccInfo {
     if (changeEmail) {
       requestBody.fields.email = { stringValue: newEmail };
     }
-
-    console.log('Request URL:', url);
-    console.log('Request body:', requestBody);
 
     try {
       const response = await fetchComposable<{ updateTime: string }, typeof requestBody>(url, {
@@ -195,8 +186,6 @@ export class AccInfo {
       if (changePassword) {
         await this.updatePassword(newPassword, currentPassword);
       }
-
-      console.log('Data updated successfully:', response.data);
     } catch (error) {
       console.error('Error updating data:', error);
     }
@@ -206,12 +195,9 @@ export class AccInfo {
     const user = auth.currentUser;
     if (user) {
       try {
-        // Re-authenticate the user
         await this.reauthenticateUser(currentPassword);
 
-        // Update email
         await updateEmail(user, newEmail);
-        console.log('Email updated successfully');
       } catch (error) {
         console.error('Error updating email:', error);
       }
@@ -224,7 +210,6 @@ export class AccInfo {
       const credential = EmailAuthProvider.credential(user.email, password);
       try {
         await reauthenticateWithCredential(user, credential);
-        console.log('User re-authenticated successfully.');
       } catch (error) {
         console.error('Error re-authenticating user:', error);
       }
@@ -235,12 +220,9 @@ export class AccInfo {
     const user = auth.currentUser;
     if (user) {
       try {
-        // Re-authenticate the user before updating the password
         await this.reauthenticateUser(currentPassword);
 
-        // Update password
         await updatePassword(user, newPassword);
-        console.log('Password updated successfully');
       } catch (error) {
         console.error('Error updating password:', error);
       }

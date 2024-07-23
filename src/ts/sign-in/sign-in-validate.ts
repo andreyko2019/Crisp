@@ -45,7 +45,6 @@ export class SignInFormValidator {
       ]);
 
     validate.onSuccess(() => {
-      console.log('Form is valid');
       new GoAcc();
     });
   }

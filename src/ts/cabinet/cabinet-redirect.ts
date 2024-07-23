@@ -8,7 +8,6 @@ export class Redirect {
   }
 
   init() {
-    console.log(this.uid);
     if (!this.uid) {
       window.location.href = '/Crisp/index.html';
       return;
