@@ -522,6 +522,11 @@
     .card {
       height: 100%;
 
+      &__wrapper {
+        display: flex;
+        flex-direction: column;
+      }
+
       &__title {
         font-size: 18px;
         line-height: 23px;
@@ -541,12 +546,19 @@
         font-size: 14px;
         line-height: normal;
         color: $gray;
+        margin-bottom: auto;
 
         @include media-breakpoint-down(md) {
           font-family: Oswald;
           font-size: 14px;
           color: black;
         }
+      }
+
+      &__info {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
       }
 
       &__add-to-bag {

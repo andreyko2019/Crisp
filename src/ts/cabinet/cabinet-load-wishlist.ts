@@ -146,7 +146,7 @@ export class RenderWishlistCards {
       const cardAddToBag = renderElement('div', 'card__add-to-bag');
       cardAddToBag.innerHTML = `
             <div class="count">1</div>
-            <button class="btn black" onclick="window.location.href = '/Crisp/one-product.html?id=${clother.id}'">Add to cart</button>
+            <button class="btn black">Add to cart</button>
       `;
 
       const cardRemove = renderElement('div', 'card__remove-and-edit');
