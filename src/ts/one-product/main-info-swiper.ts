@@ -57,7 +57,6 @@ export class MainInfoSwiper {
 
     tabsBtns.forEach((btn, index) => {
       btn.addEventListener('click', () => {
-        console.log(`Tab ${index + 1} clicked`);
         if (this.swiper) {
           this.swiper.slideTo(index);
         }
@@ -102,7 +101,6 @@ export class MainInfoSwiper {
 
     if (response.data) {
       this.slidesArr = response.data.fields;
-      console.log(this.slidesArr);
       this.renderSlides();
       this.initSwiper();
       Loader.stop('main-img__slide');

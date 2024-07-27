@@ -71,7 +71,7 @@ export interface UserData extends UserUid {
   email: { stringValue: string };
   billing?: { stringValue: string };
   shoppingAddress?: { stringValue: string };
-  wishlistID?: { stringValue: string };
+  wishlist?: { arrayValue: { values: { stringValue: string }[] } };
 }
 
 export interface Billing {
@@ -85,11 +85,4 @@ export interface Shopping extends Billing {
   zip: { stringValue: string };
   company?: { stringValue: string };
   fax?: { stringValue: string };
-}
-
-export interface Wishlist {
-  img: { stringValue: string };
-  imgWebP: { stringValue: string };
-  name: { stringValue: string };
-  cost: { stringValue: string };
 }

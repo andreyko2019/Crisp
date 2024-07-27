@@ -58,8 +58,6 @@ export class GoAcc {
           }
         });
 
-        console.log(this.user);
-
         try {
           const user = await signInWithEmailAndPassword(auth, email, password);
           const userUid = user.user.uid;

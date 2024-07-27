@@ -29,12 +29,9 @@ export class Dropdown {
 
   private updateDropdown(radio: HTMLInputElement) {
     const label = radio.parentElement;
-    console.log('Radio changed:', radio);
-    console.log('Parent label:', label);
 
     if (label) {
       const labelText = label.textContent?.trim().replace(/[\s]+$/, '') ?? 'Size';
-      console.log('Label text content:', labelText);
       this.dropdownBtnInfo.textContent = labelText;
     } else {
       this.dropdownBtnInfo.textContent = 'Size';

@@ -96,7 +96,6 @@ export class LikeSwiper {
         const docId = doc.document.name.split('/').pop() || '';
         this.slidesArr.push({ id: docId, data: doc.document.fields });
       });
-      console.log(this.slidesArr);
       this.renderSlides();
       this.hidden();
 

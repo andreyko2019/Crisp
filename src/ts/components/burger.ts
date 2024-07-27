@@ -1,6 +1,5 @@
-// burger.ts
 import { getElement, getElements, renderElement } from '../composables/useCallDom';
-import { auth } from '../modules/firebase'; // Import the auth instance
+import { auth } from '../modules/firebase';
 import { signOut } from 'firebase/auth';
 
 const bagList = getElement('.bag__list');
@@ -55,16 +54,13 @@ export class Burger {
 
   goAcc() {
     const uid = this.getCookie('UID');
-    console.log(uid);
 
     if (uid && this.accBlock && this.accBlockMob) {
-      // Desktop
       this.accBlock.innerHTML = `
        <a href="/Crisp/cabinet.html#account-dashboard" class="my-acc">MY ACCOUNT</a>
        <a href="javascript:void(0);" class="log-out">LOG OUT</a>
       `;
 
-      // Mobile
       this.accBlockMob[this.accBlockMob.length - 1].remove();
       this.accBlockMob[this.accBlockMob.length - 2].remove();
 

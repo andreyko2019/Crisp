@@ -48,7 +48,6 @@ export class Blog {
           this.newsDb.push({ id: docId, data: doc.document.fields });
         }
       });
-      console.log(this.newsDb);
       this.renderCard();
     }
   }

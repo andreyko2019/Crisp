@@ -58,7 +58,6 @@ export class CreateAcc {
         console.log('Document written with ID:', response.data.name);
       }
 
-      console.log(user.uid);
       document.cookie = `UID=${user.uid}`;
       window.location.href = '/Crisp/cabinet.html#account-dashboard';
     } catch (error) {

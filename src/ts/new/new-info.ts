@@ -23,7 +23,7 @@ export class NewInfo {
 
     const firestoreApiUrl = `https://firestore.googleapis.com/v1/projects/${firebaseConfig.projectId}/databases/(default)/documents/blog/${docId}`;
 
-    const response = await fetchComposable<{ fields: OneNew }>(firestoreApiUrl); // Исправлено здесь
+    const response = await fetchComposable<{ fields: OneNew }>(firestoreApiUrl);
     if (response.error) {
       console.error('Ошибка при загрузке данных:', response.error);
       return;

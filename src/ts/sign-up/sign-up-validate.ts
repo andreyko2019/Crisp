@@ -80,7 +80,6 @@ export class SignUpFormValidator {
       ]);
 
     validate.onSuccess(() => {
-      console.log('Form is valid');
       new CreateAcc();
     });
   }

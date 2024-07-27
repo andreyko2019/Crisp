@@ -55,15 +55,14 @@ export class ShopFilter {
       const items = response.data
         .filter((item) => item.document && item.document.fields)
         .map((item) => {
-          const id = item.document.name.split('/').pop(); // Extracting id from the document name
+          const id = item.document.name.split('/').pop();
           return {
-            id, // This could be undefined, handle this case
+            id,
             data: item.document.fields,
           };
         })
-        .filter((item): item is { id: string; data: ShopFilters } => !!item.id); // Ensure id is not undefined
+        .filter((item): item is { id: string; data: ShopFilters } => !!item.id);
 
-      console.log(items);
       this.updateContent(items);
     } else {
       console.error('Ошибка: Данные Firestore пришли в неправильном формате.');
