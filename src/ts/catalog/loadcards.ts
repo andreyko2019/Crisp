@@ -80,7 +80,7 @@ export function loadCards() {
 
     renderCard = () => {
       allCardsArr.length = 0;
-      const currentArray: { id: string; data: ShopFilters }[] = [];
+      
       if (this.selectedText) {
         limitCardsAll = Number(this.selectedText?.textContent);
         console.log(limitCardsAll);

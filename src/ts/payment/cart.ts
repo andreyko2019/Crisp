@@ -1,5 +1,7 @@
 
 import { OneDressBag } from "../components/interface";
+// import { getElement } from "../composables/useCallDom";
+import { RenderInfoFromBag } from "./randerInfoFromBag";
 
 export interface CartItem {
   id: string;
@@ -10,11 +12,13 @@ export interface CartItem {
   data: OneDressBag;
 }
 
+
 export class Cart {
   private cart: CartItem[];
-
+  countItem: number;
   constructor() {
     this.cart = this.loadCart();
+    this.countItem = this.cart.length;
   }
 
   addToCart(item: CartItem) {
@@ -27,12 +31,16 @@ export class Cart {
       this.cart.push(item);
     }
 
+    this.countItem = this.cart.length;
     this.saveCart();
+    this.updateCartInfo();
   }
 
   removeFromCart(itemId: string, size: string) {
     this.cart = this.cart.filter((cartItem) => cartItem.id !== itemId || cartItem.size !== size);
+    this.countItem = this.cart.length;
     this.saveCart();
+    this.updateCartInfo();
   }
 
   getCartItems(): CartItem[] {
@@ -51,4 +59,12 @@ export class Cart {
     const cart = localStorage.getItem('shoppingCart');
     return cart ? JSON.parse(cart) : [];
   }
+
+ 
+  private updateCartInfo() {
+    const renderInfo = new RenderInfoFromBag();
+    renderInfo.updateItemCount(this.countItem);
+    renderInfo.updateTotalAmount(this.getTotal());
+  }
 }
+
