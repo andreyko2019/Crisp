@@ -1,0 +1,232 @@
+.form {
+  max-width: 606px;
+  font-family: RobotoMedium;
+
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
+  &__input {
+    max-width: 443px;
+    width: 100%;
+    position: relative;
+
+    &_adress {
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+    }
+  }
+
+  &__title {
+    font-family: Oswald;
+    font-size: clamp(12px, 2.5vw, 24px);
+    line-height: 68px;
+
+    @include media-breakpoint-down(sm) {
+      color: $grayMedium;
+      text-transform: uppercase;
+      line-height: 20.75px;
+      margin-bottom: 2px;
+    }
+  }
+
+  input[type='email'],
+  input[type='password'],
+  input[type='text'] {
+    border: 1px solid #c4c4c4;
+    max-width: 443px;
+    width: 100%;
+    min-height: 44px;
+    font-family: RobotoMedium;
+    font-size: clamp(12px, 1.5vw, 16px);
+    line-height: 20px;
+    padding: 0 16px;
+
+    @include media-breakpoint-down(sm) {
+      min-height: 40px;
+    }
+  }
+
+  &__item {
+    display: flex;
+    justify-content: space-between;
+
+    @include media-breakpoint-down(sm) {
+      flex-direction: column;
+    }
+  }
+
+  label {
+    font-family: RobotoMedium;
+    font-size: clamp(12px, 1.5vw, 16px);
+    line-height: 20px;
+    display: flex;
+    gap: 10px;
+    margin-top: 5px;
+
+    span {
+      color: $redHover;
+    }
+  }
+
+  &__top {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    border-bottom: 1px solid $grayMedium;
+    padding-bottom: 36px;
+
+    @include media-breakpoint-down(sm) {
+      gap: 6px;
+    }
+  }
+
+  &__bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding-bottom: 36px;
+
+    @include media-breakpoint-down(sm) {
+      gap: 6px;
+    }
+  }
+
+  &__login-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 288px;
+    gap: 25px;
+
+    @include media-breakpoint-down(sm) {
+      margin-top: 23px;
+    }
+
+    .black {
+      color: $white;
+      background-color: $black;
+      border-color: $black;
+      max-width: 120px;
+      width: 100%;
+
+      @include media-breakpoint-down(sm) {
+        max-width: 138px;
+        padding: 7px 0;
+      }
+
+      &:hover {
+        background-color: $grayLight;
+        color: $black;
+        border-color: $grayMedium;
+      }
+    }
+
+    // .back {
+    //   font-family: Oswald;
+    //   font-size: 14px;
+    //   letter-spacing: 0.5px;
+    //   text-transform: uppercase;
+    //   color: $grayMedium;
+    // }
+  }
+
+  &__recov-link {
+    font-size: 14px;
+    line-height: 143%;
+    color: $blueLink;
+    white-space: nowrap;
+  }
+
+  .just-validate-error-label {
+    padding: 0 10px ;
+    min-height: 20px ;
+    background-color: $grayLight !important;
+    font-family: RobotoMedium ;
+    font-size: 14px ;
+    line-height: 20px ;
+    display: flex ;
+    align-items: center;
+    color: rgb(29, 31, 33)!important;
+    
+    &::before {
+      display: none !important;
+    }
+  }
+
+  .just-validate-error-label[data-tooltip=true]{
+    padding: 2px 8px;
+    background-color: $grayLight !important;
+    color: #fff;
+    white-space: nowrap;
+    z-index: 10;
+    border-radius: 4px;
+    width: 100%;
+    position: relative;
+    top: -5px !important;
+    left: 0 !important;
+  }
+
+  &__log-text {
+    font-size: 14px;
+    line-height: 143%;
+    color: $gray;
+  }
+
+  .dropdown__box {
+    width: 100%;
+  }
+
+  .dropdown__text {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 125%;
+    text-transform: none;
+  }
+
+  .dropdown__menu-item {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 125%;
+    text-transform: none;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 45px;
+    max-width: 606px;
+
+    @include media-breakpoint-down(sm) {
+      margin-top: 23px;
+    }
+
+    .black {
+      color: $white;
+      background-color: $black;
+      border-color: $black;
+      max-width: 120px;
+      width: 100%;
+
+      @include media-breakpoint-down(sm) {
+        max-width: 138px;
+        padding: 7px 0;
+      }
+
+      &:hover {
+        background-color: $grayLight;
+        color: $black;
+        border-color: $grayMedium;
+      }
+    }
+    .back {
+      font-family: Oswald;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: $grayMedium;
+    }
+  }
+}

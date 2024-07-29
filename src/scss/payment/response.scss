@@ -1,0 +1,123 @@
+.response {
+
+  display: none;
+
+  &_active {
+    display: block;
+  }
+
+  &__title {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 133%;
+    font-family: Oswald;
+    color: $gray;
+    margin-bottom: 19px;
+  }
+
+  .custom-radio {
+    position: relative;
+    display: inline-block;
+    margin-right: 2px;
+    border: 1px solid rgb(130, 130, 130);
+    width: 10px;
+    height: 10px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      display: inline-block;
+      border: 1px solid $black;
+      width: 10px;
+      height: 10px;
+      transform: translate(-50%, -50%) scale(0);
+      transition: 0.2s ease;
+      background-color: $black;
+      background-image: url('../../../src/img/svg/check.svg');
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+  }
+
+  input[type='radio'] {
+    width: 0;
+    height: 0;
+    opacity: 0;
+
+    &:checked + .custom-radio::before {
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+
+  &__info {
+    padding-left: 17px;
+    color: $gray;
+  }
+
+  &__checking-box {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+
+  &__ckecking-text {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 143%;
+    font-family: RobotoMedium;
+  }
+
+  &__info-user {
+    margin-left: 28px;
+  }
+
+  &__info-user-data {
+    display: flex;
+    gap: 10px;
+  }
+
+  &__info-text {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 164%;
+    font-family: RobotoLight;
+  }
+
+  .user-tel {
+    color: $blueLink;
+  }
+
+  .discount__input-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 606px;
+  }
+
+  .discount__input {
+    padding: 10px;
+    margin-right: 5px;
+    border: 1px solid $gray;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 125%;
+    width: 100%;
+    font-family: Oswald;
+    color:$grayMedium
+  }
+
+  .discount__button {
+    position: absolute;
+    border: none;
+    background: none;
+    right: 17px;
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-family: Oswald;
+  }
+}

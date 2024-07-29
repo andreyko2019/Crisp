@@ -29,6 +29,10 @@ const pages = [
     name: 'cabinet',
     path: resolve(__dirname, 'cabinet.html'),
   },
+  {
+    name: 'payment',
+    path: resolve(__dirname, 'payment'),
+  },
 ];
 
 export default pages;

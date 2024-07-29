@@ -1,0 +1,41 @@
+.pay-method {
+  border-top: 1px solid $grayMedium;
+  max-width: 606px;
+  font-family: RobotoMedium;
+  &__box {
+    padding: 23px 0;
+    max-width: 380px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    line-height: 143%;
+    color: $gray;
+    &:first-child {
+      border-bottom: 1px solid $grayMedium;
+      max-width: 377px;
+    }
+  }
+
+  &__price {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+  }
+
+  &__number {
+    &_checked {
+      color: $black;
+    }
+  }
+
+  &__check {
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    border: 1px solid $grayMedium;
+
+    &_checked {
+      border: 3px solid $black;
+    }
+  }
+}
