@@ -10,21 +10,21 @@ export function paymentMethod() {
     paymentForms: HTMLElement | null;
     response: HTMLElement | null;
 
-    firstNameInput: HTMLElement | null;
-    lastNameInput: HTMLElement | null;
+    firstNameInput: HTMLInputElement | null;
+    lastNameInput: HTMLInputElement | null;
     firstUserNameOutput: HTMLElement | null;
     lastUserNameOutput: HTMLElement | null;
 
-    userCompanyInput: HTMLElement | null;
+    userCompanyInput: HTMLInputElement | null;
     userCompanyOutput: HTMLElement | null;
 
-    userArdressInput: HTMLElement | null;
+    userArdressInput: HTMLInputElement | null;
     userAdressOutput: HTMLElement | null;
 
-    userRegionInput: HTMLElement | null;
+    userRegionInput: HTMLInputElement | null;
     userRegionOutput: HTMLElement | null;
 
-    userCountryInput: HTMLElement | null;
+    userCountryInput: HTMLInputElement | null;
     userCountryOutput: HTMLElement | null;
 
     constructor() {
@@ -35,22 +35,22 @@ export function paymentMethod() {
       this.paymentForms = getElement('.payment__forms');
       this.response = getElement('.response');
 
-      this.firstNameInput = getElement('.first-name');
-      this.lastNameInput = getElement('.last-name');
+      this.firstNameInput = getElement('.first-name') as HTMLInputElement;
+      this.lastNameInput = getElement('.last-name') as HTMLInputElement;
 
       this.firstUserNameOutput = getElement('.user-name');
       this.lastUserNameOutput = getElement('.user-last-name');
 
-      this.userCompanyInput = getElement('.company');
+      this.userCompanyInput = getElement('.company') as HTMLInputElement;
       this.userCompanyOutput = getElement('.user-company');
 
-      this.userArdressInput = getElement('.adress1');
+      this.userArdressInput = getElement('.adress1') as HTMLInputElement;
       this.userAdressOutput = getElement('.user-adress');
 
-      this.userRegionInput = getElement('.adress2');
+      this.userRegionInput = getElement('.adress2') as HTMLInputElement;
       this.userRegionOutput = getElement('.user-region');
 
-      this.userCountryInput = getElement('.country');
+      this.userCountryInput = getElement('.country') as HTMLInputElement;
       this.userCountryOutput = getElement('.user-country');
 
       if (this.form) {
@@ -144,25 +144,25 @@ export function paymentMethod() {
 
       this.firstNameInput?.addEventListener('input', () => {
         if (this.firstUserNameOutput) {
-          this.firstUserNameOutput.textContent = this.firstNameInput?.value;
+          this.firstUserNameOutput.textContent = this.firstNameInput?.value ?? '';
         }
       });
 
       this.lastNameInput?.addEventListener('input', () => {
         if (this.lastUserNameOutput) {
-          this.lastUserNameOutput.textContent = this.lastNameInput?.value;
+          this.lastUserNameOutput.textContent = this.lastNameInput?.value ?? '';
         }
       });
 
       this.userCompanyInput?.addEventListener('input', () => {
         if (this.userCompanyOutput) {
-          this.userCompanyOutput.textContent = this.userCompanyInput?.value;
+          this.userCompanyOutput.textContent = this.userCompanyInput?.value ?? '';
         }
       });
 
       this.userArdressInput?.addEventListener('input', () => {
         if (this.userAdressOutput) {
-          this.userAdressOutput.textContent = this.userArdressInput?.value;
+          this.userAdressOutput.textContent = this.userArdressInput?.value ?? '';
         }
       });
 
@@ -174,7 +174,7 @@ export function paymentMethod() {
 
       this.userCountryInput?.addEventListener('input', () => {
         if (this.userCountryOutput) {
-          this.userCountryOutput.textContent = this.userCountryInput?.value;
+          this.userCountryOutput.textContent = this.userCountryInput?.value ?? '';
         }
       });
     }

@@ -1,10 +1,40 @@
+import { getElement } from '../composables/useCallDom';
 import { AddToBag } from '../one-product/add-to-bag';
 import { Cart, CartItem } from './cart';
 
+
 export class RenderInfoFromBag extends AddToBag {
+  countAllProducts: HTMLElement | null;
+  totalAmount: HTMLElement | null;
+  discountButton: HTMLElement | null;
   constructor() {
     super();
+    this.countAllProducts = getElement('.order-summary-count');
+    this.totalAmount = getElement('.order-summary-total');
+    this.discountButton = getElement('.discount__button');
     this.renderCartItemsOnPaymentPage();
+    this.discountButton?.addEventListener('click', () => {
+      this.applyDiscount();
+    })
+  }
+
+  updateItemCount(count: number) {
+    if (this.countAllProducts) {
+      this.countAllProducts.textContent = `${count} item in cart`;
+    }
+  }
+
+  updateTotalAmount(total: number) {
+    if (this.totalAmount) {
+      this.totalAmount.textContent = `Order Total ${total.toFixed(2)} EUR`;
+    }
+  }
+
+  applyDiscount() {
+    const cart = new Cart();
+    const total = cart.getTotal();
+    const discountedTotal = total * 0.9;
+    this.updateTotalAmount(discountedTotal);
   }
 
   renderCartItemsOnPaymentPage() {
@@ -23,7 +53,6 @@ export class RenderInfoFromBag extends AddToBag {
         cartItems.forEach((item: CartItem) => {
           console.log('Rendering item:', item);
           const name = item.data.name.stringValue;
-
           cartHTML += `
             <div class="cart-item">
               <picture>
@@ -42,6 +71,9 @@ export class RenderInfoFromBag extends AddToBag {
       }
 
       cartItemsContainer.innerHTML = cartHTML;
+      this.updateItemCount(cartItems.length);
+      this.updateTotalAmount(cart.getTotal());
     }
   }
 }
+

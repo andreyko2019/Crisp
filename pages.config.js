@@ -31,7 +31,7 @@ const pages = [
   },
   {
     name: 'payment',
-    path: resolve(__dirname, 'payment'),
+    path: resolve(__dirname, 'payment.html'),
   },
 ];
 
