@@ -127,7 +127,7 @@ export class AddToBag {
     return [count, total];
   }
 
-  private renderCart() {
+   renderCart() {
     if (bagContent) {
       bagContent.innerHTML = '';
 
