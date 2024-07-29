@@ -3,6 +3,7 @@ import { getElement } from '../composables/useCallDom';
 import { fetchComposable } from '../composables/useFetch';
 
 const saveBtn = getElement('.bag__save');
+const redHoverColor = '#eb5757';
 
 export class AddToWishList {
   uid: string | undefined;
@@ -18,9 +19,10 @@ export class AddToWishList {
   }
 
   init() {
+    this.conectUserDb();
     if (saveBtn) {
       saveBtn.addEventListener('click', () => {
-        this.conectUserDb();
+        this.addToWishlistDb();
       });
     }
   }
@@ -77,7 +79,6 @@ export class AddToWishList {
           const docId = doc.document.name.split('/').pop() || '';
           this.currentUser = { id: docId, data: doc.document.fields };
         }
-        console.log(this.currentUser);
         this.getCurrentClotherDB();
       }
     } catch (error) {
@@ -91,36 +92,70 @@ export class AddToWishList {
   }
 
   async getCurrentClotherDB() {
-    if (this.currentUser?.data.wishlistID) {
-      const docId = this.getDocumentIdFromURL();
+    const docId = this.getDocumentIdFromURL();
 
-      if (!docId) {
-        console.error('Document ID not found in URL');
-        return;
-      }
+    if (!docId) {
+      console.error('Document ID not found in URL');
+      return;
+    }
 
-      const firebaseConfig = {
-        projectId: 'crisp-b06bf',
+    const firebaseConfig = {
+      projectId: 'crisp-b06bf',
+    };
+
+    const url = `https://firestore.googleapis.com/v1/projects/${firebaseConfig.projectId}/databases/(default)/documents/clothers/${docId}`;
+
+    const response = await fetchComposable<{ name: string; fields: OneDressBag }, null>(url, {
+      method: 'GET',
+    });
+
+    if (response.error) {
+      console.error('Error fetching document:', response.error);
+      return;
+    }
+
+    if (response.data) {
+      this.currentClother = {
+        id: docId,
+        data: response.data.fields,
       };
+      this.checkWishlistStatus();
+    }
+  }
 
-      const url = `https://firestore.googleapis.com/v1/projects/${firebaseConfig.projectId}/databases/(default)/documents/clothers/${docId}`;
+  async checkWishlistStatus() {
+    if (!this.currentUser || !this.currentClother) {
+      console.error('Current user or clothing item is not defined');
+      return;
+    }
 
-      const response = await fetchComposable<{ name: string; fields: OneDressBag }, null>(url, {
-        method: 'GET',
-      });
+    const firebaseConfig = {
+      projectId: 'crisp-b06bf',
+    };
 
-      if (response.error) {
-        console.error('Error fetching document:', response.error);
-        return;
-      }
+    const userDocId = this.currentUser.id;
+    const clothingDocId = this.currentClother.id;
 
-      if (response.data) {
-        this.currentClother = {
-          id: docId,
-          data: response.data.fields,
-        };
-        console.log(this.currentClother);
-        this.addToWishlistDb();
+    const urlGet = `https://firestore.googleapis.com/v1/projects/${firebaseConfig.projectId}/databases/(default)/documents/users/${userDocId}`;
+
+    const responseGet = await fetchComposable<{ fields: UserData }, null>(urlGet, {
+      method: 'GET',
+    });
+
+    if (responseGet.error || !responseGet.data) {
+      console.error('Error fetching current wishlist:', responseGet.error);
+      return;
+    }
+
+    const currentWishlist = responseGet.data.fields.wishlist?.arrayValue?.values || [];
+
+    const isAlreadyInWishlist = currentWishlist.some((item) => item.stringValue === clothingDocId);
+
+    if (isAlreadyInWishlist) {
+      if (saveBtn) {
+        saveBtn.style.backgroundColor = redHoverColor;
+        saveBtn.style.borderColor = redHoverColor;
+        saveBtn.style.pointerEvents = 'none';
       }
     }
   }
@@ -135,35 +170,55 @@ export class AddToWishList {
       projectId: 'crisp-b06bf',
     };
 
-    const url = `https://firestore.googleapis.com/v1/projects/${firebaseConfig.projectId}/databases/(default)/documents/all-wishlist/${this.currentUser.data.shoppingAddress?.stringValue}/wishlist/${this.currentClother.id}`;
+    const userDocId = this.currentUser.id;
+    const clothingDocId = this.currentClother.id;
 
-    console.log(url);
+    const urlGet = `https://firestore.googleapis.com/v1/projects/${firebaseConfig.projectId}/databases/(default)/documents/users/${userDocId}`;
+
+    const responseGet = await fetchComposable<{ fields: UserData }, null>(urlGet, {
+      method: 'GET',
+    });
+
+    if (responseGet.error || !responseGet.data) {
+      console.error('Error fetching current wishlist:', responseGet.error);
+      return;
+    }
+
+    const currentWishlist = responseGet.data.fields.wishlist?.arrayValue?.values || [];
+
+    const isAlreadyInWishlist = currentWishlist.some((item) => item.stringValue === clothingDocId);
+
+    if (isAlreadyInWishlist) {
+      this.checkWishlistStatus();
+      return;
+    }
+
+    const updatedWishlist = [...currentWishlist, { stringValue: clothingDocId }];
+
+    const urlPatch = `https://firestore.googleapis.com/v1/projects/${firebaseConfig.projectId}/databases/(default)/documents/users/${userDocId}?updateMask.fieldPaths=wishlist`;
 
     const requestBody = {
       fields: {
-        name: this.currentClother.data.name,
-        cost: this.currentClother.data.cost,
-        img: this.currentClother.data.img,
-        imgWebP: this.currentClother.data.imgWebP,
+        wishlist: {
+          arrayValue: {
+            values: updatedWishlist,
+          },
+        },
       },
     };
 
     try {
-      const response = await fetchComposable<{ name: string }, typeof requestBody>(url, {
+      const responsePatch = await fetchComposable<null, typeof requestBody>(urlPatch, {
         method: 'PATCH',
         body: requestBody,
       });
 
-      if (response.error) {
-        console.error('Error adding document:', response.error);
+      if (responsePatch.error) {
+        console.error('Error updating wishlist:', responsePatch.error);
         return;
       }
-
-      if (response.data) {
-        console.log('Document written with ID:', response.data.name);
-      }
     } catch (error) {
-      console.error('Error adding document:', error);
+      console.error('Error updating wishlist:', error);
     }
   }
 }

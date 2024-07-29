@@ -22,7 +22,6 @@ export class Search {
       if (window.innerWidth < 1024 && item.classList.contains('mob')) {
         item.querySelector('svg')?.addEventListener('click', () => {
           item.classList.toggle('active');
-          console.log('click');
           getElement('.burger-btn')?.classList.toggle('hidden');
           getElement('.header__logo')?.classList.toggle('hidden');
           getElement('.buy__bag')?.classList.toggle('hidden');
@@ -80,7 +79,6 @@ export class Search {
         const docId = doc.document.name.split('/').pop() || '';
         this.prodArr.push({ id: docId, data: doc.document.fields });
       });
-      console.log(this.prodArr);
       const container = getElement('.search__popup.pop-up');
       if (container) {
         this.renderCards(container);
@@ -154,12 +152,10 @@ export class Search {
     }
 
     if (response.data) {
-      console.log(response.data);
       response.data.forEach((doc) => {
         const docId = doc.document.name.split('/').pop() || '';
         filteredItems.push({ id: docId, data: doc.document.fields });
       });
-      console.log(filteredItems);
     }
 
     return filteredItems.filter((clother) => {
@@ -172,9 +168,8 @@ export class Search {
     search.forEach((item) => {
       if (item.classList.contains('active')) {
         const input = item.querySelector('input');
-        console.log(input);
         input?.addEventListener('input', async () => {
-          const filterArr = await this.filter(input.value); // Wait for the promise to resolve
+          const filterArr = await this.filter(input.value);
           const container = getElement('.search__popup.pop-up');
           if (container) {
             this.clearContainer(container);

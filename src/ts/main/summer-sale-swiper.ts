@@ -64,7 +64,6 @@ export class SummerSale {
       response.data.forEach((doc) => {
         this.slidesArr.push(doc.document.fields);
       });
-      console.log(this.slidesArr);
       this.renderSlides();
       this.swiper.update();
     }

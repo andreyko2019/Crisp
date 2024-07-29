@@ -17,12 +17,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   new Search();
   new AddToBag();
   new Accordion();
-  new SummerSale(); // done
-  new ShopSome(); // done
+  new SummerSale();
+  new ShopSome();
   new ShopFilter();
-  new FeaturedSwiper(); // done
-  new PopularSwiper(); // done
-  new Blog(); // done
+  new FeaturedSwiper();
+  new PopularSwiper();
+  new Blog();
   new PopupCloser('.buy__bag', '.bag__list');
   Loader.stop('brands__item');
   Loader.stop('sales');

@@ -3,7 +3,6 @@ import { getElement, getElements, renderElement } from '../composables/useCallDo
 import { fetchComposable } from '../composables/useFetch';
 
 const addToBag = getElement('.bag__add.btn.black');
-// const wishlistBtn = getElement('.card__add-to-bag .btn');
 const bagList = getElement('.bag__list');
 const bagContent = getElement('.pop-up__list');
 const totalSumElement = getElement('.summ span span');
@@ -11,6 +10,7 @@ const totalSumElement = getElement('.summ span span');
 export class AddToBag {
   clotherInfo: { id: string; data: OneDressBag } | null;
   cart: { id: string; size: string; quantity: number; price: number; data: OneDressBag }[];
+  private lastClickTime: number = 0;
 
   constructor() {
     this.clotherInfo = null;
@@ -22,10 +22,19 @@ export class AddToBag {
   init() {
     if (addToBag) {
       addToBag.addEventListener('click', () => {
-        this.conectDb();
+        this.handleAddToBagClick();
       });
     }
     this.renderCart();
+  }
+
+  private handleAddToBagClick() {
+    const now = Date.now();
+    if (now - this.lastClickTime < 3000) {
+      return;
+    }
+    this.lastClickTime = now;
+    this.conectDb();
   }
 
   private getDocumentIdFromURL(): string | null {
@@ -61,7 +70,6 @@ export class AddToBag {
         id: docId,
         data: response.data.fields,
       };
-      console.log(this.clotherInfo);
       this.addToList();
     }
   }
@@ -115,7 +123,6 @@ export class AddToBag {
     }
 
     const size = activeSize[0].textContent?.trim().replace(/[\s]+$/, '') as string;
-    console.log(size);
 
     return size;
   }
@@ -205,7 +212,6 @@ export class AddToBag {
         item.remove();
         this.saveCart();
         this.updateTotal();
-        console.log('Item removed:', cartItem);
       });
     }
   }
@@ -215,7 +221,6 @@ export class AddToBag {
     if (totalSumElement) {
       totalSumElement.textContent = total.toFixed(2);
     }
-    console.log(total);
   }
 
   private saveCart() {

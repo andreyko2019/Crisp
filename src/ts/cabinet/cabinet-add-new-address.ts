@@ -43,8 +43,6 @@ export class AddAddress {
     if (fax) {
       this.newAddressDb.fax = { stringValue: fax };
     }
-
-    console.log(this.newAddressDb);
   }
 
   getCookie(name: string): string | undefined {
@@ -98,7 +96,6 @@ export class AddAddress {
           const docId = doc.document.name.split('/').pop() || '';
           this.userData = { id: docId, data: doc.document.fields };
         }
-        console.log(this.userData);
         this.addToDb();
       } else {
         console.error('No user data found');
@@ -115,8 +112,6 @@ export class AddAddress {
 
     if (this.userData && this.userData.data.shoppingAddress?.stringValue) {
       const shopping = this.userData.data.shoppingAddress.stringValue;
-
-      console.log(shopping);
 
       if (!this.uid) {
         console.error('UID not found');
@@ -148,10 +143,6 @@ export class AddAddress {
             console.error('Error adding document:', response.error);
             return;
           }
-
-          if (response.data) {
-            console.log('Document written with ID:', response.data.name);
-          }
         } catch (error) {
           console.error('Error adding address:', error);
         }
@@ -167,6 +158,7 @@ export class AddAddress {
           uid: this.userData.data.uid,
           email: this.userData.data.email,
           shoppingAddress: { stringValue: newShoppingId },
+          wishlist: this.userData.data.wishlist,
         },
       };
 
@@ -181,9 +173,6 @@ export class AddAddress {
           return;
         }
 
-        console.log('User document updated with new shopping address:', newShoppingId);
-
-        // After updating the user document, add the address to the new shopping address
         const shoppingUrl = `https://firestore.googleapis.com/v1/projects/${firebaseConfig.projectId}/databases/(default)/documents/shopping-address/${newShoppingId}/allUserAddress`;
 
         if (this.newAddressDb) {
@@ -208,10 +197,6 @@ export class AddAddress {
             if (addressResponse.error) {
               console.error('Error adding address document:', addressResponse.error);
               return;
-            }
-
-            if (addressResponse.data) {
-              console.log('Address document written with ID:', addressResponse.data.name);
             }
           } catch (error) {
             console.error('Error adding address:', error);

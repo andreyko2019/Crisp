@@ -27,7 +27,6 @@ export class NewBaner {
     if (response.data) {
       const title = response.data.fields.title.stringValue;
       const bg = response.data.fields.banerImg.stringValue;
-      console.log(title);
       if (newTitle && back) {
         newTitle.textContent = title;
         back.style.backgroundImage = `url(${bg})`;

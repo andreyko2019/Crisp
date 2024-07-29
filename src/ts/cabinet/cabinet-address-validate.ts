@@ -14,7 +14,6 @@ export class AddressValidate {
   }
 
   init() {
-    console.log(getElement('#phone'), getElement('#street'), getElement('#country'), getElement('#zip'));
     const validate = new JustValidate(this.form, {
       errorLabelStyle: {
         color: '#1D1F21',
@@ -35,12 +34,12 @@ export class AddressValidate {
         {
           rule: 'minLength',
           value: 10,
-          errorMessage: 'Min lendth 10 symbol',
+          errorMessage: 'Min length 10 symbols',
         },
         {
           rule: 'maxLength',
           value: 15,
-          errorMessage: 'Max lendth 15 symbol',
+          errorMessage: 'Max length 15 symbols',
         },
       ])
       .addField(getElement('#street'), [
@@ -57,13 +56,13 @@ export class AddressValidate {
       .addField(getElement('#country-hidden'), [
         {
           rule: 'required',
-          errorMessage: 'Chose your country',
+          errorMessage: 'Choose your country',
         },
       ])
       .addField(getElement('#state-hidden'), [
         {
           rule: 'required',
-          errorMessage: 'Chose your state/province',
+          errorMessage: 'Choose your state/province',
         },
       ])
       .addField(getElement('#zip'), [
@@ -79,7 +78,6 @@ export class AddressValidate {
       ]);
 
     validate.onSuccess(() => {
-      console.log('Form is valid');
       new AddAddress();
       window.location.reload();
     });

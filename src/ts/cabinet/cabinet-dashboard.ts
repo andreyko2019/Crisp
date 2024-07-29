@@ -12,7 +12,6 @@ export class Dashboard {
   }
 
   init() {
-    console.log(this.uid);
     this.conectDb();
   }
 
@@ -64,7 +63,6 @@ export class Dashboard {
       const doc = response.data[0];
       if (doc.document && doc.document.fields) {
         this.userData = doc.document.fields;
-        console.log(this.userData);
         this.updateUi();
       }
     }
@@ -132,8 +130,6 @@ export class Dashboard {
         console.error('Ошибка при загрузке данных:', response.error);
         return;
       }
-
-      console.log('Response data:', response.data);
 
       if (response.data && Array.isArray(response.data.documents)) {
         response.data.documents.forEach((doc) => {

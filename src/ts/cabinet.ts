@@ -14,6 +14,7 @@ import { AddressValidate } from './cabinet/cabinet-address-validate';
 import { ContactUs } from './components/contact-us';
 import { RenderWishlistCards } from './cabinet/cabinet-load-wishlist';
 import { PopupCloser } from './components/pop-up-closer';
+import { AddToBagFromWishlist } from './cabinet/add-to-bag-from.wishlist';
 
 document.addEventListener('DOMContentLoaded', async () => {
   new Redirect();
@@ -32,6 +33,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   new ContactUs('.contact-us__btn', '.contact-us');
   new RenderWishlistCards();
   new PopupCloser('.buy__bag', '.bag__list');
+  new AddToBagFromWishlist();
 });
 
 new Skeleton();

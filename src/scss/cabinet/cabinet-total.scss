@@ -497,13 +497,26 @@
 
     .just-validate-error-label {
       padding: 0 16px;
-      min-height: 35px;
       background-color: $grayLight;
       font-family: RobotoMedium;
       font-size: 14px;
       line-height: 20px;
       display: flex;
       align-items: center;
+      height: 0;
+      overflow: hidden;
+      opacity: 0;
+      visibility: hidden;
+      transition:
+        opacity 0.5s ease 0.2s,
+        visibility 0.5s ease 0.2s,
+        height 0.5s ease 0.2s;
+    }
+
+    .just-validate-error-field + .just-validate-error-label {
+      opacity: 1;
+      visibility: visible;
+      height: 35px;
     }
   }
 
@@ -521,6 +534,11 @@
 
     .card {
       height: 100%;
+
+      &__wrapper {
+        display: flex;
+        flex-direction: column;
+      }
 
       &__title {
         font-size: 18px;
@@ -541,12 +559,19 @@
         font-size: 14px;
         line-height: normal;
         color: $gray;
+        margin-bottom: auto;
 
         @include media-breakpoint-down(md) {
           font-family: Oswald;
           font-size: 14px;
           color: black;
         }
+      }
+
+      &__info {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
       }
 
       &__add-to-bag {
