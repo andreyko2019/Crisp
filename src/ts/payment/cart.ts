@@ -1,19 +1,8 @@
-// export interface CartItem {
-//   id: string;
-//   // name: string;
-//   price: number;
-//   quantity: number;
-//   imageUrl: string;
-//   size: string;
-//   img: { stringValue: string };
-//   imgWebP: { stringValue: string };
-//   name: { stringValue: string };
-// }
+
 import { OneDressBag } from "../components/interface";
 
 export interface CartItem {
   id: string;
-  // name: string;
   price: number;
   quantity: number;
   imageUrl: string;
