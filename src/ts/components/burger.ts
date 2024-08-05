@@ -57,7 +57,7 @@ export class Burger {
 
     if (uid && this.accBlock && this.accBlockMob) {
       this.accBlock.innerHTML = `
-       <a href="/Crisp/cabinet.html#account-dashboard" class="my-acc">MY ACCOUNT</a>
+       <a href="/cabinet#account-dashboard" class="my-acc">MY ACCOUNT</a>
        <a href="javascript:void(0);" class="log-out">LOG OUT</a>
       `;
 
@@ -67,7 +67,7 @@ export class Burger {
       const menu = getElement('.header__menu_adapt .menu');
       const goAccMob = renderElement('li', 'menu__item');
       goAccMob.innerHTML = `
-       <a href="/Crisp/cabinet.html#account-dashboard" class="my-acc">MY ACCOUNT</a>
+       <a href="/cabinet#account-dashboard" class="my-acc">MY ACCOUNT</a>
       `;
 
       const logOut = renderElement('li', 'menu__item');
@@ -82,6 +82,26 @@ export class Burger {
       logOutBtns.forEach((logOutBtn) => {
         logOutBtn.addEventListener('click', this.logOut.bind(this));
       });
+    }
+    else if (this.accBlock && this.accBlockMob) {
+      this.accBlock.innerHTML = `
+       <a href="/sign-in" class="signin">SIGN IN</a>
+       <a href="/sign-up" class="create">CREATE AN ACCOUNT</a>
+      `;
+
+      const menu = getElement('.header__menu_adapt .menu');
+      const goAccMob = renderElement('li', 'menu__item');
+      goAccMob.innerHTML = `
+       <a href="/sign-in" class="signin">SIGN IN</a>
+      `;
+
+      const createAnAccount = renderElement('li', 'menu__item');
+      createAnAccount.innerHTML = `
+       <a href="/sign-up" class="create">CREATE AN ACCOUNT</a>
+      `;
+
+      menu?.appendChild(goAccMob);
+      menu?.appendChild(createAnAccount);
     }
   }
 
@@ -102,7 +122,7 @@ export class Burger {
     signOut(auth)
       .then(() => {
         this.deleteCookie('UID');
-        window.location.href = '/Crisp/index.html';
+        window.location.href = '/';
       })
       .catch((error) => {
         console.error('Sign Out Error', error);

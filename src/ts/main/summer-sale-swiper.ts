@@ -22,6 +22,7 @@ export class SummerSale {
       grabCursor: true,
       pagination: {
         el: '.swiper-pagination',
+        clickable: true,
       },
       navigation: {
         nextEl: '.swiper-btn-next',

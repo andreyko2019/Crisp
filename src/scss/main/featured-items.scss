@@ -43,6 +43,34 @@
         width: 15px;
         height: 15px;
       }
+
+      &:hover {
+        background: lighten($black, 10%);
+        border-color: lighten($gray, 10%);
+      }
+
+      &:focus {
+        outline: none;
+        background: darken($black, 10%);
+        border-color: darken($gray, 10%);
+      }
+
+      &:active {
+        transform: scale(0.95);
+      }
+
+      &.swiper-button-disabled {
+        border-color: darken(grey, 1%);
+
+        &:hover {
+          background: none;
+          cursor: auto;
+        }
+
+        &:active {
+          transform: scale(1);
+        }
+      }
     }
   }
 

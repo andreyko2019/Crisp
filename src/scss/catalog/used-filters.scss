@@ -71,18 +71,28 @@
 
   &__range-value {
     display: flex;
+    align-items: center;
+    justify-content: space-between;
     gap: 10px;
+
+    &-dash{
+      display: block;
+      font-size: 20px;
+      line-height: 1;
+    }
   }
 
   &__color-value {
-    display: flex; 
+    display: flex;
     align-items: center;
     gap: 8px;
     flex-wrap: wrap;
   }
 
+
+
   &__size-value {
-    display: flex; 
+    display: flex;
     align-items: center;
     gap: 8px;
     flex-wrap: wrap;

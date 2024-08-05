@@ -536,6 +536,8 @@
 
     .bag {
       margin-top: 36px;
+      max-width: 20px;
+      max-height: 20px;
 
       @include media-breakpoint-down(md) {
         order: 3;

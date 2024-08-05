@@ -1,6 +1,10 @@
 import { defineConfig } from 'vite';
 import injectHTML from 'vite-plugin-html-inject';
 import pages from './pages.config.js';
+import viteImagemin from '@vheemstra/vite-plugin-imagemin'
+
+import imageminMozjpeg from 'imagemin-mozjpeg'
+import imageminWebp from 'imagemin-webp'
 
 
 const pagesInput = {};
@@ -10,7 +14,7 @@ pages.forEach((page) => {
 });
 
 export default defineConfig({
-  base: '/Crisp',
+  base: '/',
   build: {
     target: 'es2022',
     outDir: 'build',
@@ -26,5 +30,17 @@ export default defineConfig({
     host: '0.0.0.0',
     hmr: true,
   },
-  plugins: [injectHTML()],
+  plugins: [
+    injectHTML(),
+    viteImagemin({
+      plugins: {
+        jpg: imageminMozjpeg(),
+      },
+      makeWebp: {
+        plugins: {
+          jpg: imageminWebp(),
+        },
+      },
+    }),
+  ],
 });

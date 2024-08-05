@@ -9,7 +9,7 @@ export class Redirect {
 
   init() {
     if (!this.uid) {
-      window.location.href = '/Crisp/index.html';
+      window.location.href = '/';
       return;
     }
   }

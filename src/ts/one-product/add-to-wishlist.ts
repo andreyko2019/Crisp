@@ -39,7 +39,7 @@ export class AddToWishList {
   async conectUserDb() {
     if (!this.uid) {
       console.error('UID not found');
-      window.location.href = '/Crisp/sign-in.html';
+      window.location.href = '/sign-in';
       return;
     }
 

@@ -66,7 +66,7 @@ export class GoAcc {
 
           if (userExist) {
             document.cookie = `UID=${user.user.uid}`;
-            window.location.href = '/Crisp/cabinet.html#account-dashboard';
+            window.location.href = '/cabinet#account-dashboard';
             console.log('User signed in and cookie set');
           } else {
             console.log('User not found in database');

@@ -32,16 +32,46 @@
 
     &-prew,
     &-next {
+
       display: flex;
       align-items: center;
       justify-content: center;
       border: 2px solid $gray;
       width: 40px;
       height: 40px;
+      cursor: pointer;
 
       svg {
-        width: 15px;
-        height: 15px;
+        width: 100%;
+        max-height: 15px;
+      }
+
+      &:hover {
+        background: lighten($black, 10%);
+        border-color: lighten($gray, 10%);
+      }
+
+      &:focus {
+        outline: none;
+        background: darken($black, 10%);
+        border-color: darken($gray, 10%);
+      }
+
+      &:active {
+        transform: scale(0.95);
+      }
+
+      &.swiper-button-disabled {
+        border-color: darken(grey, 1%);
+
+        &:hover {
+          background: none;
+          cursor: auto;
+        }
+
+        &:active {
+          transform: scale(1);
+        }
       }
     }
   }

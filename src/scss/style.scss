@@ -9,6 +9,18 @@ body {
   height: 100%;
 }
 
+body{
+  &::-webkit-scrollbar {
+    width: 8px;
+    background: #000;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 100px;
+    background: wheat;
+  }
+}
+
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -63,3 +75,5 @@ body {
     background-position: 100% 0;
   }
 }
+
+

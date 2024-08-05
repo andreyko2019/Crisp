@@ -110,6 +110,8 @@
     text-transform: uppercase;
     letter-spacing: 0.5px;
     font-size: clamp(10px, 2.5vw, 18px);
+    padding-top: 17px;
+    padding-bottom: 17px;
 
     @include media-breakpoint-down(sm) {
       padding: 9px 0;

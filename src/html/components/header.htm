@@ -6,7 +6,7 @@
         <span></span>
         <span></span>
       </div>
-      <a href="index.html" class="header__logo">
+      <a href="/" class="header__logo">
         <svg>
           <use href="#crisp-logo"></use>
         </svg>
@@ -14,19 +14,19 @@
       <div class="header__menu">
         <ul class="menu">
           <li class="menu__item">
-            <a href="index.html">home</a>
+            <a href="/">home</a>
           </li>
           <li class="menu__item">
-            <a href="catalog.html">Shop</a>
+            <a href="/catalog">Shop</a>
           </li>
           <li class="menu__item">
-            <a href="">blog</a>
+            <a href="/404">blog</a>
           </li>
           <li class="menu__item">
-            <a href="">Sale</a>
+            <a href="/404">Sale</a>
           </li>
           <li class="menu__item">
-            <a href="">contact us</a>
+            <a href="/404">contact us</a>
           </li>
         </ul>
         <div class="header__search search">
@@ -39,39 +39,37 @@
       <div class="header__menu_adapt">
         <ul class="menu">
           <li class="menu__item">
-            <a href="index.html">home</a>
+            <a href="/">home</a>
           </li>
           <li class="menu__item">
-            <a href="/Crisp/catalog.html">Shop</a>
+            <a href="/catalog">Shop</a>
           </li>
           <li class="menu__item">
-            <a href="">blog</a>
+            <a href="/404">blog</a>
           </li>
           <li class="menu__item">
-            <a href="">Sale</a>
+            <a href="/catalog">Sale</a>
           </li>
           <li class="menu__item">
-            <a href="">contact us</a>
+            <a href="/404">contact us</a>
           </li>
           <li class="menu__item">
-            <a href="sign-in.html" class="signin">SIGN IN</a>
+            <a href="/sign-in" class="signin"></a>
           </li>
           <li class="menu__item">
-            <a href="sign-up.html" class="create">CREATE AN ACCOUNT</a>
+            <a href="/sign-up" class="create"></a>
           </li>
         </ul>
       </div>
       <div class="header__login-and-buy">
         <div class="log-and-sign">
-          <a href="sign-in.html" class="signin">SIGN IN</a>
-          <a href="sign-up.html" class="create">CREATE AN ACCOUNT</a>
         </div>
         <div class="buy">
-          <div class="buy__likes" onclick="window.location.href = '/Crisp/cabinet.html#my-wishlist'">
+          <a class="buy__likes" href="/cabinet#my-wishlist">
             <svg>
               <use href="#like"></use>
             </svg>
-          </div>
+          </a>
           <div class="search mob">
             <svg>
               <use href="#search"></use>
@@ -79,14 +77,16 @@
             <input type="text" placeholder="Search" />
           </div>
           <div class="buy__bag">
-            <div class="bag">
-              <svg>
-                <use href="#bag"></use>
-              </svg>
-            </div>
-            <p class="summ">
-              Shopping Cart <span><span>0,00</span>EUR</span>
-            </p>
+            <button class="buy__bag-button">
+              <div class="bag">
+                <svg>
+                  <use href="#bag"></use>
+                </svg>
+              </div>
+              <p class="summ">
+                Shopping Cart <span><span>0,00</span>EUR</span>
+              </p>
+            </button>
             <div class="bag__list pop-up">
               <div class="pop-up__content">
                 <div class="pop-up__close">

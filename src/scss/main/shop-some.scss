@@ -129,6 +129,12 @@
     margin-top: 16px;
     width: 139px;
     background-color: transparent;
+    font-family: 'Oswald';
+    font-size: 14px;
+    line-height: 21px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #828282;
 
     @include media-breakpoint-down(lg) {
       grid-column: 1/4;

@@ -80,7 +80,7 @@ export function loadCards() {
 
     renderCard = () => {
       allCardsArr.length = 0;
-      
+
       if (this.selectedText) {
         limitCardsAll = Number(this.selectedText?.textContent);
         console.log(limitCardsAll);
@@ -94,7 +94,7 @@ export function loadCards() {
                 clothersWrapper.insertAdjacentHTML(
                   'afterbegin',
                   `
-            <a class="card shop-some__card ${item.id}" href="one-product.html?id=${item.id}">
+            <a class="card shop-some__card ${item.id}" href="/one-product?id=${item.id}">
               <div class="card__img">
                 <picture>
                   <source srcset=${item.data.imgWebP.stringValue} type="image/webp" />

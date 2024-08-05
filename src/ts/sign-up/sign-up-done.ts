@@ -59,7 +59,7 @@ export class CreateAcc {
       }
 
       document.cookie = `UID=${user.uid}`;
-      window.location.href = '/Crisp/cabinet.html#account-dashboard';
+      window.location.href = '/cabinet#account-dashboard';
     } catch (error) {
       console.log('There was an error:', error);
     }

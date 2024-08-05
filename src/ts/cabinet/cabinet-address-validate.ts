@@ -29,7 +29,7 @@ export class AddressValidate {
         {
           rule: 'customRegexp',
           value: /^\+\d{1,3}\d{9}$/,
-          errorMessage: 'Write correct phone',
+          errorMessage: 'Write correct phone (examp.+380ххххххххх)',
         },
         {
           rule: 'minLength',
@@ -72,7 +72,7 @@ export class AddressValidate {
         },
         {
           rule: 'customRegexp',
-          value: /^[0-9]{6}$/,
+          value: /^[0-9]{5}$/,
           errorMessage: 'Write correct zip code',
         },
       ]);
