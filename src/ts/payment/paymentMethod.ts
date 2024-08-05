@@ -123,12 +123,7 @@ export function paymentMethod() {
             value: 15,
           },
         ]);
-      // .addField('#select-region', [
-      //   {
-      //     rule: 'required',
-      //   },
-      // ]);
-
+      
       validate.onSuccess(() => {
         console.log('validate');
         this.figures?.forEach((figure) => {

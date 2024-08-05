@@ -80,7 +80,8 @@ export function loadCards() {
 
     renderCard = () => {
       allCardsArr.length = 0;
-
+      
+      
       if (this.selectedText) {
         limitCardsAll = Number(this.selectedText?.textContent);
         console.log(limitCardsAll);
@@ -89,12 +90,13 @@ export function loadCards() {
           clothersWrapper.innerHTML = '';
 
           visibleCards.forEach((item) => {
+            // console.log(Object.values(item.data.size.arrayValue.values)[0].stringValue);
             if (clothersWrapper) {
               if (item.data.sale.booleanValue === false) {
                 clothersWrapper.insertAdjacentHTML(
                   'afterbegin',
                   `
-            <a class="card shop-some__card ${item.id}" href="/one-product?id=${item.id}">
+            <a class="card shop-some__card ${item.id}" href="one-product.html?id=${item.id}">
               <div class="card__img">
                 <picture>
                   <source srcset=${item.data.imgWebP.stringValue} type="image/webp" />
@@ -105,6 +107,20 @@ export function loadCards() {
                 <p class="card__category">${item.data.category.stringValue}</p>
                 <h3 class="card__title">${item.data.name.stringValue}</h3>
                 <p class="card__price">${item.data.cost.stringValue}</p>
+                <div class="card__colors-list colors-list">
+                    <div class="color color__black" data-color="#292a2d">
+                      <input type="radio" id="black" name="color" />
+                      <div class="custom-radio"></div>
+                    </div>
+                    <div class="color color__light-rose" data-color="#f3ece2">
+                      <input type="radio" id="light-rose" name="color" />
+                      <div class="custom-radio"></div>
+                    </div>
+                    <div class="color color__dark-blue" data-color="#24426a">
+                      <input type="radio" id="dark-blue" name="color" />
+                      <div class="custom-radio"></div>
+                    </div>
+                  </div>
               </div>
             </a>
             `
@@ -127,6 +143,20 @@ export function loadCards() {
                 <p class="card__category">${item.data.category.stringValue}</p>
                 <h3 class="card__title">${item.data.name.stringValue}</h3>
                 <p class="card__price">${item.data.costNew.stringValue} <span>${item.data.cost.stringValue}</span></p>
+                <div class="card__colors-list colors-list">
+                    <div class="color color__black" data-color="#292a2d">
+                      <input type="radio" id="black" name="color" />
+                      <div class="custom-radio"></div>
+                    </div>
+                    <div class="color color__light-rose" data-color="#f3ece2">
+                      <input type="radio" id="light-rose" name="color" />
+                      <div class="custom-radio"></div>
+                    </div>
+                    <div class="color color__dark-blue" data-color="#24426a">
+                      <input type="radio" id="dark-blue" name="color" />
+                      <div class="custom-radio"></div>
+                    </div>
+                  </div>
               </div>
             </a>
                 `
