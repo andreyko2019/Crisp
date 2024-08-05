@@ -1,0 +1,9 @@
+< IfModule mod_rewrite.c>
+   RewriteEngine On # Якщо браузер підтримує зображення WebP... RewriteCond %{HTTP_ACCEPT} image/webp # ...і зображення заміни WebP існує в тому самому каталозі... RewriteCond %{REQUEST_FILENAME}.webp -f # ...обслуговувати зображення WebP замість jpeg/png/gif. RewriteRule (.+)\.(jpe?g|png|gif)$ $1.webp [T=image/webp,E=REQUEST_image]
+</ IfModule >
+< IfModule mod_headers.c>
+   # Варіювати: приймати всі запити до jpeg, png і gif Header append Vary Accept env=REQUEST_image
+</ IfModule >
+< IfModule mod_mime.c>
+   # Додати тип файлу MIME підтримка AddType image/webp .webp
+</ IfModule >

@@ -11,7 +11,6 @@ export class ShopSome {
 
   constructor() {
     this.shopDb = [];
-
     this.loadCards().then(() => Loader.stop('shop-some__items'));
   }
 
@@ -32,23 +31,28 @@ export class ShopSome {
 
     const url = `https://firestore.googleapis.com/v1/projects/${firebaseConfig.projectId}/databases/(default)/documents:runQuery`;
 
-    const response = await fetchComposable<{ document: { name: string; fields: ShopFilters } }[], typeof requestBody>(url, {
-      method: 'POST',
-      body: requestBody,
-    });
-
-    if (response.error) {
-      console.error('Ошибка при загрузке данных:', response.error);
-      return;
-    }
-
-    if (response.data) {
-      response.data.forEach((doc) => {
-        const docId = doc.document.name.split('/').pop() || '';
-        this.shopDb.push({ id: docId, data: doc.document.fields });
+    try {
+      const response = await fetchComposable<{ document: { name: string; fields: ShopFilters } }[], typeof requestBody>(url, {
+        method: 'POST',
+        body: requestBody,
       });
-      this.renderCard();
-      new LoadMoreComponent('.shop-some__items', '.shop-some__card', '.shop-some__load', 8, 8);
+
+      if (response.error) {
+        console.error('Ошибка при загрузке данных:', response.error);
+        return;
+      }
+
+      if (response.data) {
+        response.data.forEach((doc) => {
+          const docId = doc.document.name.split('/').pop() || '';
+          this.shopDb.push({ id: docId, data: doc.document.fields });
+        });
+
+        this.renderCard();
+        new LoadMoreComponent('.shop-some__items', '.shop-some__card', '.shop-some__load', 8, 8);
+      }
+    } catch (error) {
+      console.error('Ошибка при загрузке данных:', error);
     }
   }
 
@@ -57,18 +61,20 @@ export class ShopSome {
       this.shopDb.forEach((item) => {
         const card = renderElement('a', ['card', 'shop-some__card', item.id]) as HTMLAnchorElement;
         card.href = `one-product.html?id=${item.id}`;
-        if (item.data.sale.booleanValue === true) {
+
+        if (item.data.sale.booleanValue) {
           card.classList.add('sale');
         }
 
         const img = renderElement('div', 'card__img');
-        img.innerHTML += `
-            <picture>
-              <source srcset=${item.data.imgWebP.stringValue} type="image/webp" />
-              <img src=${item.data.img.stringValue} />
-            </picture>
+        img.innerHTML = `
+          <picture>
+            <source srcset="${item.data.imgWebP.stringValue}" type="image/webp" />
+            <img src="${item.data.img.stringValue}" alt="${item.data.name.stringValue}" />
+          </picture>
         `;
-        if (item.data.sale.booleanValue === true) {
+
+        if (item.data.sale.booleanValue) {
           img.innerHTML += `
             <div class="card__sale">
               <p>-30%</p>
@@ -85,18 +91,14 @@ export class ShopSome {
         title.innerText = item.data.name.stringValue;
 
         const price = renderElement('p', 'card__price');
-        if (item.data.sale.booleanValue === false) {
+        if (!item.data.sale.booleanValue) {
           price.innerText = item.data.cost.stringValue;
         } else {
           price.innerHTML = `${item.data.costNew.stringValue} <span>${item.data.cost.stringValue}</span>`;
         }
 
-        info.appendChild(category);
-        info.appendChild(title);
-        info.appendChild(price);
-
-        card.appendChild(img);
-        card.appendChild(info);
+        info.append(category, title, price);
+        card.append(img, info);
 
         clothersWrapper.appendChild(card);
       });

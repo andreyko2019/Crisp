@@ -7,40 +7,39 @@ const clothersWrapper = getElement('.shop-some__items');
 
 export class ShopFilter {
   shopDb: { id: string; data: ShopFilters }[];
+  activeFilterId: string | null;
 
   constructor() {
     this.shopDb = [];
-
+    this.activeFilterId = null;
     this.initEventListeners();
   }
 
-  private async sendFetchRequest(category: string): Promise<void> {
+  private async sendFetchRequest(category?: string): Promise<void> {
     document.getElementsByClassName('shop-some__items')[0].classList.add('skeleton');
 
     const firebaseConfig = {
       projectId: 'crisp-b06bf',
     };
 
-    const requestBody = {
-      structuredQuery: {
-        where: {
-          fieldFilter: {
-            field: {
-              fieldPath: 'category',
-            },
-            op: 'EQUAL',
-            value: {
-              stringValue: category,
+    const requestBody = category
+      ? {
+        structuredQuery: {
+          where: {
+            fieldFilter: {
+              field: { fieldPath: 'category' },
+              op: 'EQUAL',
+              value: { stringValue: category },
             },
           },
+          from: [{ collectionId: 'clothers' }],
         },
-        from: [
-          {
-            collectionId: 'clothers',
-          },
-        ],
-      },
-    };
+      }
+      : {
+        structuredQuery: {
+          from: [{ collectionId: 'clothers' }],
+        },
+      };
 
     const url = `https://firestore.googleapis.com/v1/projects/${firebaseConfig.projectId}/databases/(default)/documents:runQuery`;
 
@@ -75,18 +74,18 @@ export class ShopFilter {
       items.forEach((item) => {
         const card = renderElement('a', ['card', 'shop-some__card', item.id]) as HTMLAnchorElement;
         card.href = `one-product.html?id=${item.id}`;
-        if (item.data.sale.booleanValue === true) {
+        if (item.data.sale.booleanValue) {
           card.classList.add('sale');
         }
 
         const img = renderElement('div', 'card__img');
-        img.innerHTML += `
-            <picture>
-              <source srcset=${item.data.imgWebP.stringValue} type="image/webp" />
-              <img src=${item.data.img.stringValue} />
-            </picture>
+        img.innerHTML = `
+          <picture>
+            <source srcset="${item.data.imgWebP.stringValue}" type="image/webp" />
+            <img src="${item.data.img.stringValue}" alt="${item.data.name.stringValue}" />
+          </picture>
         `;
-        if (item.data.sale.booleanValue === true) {
+        if (item.data.sale.booleanValue) {
           img.innerHTML += `
             <div class="card__sale">
               <p>-30%</p>
@@ -103,24 +102,18 @@ export class ShopFilter {
         title.innerText = item.data.name.stringValue;
 
         const price = renderElement('p', 'card__price');
-        if (item.data.sale.booleanValue === false) {
+        if (!item.data.sale.booleanValue) {
           price.innerText = item.data.cost.stringValue;
         } else {
           price.innerHTML = `${item.data.costNew.stringValue} <span>${item.data.cost.stringValue}</span>`;
         }
 
-        info.appendChild(category);
-        info.appendChild(title);
-        info.appendChild(price);
-
-        card.appendChild(img);
-        card.appendChild(info);
-
+        info.append(category, title, price);
+        card.append(img, info);
         clothersWrapper.appendChild(card);
       });
 
       const cards = getElements('.shop-some__card');
-
       for (let i = 0; i < cards.length; i++) {
         if (i < 8) {
           continue;
@@ -137,7 +130,6 @@ export class ShopFilter {
       }
 
       const btn = getElement('.shop-some__load');
-
       if (btn) {
         btn.addEventListener('click', () => {
           const hiddenCards = getElements('.shop-some__card.hidden');
@@ -154,16 +146,28 @@ export class ShopFilter {
   }
 
   private initEventListeners(): void {
-    document.addEventListener('change', (event) => {
+    document.addEventListener('click', (event) => {
       const target = event.target as HTMLInputElement;
 
       if (target && target.type === 'radio' && target.name === 'shop-filtr') {
         const category = target.parentNode?.textContent?.trim();
 
-        if (category) {
-          this.sendFetchRequest(category.toUpperCase()).then(() => {
+        if (this.activeFilterId === target.id) {
+          target.checked = false;
+          this.activeFilterId = null;
+          console.log('Сброс фильтра');
+          this.sendFetchRequest().then(() => {
             Loader.stop('shop-some__items');
           });
+        } else {
+          target.checked = true;
+          this.activeFilterId = target.id;
+          console.log(`Активирован фильтр по категории: ${category}`);
+          if (category) {
+            this.sendFetchRequest(category.toUpperCase()).then(() => {
+              Loader.stop('shop-some__items');
+            });
+          }
         }
       }
     });
