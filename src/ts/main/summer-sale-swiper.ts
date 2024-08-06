@@ -77,7 +77,7 @@ export class SummerSale {
         slide.innerHTML = `
             <picture>
               <source srcset=${item.imgWebP.stringValue} type="image/webp" />
-              <img src=${item.img.stringValue}/>
+              <img src=${item.img.stringValue} alt="img">
             </picture>
         `;
 

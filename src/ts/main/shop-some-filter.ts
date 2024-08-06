@@ -82,7 +82,7 @@ export class ShopFilter {
         img.innerHTML = `
           <picture>
             <source srcset="${item.data.imgWebP.stringValue}" type="image/webp" />
-            <img src="${item.data.img.stringValue}" alt="${item.data.name.stringValue}" />
+            <img src="${item.data.img.stringValue}" alt="${item.data.name.stringValue}">
           </picture>
         `;
         if (item.data.sale.booleanValue) {

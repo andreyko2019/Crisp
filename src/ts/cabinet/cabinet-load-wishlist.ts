@@ -131,7 +131,7 @@ export class RenderWishlistCards {
       cardImg.innerHTML = `
           <picture>
             <source srcset="${clother.data.imgWebP.stringValue}" type="image/webp" />
-            <img src="${clother.data.img.stringValue}" />
+            <img src="${clother.data.img.stringValue}" alt="img">
           </picture>
       `;
 

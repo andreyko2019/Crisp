@@ -55,7 +55,7 @@ export class NewInfo {
       newImg.innerHTML = `
         <picture>
           <source srcset="${this.newInfo.newImgWebP.stringValue}" type="image/webp" />
-          <img src="${this.newInfo.newImg.stringValue}"/>
+          <img src="${this.newInfo.newImg.stringValue}" alt="img">
         </picture>
       `;
 
