@@ -57,7 +57,7 @@ export class RenderInfoFromBag extends AddToBag {
             <div class="cart-item">
               <picture>
                 <source srcset=${item.data.imgWebP.stringValue} type="image/webp" />
-                <img src=${item.data.img.stringValue} class="cart-item-img"/>
+                <img src=${item.data.img.stringValue} class="cart-item-img" alt="img">
               </picture>
               <div class="cart-item-details">
                 <p class="cart-item-name">${name}</p>

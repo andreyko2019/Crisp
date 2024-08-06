@@ -123,21 +123,21 @@ export class MainInfoSwiper {
         tab1.type = 'button';
         tab1.dataset.tab = '#slide-1';
         tab1.innerHTML = `
-          <img src="${img.stringValue}" />
+          <img src="${img.stringValue}" alt="img">
         `;
 
         const tab2 = renderElement('button', ['tabs__nav-btn', 'skeleton']) as HTMLButtonElement;
         tab2.type = 'button';
         tab2.dataset.tab = '#slide-2';
         tab2.innerHTML = `
-          <img src="${subImg1.stringValue}" />
+          <img src="${subImg1.stringValue}" alt="img">
         `;
 
         const tab3 = renderElement('button', ['tabs__nav-btn', 'skeleton']) as HTMLButtonElement;
         tab3.type = 'button';
         tab3.dataset.tab = '#slide-3';
         tab3.innerHTML = `
-          <img src="${subImg2.stringValue}" />
+          <img src="${subImg2.stringValue}" alt="img">
         `;
 
         clothersWrapperTabs.appendChild(tab1);
@@ -147,19 +147,19 @@ export class MainInfoSwiper {
         const slide1 = renderElement('div', ['main-img__slide', 'swiper-slide', 'tabs__item', 'tabs__item_active', 'skeleton']);
         slide1.id = 'slide-1';
         slide1.innerHTML = `
-          <img src="${img.stringValue}" />
+          <img src="${img.stringValue}" alt="img">
         `;
 
         const slide2 = renderElement('div', ['main-img__slide', 'swiper-slide', 'tabs__item', 'skeleton']);
         slide2.id = 'slide-2';
         slide2.innerHTML = `
-          <img src="${subImg1.stringValue}" />
+          <img src="${subImg1.stringValue}" alt="img">
         `;
 
         const slide3 = renderElement('div', ['main-img__slide', 'swiper-slide', 'tabs__item', 'skeleton']);
         slide3.id = 'slide-3';
         slide3.innerHTML = `
-          <img src="${subImg2.stringValue}" />
+          <img src="${subImg2.stringValue}" alt="img">
         `;
 
         clothersWrapperItem.appendChild(slide1);
@@ -170,7 +170,7 @@ export class MainInfoSwiper {
         tab1.type = 'button';
         tab1.dataset.tab = '#slide-1';
         tab1.innerHTML = `
-          <img src="${img.stringValue}" />
+          <img src="${img.stringValue}" alt="img">
         `;
 
         clothersWrapperTabs.appendChild(tab1);
@@ -178,7 +178,7 @@ export class MainInfoSwiper {
         const slide1 = renderElement('div', ['main-img__slide', 'swiper-slide', 'tabs__item', 'tabs__item_active']);
         slide1.id = 'slide-1';
         slide1.innerHTML = `
-          <img src="${img.stringValue}" />
+          <img src="${img.stringValue}" alt="img">
         `;
 
         clothersWrapperItem.appendChild(slide1);

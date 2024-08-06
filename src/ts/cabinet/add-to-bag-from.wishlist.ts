@@ -166,7 +166,7 @@ export class AddToBagFromWishlist {
           img.innerHTML = `
           <picture>
             <source srcset=${item.data.imgWebP.stringValue} type="image/webp" />
-            <img src=${item.data.img.stringValue} />
+            <img src=${item.data.img.stringValue} alt="img">
           </picture>
         `;
 
