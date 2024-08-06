@@ -48,8 +48,8 @@ export class NewInfo {
       const newTitle1 = renderElement('h3', 'new-info__title');
       newTitle1.textContent = this.newInfo.textTitle.stringValue;
 
-      const newText1 = renderElement('p', 'new-info__text');
-      newText1.textContent = this.newInfo.textFirst.stringValue;
+      const newText1 = renderElement('blockquote', 'new-info__text');
+      newText1.innerHTML = this.newInfo.textFirst.stringValue;
 
       const newImg = renderElement('div', 'new-info__img');
       newImg.innerHTML = `
@@ -62,8 +62,8 @@ export class NewInfo {
       const newTitle2 = renderElement('h3', 'new-info__title');
       newTitle2.textContent = this.newInfo.textTitle.stringValue;
 
-      const newText2 = renderElement('p', 'new-info__text');
-      newText2.textContent = this.newInfo.textSecond.stringValue;
+      const newText2 = renderElement('blockquote', 'new-info__text');
+      newText2.innerHTML = this.newInfo.textSecond.stringValue;
 
       newContainer.appendChild(newTitle1);
       newContainer.appendChild(newText1);

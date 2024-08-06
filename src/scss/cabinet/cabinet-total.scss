@@ -257,6 +257,10 @@
       &__input {
         max-width: 330px;
         width: 100%;
+
+        @include media-breakpoint-down(sm) {
+          max-width: none;
+        }
       }
 
       &__title {
@@ -400,6 +404,8 @@
 
       @include media-breakpoint-down(sm) {
         max-width: 392px;
+        margin-left: auto;
+        margin-right: auto;
       }
 
       &__input {

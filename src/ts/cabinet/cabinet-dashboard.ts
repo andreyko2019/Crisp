@@ -24,6 +24,10 @@ export class Dashboard {
     return undefined;
   }
 
+  updateUrl(anchor: string) {
+    window.location.hash = anchor;
+  }
+
   async conectDb() {
     if (!this.uid) {
       console.error('UID not found');

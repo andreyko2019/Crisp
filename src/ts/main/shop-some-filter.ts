@@ -125,7 +125,7 @@ export class ShopFilter {
       if (items.length > 8) {
         const loadMoreButton = document.createElement('button');
         loadMoreButton.classList.add('btn', 'shop-some__load');
-        loadMoreButton.textContent = 'Load more';
+        loadMoreButton.textContent = 'See more';
         clothersWrapper.insertAdjacentElement('beforeend', loadMoreButton);
       }
 

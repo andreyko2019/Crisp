@@ -17,6 +17,11 @@ import { PopupCloser } from './components/pop-up-closer';
 import { AddToBagFromWishlist } from './cabinet/add-to-bag-from.wishlist';
 
 document.addEventListener('DOMContentLoaded', async () => {
+  initCabinetJS()
+  window.addEventListener('hashchange', () => initCabinetJS());
+});
+
+function initCabinetJS() {
   new Redirect();
   new Burger();
   new Search();
@@ -34,6 +39,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   new RenderWishlistCards();
   new PopupCloser('.buy__bag', '.bag__list');
   new AddToBagFromWishlist();
-});
+}
 
 new Skeleton();

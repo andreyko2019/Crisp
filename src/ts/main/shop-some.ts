@@ -104,7 +104,7 @@ export class ShopSome {
       });
 
       const btnLoad = renderElement('button', ['btn', 'shop-some__load']);
-      btnLoad.textContent = 'Load more';
+      btnLoad.textContent = 'See more';
 
       clothersWrapper.appendChild(btnLoad);
     }

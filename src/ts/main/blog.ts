@@ -56,7 +56,7 @@ export class Blog {
     this.newsDb.forEach((item) => {
       if (newsWrapper) {
         const oneNew = renderElement('a', ['blog__card', 'new', item.id]) as HTMLAnchorElement;
-        oneNew.href = `new.html?id=${item.id}`;
+        oneNew.href = `new?id=${item.id}`;
 
         const category = renderElement('p', 'new__category');
         category.innerText = item.data.type?.stringValue;
