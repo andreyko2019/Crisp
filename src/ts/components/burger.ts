@@ -1,6 +1,4 @@
 import { getElement, getElements, renderElement } from '../composables/useCallDom';
-import { auth } from '../modules/firebase';
-import { signOut } from 'firebase/auth';
 
 const bagList = getElement('.bag__list');
 
@@ -119,13 +117,7 @@ export class Burger {
   }
 
   logOut() {
-    signOut(auth)
-      .then(() => {
         this.deleteCookie('UID');
         window.location.href = '/';
-      })
-      .catch((error) => {
-        console.error('Sign Out Error', error);
-      });
   }
 }
