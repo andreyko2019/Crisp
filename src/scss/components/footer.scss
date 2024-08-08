@@ -59,12 +59,16 @@
   }
 
   &__logo {
-    width: 102.34px;
+    width: 103px;
     height: 44px;
 
     svg {
       width: 100%;
       height: 100%;
+    }
+
+    @include media-breakpoint-up(sm) {
+      margin-left: 3px;
     }
 
     @include media-breakpoint-down(md) {
@@ -77,6 +81,7 @@
     justify-content: space-between;
     width: 60%;
     text-transform: uppercase;
+    max-width: 1108px;
 
     @include media-breakpoint-down(md) {
       flex-direction: column;

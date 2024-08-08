@@ -25,14 +25,14 @@
     font-size: clamp(9px, 3vw, 12px);
 
     @include media-breakpoint-down(sm) {
-      margin-top: 4px;
+      margin-top: 5px;
     }
   }
 
   &__title {
     margin-bottom: 15px;
     font-weight: 300;
-    line-height: 27px;
+    line-height: 15px;
     font-size: clamp(12px, 3vw, 18px);
 
     @include media-breakpoint-down(xs) {

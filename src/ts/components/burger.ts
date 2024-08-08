@@ -55,7 +55,7 @@ export class Burger {
 
     if (uid && this.accBlock && this.accBlockMob) {
       this.accBlock.innerHTML = `
-       <a href="/cabinet#account-dashboard" class="my-acc">MY ACCOUNT</a>
+       <a href="/cabinet" class="my-acc">MY ACCOUNT</a>
        <a href="javascript:void(0);" class="log-out">LOG OUT</a>
       `;
 
@@ -65,7 +65,7 @@ export class Burger {
       const menu = getElement('.header__menu_adapt .menu');
       const goAccMob = renderElement('li', 'menu__item');
       goAccMob.innerHTML = `
-       <a href="/cabinet#account-dashboard" class="my-acc">MY ACCOUNT</a>
+       <a href="/cabinet" class="my-acc">MY ACCOUNT</a>
       `;
 
       const logOut = renderElement('li', 'menu__item');

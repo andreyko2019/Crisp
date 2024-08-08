@@ -15,7 +15,8 @@ export class DropdownTabs extends Dropdown {
       if (window.innerWidth <= 768) {
         this.setupDropdown();
       } else {
-        this.teardownDropdown();
+        this.dropdownMenu.classList.remove('drop-down__menu');
+        this.dropdownMenu.classList.remove('hidden');
       }
     });
   }
@@ -30,13 +31,14 @@ export class DropdownTabs extends Dropdown {
   }
 
   override teardownDropdown() {
-    this.dropdownMenu.classList.remove('drop-down__menu');
-    this.dropdownMenu.classList.remove('hidden');
+    this.dropdownMenu.classList.add('hidden');
+    document.querySelector('.drop-down__select')?.classList.remove('active');
   }
 
   override onItemClick(item: HTMLElement) {
     this.menuItems.forEach((i) => i.classList.remove('tabs__nav-btn_active'));
     item.classList.add('tabs__nav-btn_active');
     super.onItemClick(item);
+
   }
 }

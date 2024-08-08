@@ -11,11 +11,13 @@ body {
 
 body{
   &::-webkit-scrollbar {
+    position: absolute;
     width: 8px;
     background: #000;
   }
 
   &::-webkit-scrollbar-thumb {
+    position: absolute;
     border-radius: 100px;
     background: wheat;
   }
