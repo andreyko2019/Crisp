@@ -67,7 +67,7 @@
       opacity 300ms ease-in-out,
       max-height 300ms ease-in-out;
     pointer-events: none;
-    margin-left:-9px;
+    // margin-left:-9px;
 
     &_active {
       opacity: 1;
@@ -110,6 +110,13 @@
       background-image: url('../../../src/img/svg/check.svg');
       background-repeat: no-repeat;
       background-position: center;
+    }
+
+    &_clicked {
+      &_before {
+        border: none;
+        background-color: $white;
+      }
     }
   }
 
@@ -232,7 +239,6 @@
       // }
 
       &_active {
-       
       }
     }
 
@@ -252,10 +258,9 @@
           position: absolute;
           width: 160%;
           height: 160%;
-          top:-5px;
-          left:-5px;
+          top: -5px;
+          left: -5px;
           border: 2px solid $black;
-
         }
       }
 
@@ -349,7 +354,8 @@
       justify-content: space-between;
     }
 
-    &__label {}
+    &__label {
+    }
 
     &__input {
       font-weight: 400;

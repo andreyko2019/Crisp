@@ -32,12 +32,14 @@ export class FilterAccordeon extends ShopSome {
   brandBlock: HTMLElement | null;
   colorsBlock: HTMLElement | null;
   resetColor: HTMLElement | null;
+  colorValue: string | null;
   lengthBlock: HTMLElement | null;
   resetLength: HTMLElement | null;
   sizeBlock: HTMLElement | null;
   sizesList: NodeListOf<HTMLElement> | null;
   sizeValue: NodeListOf<HTMLElement> | null;
   sizeArray: Array<string> | null;
+  sizeValueText: string | null;
   size: string;
   sizeChecked: HTMLElement | null;
   priceBlock: HTMLElement | null;
@@ -77,12 +79,14 @@ export class FilterAccordeon extends ShopSome {
     this.colors = getElements('.color');
     this.colorChecked = getElement('.used-filters__color-value');
     this.resetColor = getElement('.reset-color');
+    this.colorValue = null;
     this.brandBlock = getElement('.used-filters__brand-box');
     this.priceBlock = getElement('.used-filters__price-box');
     this.sizeBlock = getElement('.used-filters__size-box');
     this.sizeChecked = getElement('.used-filters__size-value');
     this.sizeValue = getElements('.sizes-list__item-value');
     this.sizeArray = [];
+    this.sizeValueText = null;
 
     this.colorsBlock = getElement('.used-filters__color-box');
     this.lengthBlock = getElement('.used-filters__length-box');
@@ -133,36 +137,47 @@ export class FilterAccordeon extends ShopSome {
 
     this.colors.forEach((color) => {
       color.addEventListener('click', () => {
-        color.classList.add('color_active');
+        color.classList.toggle('color_active');
+        let dataColor = color.getAttribute('data-b-color');
+        this.colorValue = dataColor;
+        console.log(this.colorValue);
         const copyColorBlock = color.cloneNode(true) as HTMLElement;
         this.allCheckedFilters?.classList.add('used-filters_active');
         this.colorsBlock?.classList.add('used-filters__color-box_active');
         this.colorChecked?.nextElementSibling?.classList.add('used-filters__svg_cust_active');
 
         const existingColorBlock = this.colorChecked?.querySelector(`[data-color="${copyColorBlock.getAttribute('data-color')}"]`);
+
         if (!existingColorBlock) {
           this.colorChecked?.appendChild(copyColorBlock);
+        } else {
+          this.colorChecked?.removeChild(existingColorBlock);
+          if (!this.colorChecked?.querySelector('[data-color]')) {
+            this.colorsBlock?.classList.remove('used-filters__color-box_active');
+            if (this.colorChecked) {
+              this.colorChecked.innerHTML = '';
+            }
+          }
         }
+
+        this.applyFilters();
       });
     });
 
     this.sizesList.forEach((size) => {
       size.addEventListener('click', () => {
-        let string = '';
-        size.children[1].classList.add('custom-radio_active');
-        // console.log(size.children[2]);
-        if (size.children[2] && size.children[2].textContent !== null) {
-          string = size.children[2].textContent;
-          this.sizeArray?.push(string);
-        }
-        // console.log(this.sizeArray);
+        size.children[1].classList.toggle('custom-radio_active');
+        this.sizeValueText = size.children[2].textContent;
+        console.log(size.children[2].textContent);
         size.classList.toggle('sizes-list__item_checked');
+
         const copySizeValue = size.cloneNode(true) as HTMLElement;
         this.allCheckedFilters?.classList.add('used-filters_active');
         this.sizeBlock?.classList.add('used-filters__size-box_active');
         this.sizeChecked?.nextElementSibling?.classList.add('used-filters__svg_cust_active');
 
         const textContent = copySizeValue.children[2].textContent;
+
         if (textContent !== null) {
           const existingTextBlock = this.sizeChecked?.querySelector(`[data-size="${textContent}"]`);
           if (!existingTextBlock) {
@@ -170,11 +185,20 @@ export class FilterAccordeon extends ShopSome {
             newTextBlock.textContent = textContent;
             newTextBlock.setAttribute('data-size', textContent);
             this.sizeChecked?.appendChild(newTextBlock);
+          } else {
+            existingTextBlock.remove();
           }
         }
-      });
 
-      this.applyFilters();
+        const allNewTextBlocks = this.sizeChecked?.querySelectorAll('[data-size]');
+
+        if (allNewTextBlocks && allNewTextBlocks.length === 0) {
+          
+          this.sizeBlock?.classList.remove('used-filters__size-box_active');
+        }
+
+        this.applyFilters();
+      });
     });
 
     if (this.rangeSlider) {
@@ -236,10 +260,6 @@ export class FilterAccordeon extends ShopSome {
       this.filterSvg?.classList.remove('catalog__filter-svg_unvis');
       this.closeFilterForms?.classList.remove('catalog__filter-close-filters_visible');
     });
-
-    // this.filteredCards.forEach((item) => {
-    //   console.log(Object.values(item.data.size.arrayValue.values)[0].stringValue);
-    // })
   }
 
   toggleFunc(content: HTMLElement, span: HTMLElement) {
@@ -256,11 +276,6 @@ export class FilterAccordeon extends ShopSome {
 
   applyFilters() {
     this.filteredCards = [...this.shopDb];
-
-    // for (const item of this.filteredCards) {
-    //   const valuesArray = item.data.size.arrayValue.values.map((obj: { stringValue: string }) => obj.stringValue);
-    //   console.log(valuesArray);
-    // }
 
     if (this.brand) {
       this.filteredCards = this.filteredCards.filter((card) => {
@@ -282,14 +297,23 @@ export class FilterAccordeon extends ShopSome {
       });
     }
 
-    console.log(this.sizeArray)
-
-    if (this.sizeArray) {
+    if (this.sizeValueText) {
       this.filteredCards = this.filteredCards.filter((card) => {
         const valuesArray = card.data.size.arrayValue.values.map((obj: { stringValue: string }) => obj.stringValue);
-        console.log(this.sizeArray)
-        console.log(valuesArray)
-        return this.sizeArray?.every((size) => valuesArray.includes(size));
+        return valuesArray.includes(this.sizeValueText);
+      });
+    }
+
+    this.filteredCards.forEach((card) => {
+      const colorsValuesArray = card.data.color.arrayValue.values.map((obj: { stringValue: string }) => obj.stringValue);
+
+      console.log(colorsValuesArray);
+    });
+
+    if (this.colorValue) {
+      this.filteredCards = this.filteredCards.filter((card) => {
+        const colorsValuesArray = card.data.color.arrayValue.values.map((obj: { stringValue: string }) => obj.stringValue);
+        return colorsValuesArray.includes(this.colorValue);
       });
     }
 
