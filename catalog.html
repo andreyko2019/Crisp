@@ -73,14 +73,15 @@
                   <div class="used-filters__price-box">
                     <h2 class="used-filters__title">Price Range:</h2>
                     <div class="used-filters__reset-box">
-                      <svg class="used-filters__svg used-filters__svg_cust">
-                        <use href="#close-icon"></use>
-                      </svg>
+                      
                       <div class="used-filters__range-value">
                         <p class="used-filters__value used-filters__range-value-min"></p>
                         <span class="used-filters__range-value-dash">-</span>
                         <p class="used-filters__value used-filters__range-value-max"></p>
                       </div>
+                      <svg class="used-filters__svg used-filters__svg_cust reset-price">
+                        <use href="#close-icon"></use>
+                      </svg>
                     </div>
                   </div>
                 </div>
@@ -93,6 +94,8 @@
                 <load src="src/html/catalog/color-form.html" />
 
                 <load src="src/html/catalog/price-form.html" />
+
+                <load src="src/html/catalog/descr-form.html"/>
               </div>
 
               <div class="catalog__shop">
@@ -116,7 +119,7 @@
                     </ul>
                   </div>
 
-                  <div class="content-bottom__dropdown dropdown">
+                  <div class="content-bottom__dropdown dropdown dropdown_filter">
                     <div class="dropdown__box dropdown__box_filter">
                       <p class="dropdown__text limit">8</p>
                       <svg class="dropdown__svg-arrow">

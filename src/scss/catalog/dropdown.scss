@@ -1,5 +1,14 @@
 .dropdown {
   position: relative;
+  width: 255px;
+
+   @include media-breakpoint-down(md) {
+      width: 202px;
+    }
+
+  &_filter {
+    width: 69px;
+  }
   &__box {
     display: flex;
     justify-content: space-between;
@@ -11,7 +20,6 @@
     padding: 11px 16px 11px;
     transition: all 300ms ease-in-out;
     cursor: pointer;
-    overflow: hidden;
 
     &:hover {
       background: rgba(146, 144, 144, 0.5);
@@ -47,14 +55,15 @@
   &__menu {
     position: absolute;
     z-index: 3;
-    background: rgba(211, 207, 207, 0.9);
     width: 100%;
+    background: $white;
     opacity: 0;
     visibility: hidden;
     padding: 5px 18px;
     display: flex;
     flex-direction: column;
     gap: 15px;
+    border: 1px solid $grayMedium;
 
     transition:
       opacity 300ms ease-in-out,
@@ -73,20 +82,6 @@
     text-transform: uppercase;
     font-family: Oswald;
     cursor: pointer;
-
-    &:hover {
-      color: lighten(red, 20%);
-    }
-
-    &:focus {
-      outline: none;
-      color: darken(red, 20%);
-    }
-
-    &:active {
-      transform: scale(0.95);
-    }
-
     &_active {
       color: red;
     }

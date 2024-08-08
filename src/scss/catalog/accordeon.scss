@@ -6,6 +6,7 @@
     position: relative;
     z-index: 2;
     cursor: pointer;
+    margin-top: -10px;
   }
 
   &__title {
@@ -66,6 +67,7 @@
       opacity 300ms ease-in-out,
       max-height 300ms ease-in-out;
     pointer-events: none;
+    // margin-left:-9px;
 
     &_active {
       opacity: 1;
@@ -109,6 +111,13 @@
       background-repeat: no-repeat;
       background-position: center;
     }
+
+    &_clicked {
+      &_before {
+        border: none;
+        background-color: $white;
+      }
+    }
   }
 
   input[type='radio'] {
@@ -146,6 +155,12 @@
       color: $grayMedium;
       cursor: pointer;
 
+      &_checked {
+        p {
+          color: $black;
+        }
+      }
+
       @include media-breakpoint-down(md) {
         width: 30px;
         height: 30px;
@@ -158,9 +173,6 @@
       height: 100%;
       border: 2px solid $grayMedium;
       position: absolute;
-      display: flex;
-      justify-content: center;
-      align-items: center;
 
       &::before {
         display: none;
@@ -168,7 +180,6 @@
 
       &_active {
         border: 2px solid $black;
-        color: $black;
       }
     }
 
@@ -228,7 +239,6 @@
       // }
 
       &_active {
-
       }
     }
 
@@ -248,10 +258,9 @@
           position: absolute;
           width: 160%;
           height: 160%;
-          top:-5px;
-          left:-5px;
+          top: -5px;
+          left: -5px;
           border: 2px solid $black;
-
         }
       }
 
@@ -345,13 +354,16 @@
       justify-content: space-between;
     }
 
+    &__label {
+    }
+
     &__input {
       font-weight: 400;
       font-size: 14px;
       line-height: 486%;
       text-transform: uppercase;
       font-family: RobotoMedium;
-      max-width: 30px;
+      max-width: 33px;
 
       &::placeholder {
         font-family: RobotoMedium;
@@ -370,7 +382,7 @@
   }
 
   .noUi-target {
-    background: $black;
+    background: $grayMedium;
     border-radius: 0;
     border: none;
     box-shadow: none;

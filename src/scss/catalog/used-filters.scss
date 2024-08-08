@@ -45,6 +45,7 @@
     height: 10px;
     fill: #000;
     order: -1;
+    cursor: pointer;
 
     &_cust {
       display: none;
@@ -71,28 +72,18 @@
 
   &__range-value {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
     gap: 10px;
-
-    &-dash{
-      display: block;
-      font-size: 20px;
-      line-height: 1;
-    }
   }
 
   &__color-value {
-    display: flex;
+    display: flex; 
     align-items: center;
     gap: 8px;
     flex-wrap: wrap;
   }
 
-
-
   &__size-value {
-    display: flex;
+    display: flex; 
     align-items: center;
     gap: 8px;
     flex-wrap: wrap;
@@ -105,13 +96,13 @@
     }
   }
 
-  // &__price-box {
-  //   display: none;
+  &__price-box {
+    display: none;
 
-  //   &_active {
-  //     display: block;
-  //   }
-  // }
+    &_active {
+      display: block;
+    }
+  }
 
   &__brand-box {
     display: none;
