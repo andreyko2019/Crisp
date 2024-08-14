@@ -28,7 +28,7 @@ export class SignUpFormValidator {
         },
         {
           rule: 'customRegexp',
-          value: /^[-\w.]+$/i,
+          value: /^[a-zA-Z' -]+$/,
           errorMessage: 'Write correct name',
         },
       ])
@@ -39,7 +39,7 @@ export class SignUpFormValidator {
         },
         {
           rule: 'customRegexp',
-          value: /^[-\w.]+$/i,
+          value: /^[a-zA-Z' -]+$/,
           errorMessage: 'Write correct surname',
         },
       ])
