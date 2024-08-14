@@ -146,7 +146,7 @@ export class RenderWishlistCards {
       const cardAddToBag = renderElement('div', 'card__add-to-bag');
       cardAddToBag.innerHTML = `
             <div class="count">1</div>
-            <button class="btn black">Add to cart</button>
+            <button class="btn add-to-cart black">Add to cart</button>
       `;
 
       const cardRemove = renderElement('div', 'card__remove-and-edit');
@@ -185,6 +185,7 @@ export class RenderWishlistCards {
   }
 
   async removeCard(cardId: string, cardElement: HTMLElement) {
+    console.log('Removing card:', cardId);
     if (!this.userData) {
       console.error('User data not loaded');
       return;
@@ -221,6 +222,7 @@ export class RenderWishlistCards {
       }
 
       cardElement.remove();
+      console.log('Removing card finish:', cardId);
 
       this.wishlist = this.wishlist.filter((item) => item.id !== cardId);
     } catch (error) {
