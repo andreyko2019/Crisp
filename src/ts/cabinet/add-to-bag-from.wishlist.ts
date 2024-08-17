@@ -24,7 +24,7 @@ export class AddToBagFromWishlist {
       this.wishlistContainer.addEventListener('click', (event) => {
         const target = event.target as HTMLElement;
         const card = this.getCurrentCard(target);
-        if (card) {
+        if (target.classList.contains('add-to-cart') && card) {
           this.handleAddToBagClick(card);
         }
       });
@@ -221,6 +221,7 @@ export class AddToBagFromWishlist {
 
     if (removeBtn) {
       removeBtn.addEventListener('click', () => {
+        console.log('Removing clother');
         this.cart = this.cart.filter((cartItemInCart) => cartItemInCart.id !== cartItem.id || cartItemInCart.size !== cartItem.size);
         item.remove();
         this.saveCart();
