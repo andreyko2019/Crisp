@@ -53,7 +53,7 @@ export class DropdownForm extends Dropdown {
           if (stateSelect) {
             stateSelect.textContent = item.textContent;
           }
-          this.teardownDropdown();
+          stateDropdownList.classList.add('hidden');
           this.updateHiddenInputFields(item.textContent);
         });
       });
