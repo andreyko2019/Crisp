@@ -2,7 +2,10 @@
   max-width: 814px;
 
   @include media-breakpoint-down(md) {
-    max-width: 100%;
+    min-height: 500px;
+    width: 100%;
+    max-width: none;
+    min-height: 100%;
   }
 
   &__title {
