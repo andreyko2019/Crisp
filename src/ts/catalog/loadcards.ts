@@ -80,8 +80,8 @@ export function loadCards() {
 
     renderCard = () => {
       allCardsArr.length = 0;
-      
-      
+
+
       if (this.selectedText) {
         limitCardsAll = Number(this.selectedText?.textContent);
         console.log(limitCardsAll);
@@ -109,15 +109,15 @@ export function loadCards() {
                 <p class="card__price">${item.data.cost.stringValue}</p>
                 <div class="card__colors-list colors-list">
                     <div class="color color__black" data-color="#292a2d">
-                      <input type="radio" id="black" name="color" />
+                      <input type="radio" id="black" name="color" aria-labelledby="black" />
                       <div class="custom-radio"></div>
                     </div>
                     <div class="color color__light-rose" data-color="#f3ece2">
-                      <input type="radio" id="light-rose" name="color" />
+                      <input type="radio" id="light-rose" name="color" aria-labelledby="light-rose" />
                       <div class="custom-radio"></div>
                     </div>
                     <div class="color color__dark-blue" data-color="#24426a">
-                      <input type="radio" id="dark-blue" name="color" />
+                      <input type="radio" id="dark-blue" name="color" aria-labelledby="dark-blue" />
                       <div class="custom-radio"></div>
                     </div>
                   </div>

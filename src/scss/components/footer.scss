@@ -286,6 +286,16 @@
       justify-content: center;
       text-transform: uppercase;
       font-weight: 400;
+
+      &:hover {
+        background: $hoverBackgroundColor;
+        color: $hoverTextColor;
+      }
+
+      &:active {
+        background: $activeBackgroundColor;
+        color: $activeTextColor;
+      }
     }
   }
 
