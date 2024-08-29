@@ -16,6 +16,11 @@
     justify-items: center;
     grid-template-columns: auto 1fr auto;
 
+    @include media-breakpoint-up(md) {
+      margin-left: 5px;
+      margin-right: -3px;
+    }
+
     @include media-breakpoint-down(md) {
       display: flex;
       align-items: center;
