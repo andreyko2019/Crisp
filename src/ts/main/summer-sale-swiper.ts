@@ -26,8 +26,8 @@ export class SummerSale {
         clickable: true,
       },
       navigation: {
-        nextEl: '.swiper-btn-next',
-        prevEl: '.swiper-btn-prew',
+        nextEl: '.summer-sale__btn-next',
+        prevEl: '.summer-sale__btn-prew',
       },
       breakpoints: {
         1400: {
