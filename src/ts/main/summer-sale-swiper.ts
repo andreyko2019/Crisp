@@ -16,6 +16,7 @@ export class SummerSale {
   constructor() {
     this.swiper = new Swiper('.summer-sale__swiper', {
       slidesPerView: 2,
+
       autoplay: {
         delay: 10000,
       },
@@ -28,6 +29,11 @@ export class SummerSale {
         nextEl: '.swiper-btn-next',
         prevEl: '.swiper-btn-prew',
       },
+      breakpoints: {
+        1400: {
+          allowTouchMove: false,
+        }
+      }
     });
     this.slidesArr = [];
     this.loadCards().then(() => {
