@@ -250,6 +250,7 @@
       gap: 15px;
       max-width: 528px;
 
+
       @include media-breakpoint-down(sm) {
         gap: 5px;
         max-width: 392px;
@@ -258,11 +259,13 @@
       &__input {
         max-width: 330px;
         width: 100%;
+        margin-top: 2px;
 
         @include media-breakpoint-down(sm) {
           max-width: none;
         }
       }
+
 
       &__title {
         font-family: Oswald;
@@ -324,8 +327,14 @@
         align-items: center;
         margin-top: 0 !important;
 
+
+
         @include media-breakpoint-down(sm) {
-          margin-top: 5px !important;
+          margin-top: 10px!important;
+
+          &-change-password{
+            margin-top: 5px!important;
+          }
         }
 
         .custom-checkbox {
